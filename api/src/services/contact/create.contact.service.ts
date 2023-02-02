@@ -67,7 +67,7 @@ export class CreateContactService {
         lastName,
         client: {
           connect: {
-            id: clientId,
+            id: client.id,
           },
         },
         contactInformation: {

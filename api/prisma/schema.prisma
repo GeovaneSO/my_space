@@ -36,7 +36,7 @@ model Contact {
   create_at DateTime @default(now())
 
   client   Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  clientId String @unique
+  clientId String
 
   contactInformation ContactInformation[]
 

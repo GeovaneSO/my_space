@@ -26,7 +26,7 @@ export class ContactController {
     private readonly deleteContactService: DeleteContactService,
   ) {}
 
-  @Post(':id')
+  @Post('/clients/:id')
   public create(
     @Body() body: ContactRequest,
     @Param('id') id: string,

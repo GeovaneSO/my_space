@@ -36,7 +36,7 @@ export class GetOneInformationClientService {
       });
 
     if (!information) {
-      throw new HttpException('Client not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('Information not found', HttpStatus.NOT_FOUND);
     }
 
     if (information.client?.id !== clientId) {

@@ -36,11 +36,11 @@ export class GetOneInformationContactService {
       });
 
     if (!information) {
-      throw new HttpException('Client not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('Information not found', HttpStatus.NOT_FOUND);
     }
 
     if (information.contact?.id !== contactId) {
-      throw new HttpException('Invalid client id', HttpStatus.NOT_FOUND);
+      throw new HttpException('Invalid contact id', HttpStatus.NOT_FOUND);
     }
 
     return information;

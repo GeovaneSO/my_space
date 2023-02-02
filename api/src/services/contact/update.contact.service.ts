@@ -9,6 +9,7 @@ export class UpdateContactService {
 
   async updateContact(
     contactId: string,
+    clientId: string,
     dataRequest: ContactUpdateRequest,
   ): Promise<Contact> {
     const contactExist = await this.prisma.contact.findUnique({
@@ -16,7 +17,14 @@ export class UpdateContactService {
     });
 
     if (!contactExist) {
-      throw new HttpException('Invalid Id', HttpStatus.NOT_FOUND);
+      throw new HttpException('Invalid contact id', HttpStatus.NOT_FOUND);
+    }
+
+    if (contactExist.clientId !== clientId) {
+      throw new HttpException(
+        'Invalid id, the client does not own the contact',
+        HttpStatus.CONFLICT,
+      );
     }
 
     return await this.prisma.contact.update({

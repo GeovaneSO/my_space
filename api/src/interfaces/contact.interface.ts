@@ -25,7 +25,7 @@ export interface GetContact {
   lastName?: string;
   avatarUrl?: string;
   create_at: Date;
-  contact?: Client[];
+  client?: Client;
   contactInformation?: Information[];
 }
 

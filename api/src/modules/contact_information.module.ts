@@ -5,15 +5,17 @@ import { CreateInformationClientService } from 'src/services/contact_information
 import { CreateInformationContactService } from 'src/services/contact_information/create.information.contact.service';
 import { GetAllInformationClientService } from 'src/services/contact_information/getAll.information.client.service';
 import { GetAllInformationContactService } from 'src/services/contact_information/getAll.information.contact.service';
-import { GetOneInformationService } from 'src/services/contact_information/getOne.information.service';
+import { GetOneInformationClientService } from 'src/services/contact_information/getOne.information.client.service';
+import { GetOneInformationContactService } from 'src/services/contact_information/getOne.information.contact.service';
 
 @Module({
   imports: [],
   controllers: [ContactInformationController],
   providers: [
-    GetOneInformationService,
+    GetOneInformationClientService,
     CreateInformationClientService,
     GetAllInformationClientService,
+    GetOneInformationContactService,
     CreateInformationContactService,
     GetAllInformationContactService,
     ApiService,

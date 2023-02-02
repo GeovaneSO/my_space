@@ -27,7 +27,7 @@ export class ContactController {
   ) {}
 
   @Post(':id')
-  public createContact(
+  public create(
     @Body() body: ContactRequest,
     @Param('id') id: string,
   ): Promise<Contact> {
@@ -42,25 +42,39 @@ export class ContactController {
     return contacts;
   }
 
-  @Get(':id')
-  public async getOne(@Param('id') id: string): Promise<GetContact> {
-    const contact = await this.getOneContactService.getOneContact(id);
+  @Get(':contactId/clients/:clientId')
+  public async getOne(
+    @Param('contactId') contactId: string,
+    @Param('clientId') clientId: string,
+  ): Promise<GetContact> {
+    const contact = await this.getOneContactService.getOneContact(
+      contactId,
+      clientId,
+    );
 
     return contact;
   }
 
-  @Patch(':id')
+  @Patch(':contactId/clients/:clientId')
   public async update(
-    @Param('id') id: string,
+    @Param('contactId') contactId: string,
+    @Param('clientId') clientId: string,
     @Body() request: ClientUpdateRequest,
   ): Promise<Contact> {
-    const contact = await this.updateContactService.updateContact(id, request);
+    const contact = await this.updateContactService.updateContact(
+      contactId,
+      clientId,
+      request,
+    );
 
     return contact;
   }
 
-  @Delete(':id')
-  public async delete(@Param('id') id: string): Promise<object> {
-    return await this.deleteContactService.deleteContact(id);
+  @Delete(':contactId/clients/:clientId')
+  public async delete(
+    @Param('contactId') contactId: string,
+    @Param('clientId') clientId: string,
+  ): Promise<object> {
+    return await this.deleteContactService.deleteContact(contactId, clientId);
   }
 }

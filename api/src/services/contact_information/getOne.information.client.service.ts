@@ -3,11 +3,12 @@ import { ApiService } from 'src/app.service';
 import { ContactInformationResponse } from 'src/interfaces/information.interface';
 
 @Injectable()
-export class GetOneInformationService {
+export class GetOneInformationClientService {
   constructor(private prisma: ApiService) {}
 
-  async getOneInformation(
+  async getOneInformationClient(
     informationId: string,
+    clientId: string,
   ): Promise<ContactInformationResponse> {
     const information: ContactInformationResponse =
       await this.prisma.contactInformation.findUnique({
@@ -36,6 +37,10 @@ export class GetOneInformationService {
 
     if (!information) {
       throw new HttpException('Client not found', HttpStatus.NOT_FOUND);
+    }
+
+    if (information.client?.id !== clientId) {
+      throw new HttpException('Invalid client id', HttpStatus.NOT_FOUND);
     }
 
     return information;

@@ -7,36 +7,38 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL_LOCAL")
 }
 
 model Client {
   id        String   @id @default(uuid())
   name      String   @db.VarChar(150)
-  username  String   @db.VarChar(150)
+  firstName String?
+  lastName  String?
+  username  String   @unique @db.VarChar(150)
   password  String
   avatarUrl String?
   create_at DateTime @default(now())
 
-  Contact Contact[]
+  contact Contact[] 
 
-  ContactInformation ContactInformation[]
+  contactInformation ContactInformation[]
 
   @@map("clients")
 }
 
 model Contact {
   id        String   @id @default(uuid())
-  name      String   @db.VarChar(150)
-  username  String   @db.VarChar(150)
-  password  String
+  name      String   @unique @db.VarChar(150)
+  firstName String?
+  lastName  String?
   avatarUrl String?
   create_at DateTime @default(now())
 
-  client   Client @relation(fields: [clientId], references: [id])
-  clientId String
+  client   Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  clientId String @unique
 
-  ContactInformation ContactInformation[]
+  contactInformation ContactInformation[]
 
   @@map("contacts")
 }
@@ -47,11 +49,11 @@ model ContactInformation {
   phone     String   @unique @db.VarChar(20)
   create_at DateTime @default(now())
 
-  client   Client @relation(fields: [clientId], references: [id])
-  clientId String
+  client   Client? @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  clientId String?
 
-  contact   Contact @relation(fields: [contactId], references: [id])
-  contactId String
+  contact   Contact? @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  contactId String?
 
   @@map("contact_informations")
 }

@@ -6,7 +6,10 @@ import { GetContact } from 'src/interfaces/contact.interface';
 export class GetOneContactService {
   constructor(private prisma: ApiService) {}
 
-  async getOneContact(contactId: string): Promise<GetContact> {
+  async getOneContact(
+    contactId: string,
+    clientId: string,
+  ): Promise<GetContact> {
     const contact: GetContact = await this.prisma.contact.findUnique({
       where: {
         id: contactId,
@@ -34,7 +37,10 @@ export class GetOneContactService {
       },
     });
     if (!contact) {
-      throw new HttpException('Client not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('Contact not found', HttpStatus.NOT_FOUND);
+    }
+    if (contact.client.id !== clientId) {
+      throw new HttpException('Invalid client id', HttpStatus.CONFLICT);
     }
     return contact;
   }

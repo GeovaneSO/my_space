@@ -6,7 +6,9 @@ import {
   Get,
   Patch,
   Post,
+  Res,
 } from '@nestjs/common';
+import { Response } from 'express';
 import {
   ClientRequest,
   ClientUpdateRequest,
@@ -18,6 +20,7 @@ import { DeleteClientService } from 'src/services/client/delete.client.service';
 import { GetClientService } from 'src/services/client/getAll.client.service';
 import { GetOneClientService } from 'src/services/client/getOne.client.service';
 import { UpdateClientService } from 'src/services/client/update.client.service';
+import { ClientReportContactsService } from 'src/services/report/generate.report.service';
 
 @Controller('/clients')
 export class ClientController {
@@ -27,6 +30,7 @@ export class ClientController {
     private readonly getOneClientService: GetOneClientService,
     private readonly updateClientService: UpdateClientService,
     private readonly deleteClientService: DeleteClientService,
+    private readonly getReportContactsClientService: ClientReportContactsService,
   ) {}
 
   @Post()
@@ -63,5 +67,20 @@ export class ClientController {
   @Delete(':id')
   public async delete(@Param('id') id: string): Promise<object> {
     return await this.deleteClientService.deleteClient(id);
+  }
+
+  @Get('/:id/report')
+  public async reportContactsClients(
+    @Param('id') id: string,
+    @Res() res,
+  ): Promise<void> {
+    const report =
+      await this.getReportContactsClientService.clientReportContacts(id);
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': 'attachment; filename=report.pdf',
+      'Content-Length': report.length,
+    });
+    res.end(report);
   }
 }

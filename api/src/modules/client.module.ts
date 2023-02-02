@@ -6,6 +6,7 @@ import { DeleteClientService } from 'src/services/client/delete.client.service';
 import { GetClientService } from 'src/services/client/getAll.client.service';
 import { GetOneClientService } from 'src/services/client/getOne.client.service';
 import { UpdateClientService } from 'src/services/client/update.client.service';
+import { ClientReportContactsService } from 'src/services/report/generate.report.service';
 
 @Module({
   imports: [],
@@ -16,6 +17,7 @@ import { UpdateClientService } from 'src/services/client/update.client.service';
     GetOneClientService,
     UpdateClientService,
     DeleteClientService,
+    ClientReportContactsService,
     ApiService,
   ],
 })

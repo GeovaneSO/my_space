@@ -21,7 +21,7 @@ export class CreateInformationClientService {
     });
 
     if (!client) {
-      throw new HttpException('Invalid Id', HttpStatus.NOT_FOUND);
+      throw new HttpException('Invalid client id', HttpStatus.NOT_FOUND);
     }
 
     const informationByPhone = await this.prisma.contactInformation.findUnique({

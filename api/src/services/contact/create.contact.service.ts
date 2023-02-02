@@ -16,13 +16,10 @@ export class CreateContactService {
     const contactNameExists = await this.prisma.contact.findUnique({
       where: { name },
     });
-    const contactClientIdExists = await this.prisma.contact.findUnique({
-      where: { name },
-    });
 
-    if (contactNameExists || contactClientIdExists) {
+    if (contactNameExists) {
       throw new HttpException(
-        `contact name ${name} already exists`,
+        `Contact name ${name} already exists`,
         HttpStatus.CONFLICT,
       );
     }
@@ -32,7 +29,10 @@ export class CreateContactService {
     });
 
     if (!client) {
-      throw new HttpException(`Invalid id`, HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        `Invalid id, client not exist.`,
+        HttpStatus.NOT_FOUND,
+      );
     }
 
     const informationByPhone = await this.prisma.contactInformation.findUnique({
@@ -67,7 +67,7 @@ export class CreateContactService {
         lastName,
         client: {
           connect: {
-            id: clientId,
+            id: client.id,
           },
         },
         contactInformation: {

@@ -1,6 +1,6 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { ApiService } from 'src/app.service';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Contact } from '@prisma/client';
+import { ApiService } from 'src/app.service';
 import { ContactRequest } from 'src/interfaces/contact.interface';
 
 @Injectable()
@@ -10,22 +10,19 @@ export class CreateContactService {
   async createContact(
     clientId: string,
     dataRequest: ContactRequest,
+    idToken: string,
   ): Promise<Contact> {
-    const { name, avatarUrl, firstName, lastName, email, phone } = dataRequest;
-
-    const contactNameExists = await this.prisma.contact.findUnique({
-      where: { name },
-    });
-
-    if (contactNameExists) {
-      throw new HttpException(
-        `Contact name ${name} already exists`,
-        HttpStatus.CONFLICT,
-      );
-    }
+    const { name, avatarUrl, email, phone } = dataRequest;
 
     const client = await this.prisma.client.findUnique({
       where: { id: clientId },
+      include: {
+        contact: {
+          select: {
+            id: true,
+          },
+        },
+      },
     });
 
     if (!client) {
@@ -35,9 +32,32 @@ export class CreateContactService {
       );
     }
 
+    if (clientId !== idToken) {
+      throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+
+    const contactNameExists = await this.prisma.contact.findFirst({
+      where: { name: name },
+      include: {
+        client: {
+          where: {
+            id: client.id,
+          },
+        },
+        contactInformation: true,
+      },
+    });
+
     const informationByPhone = await this.prisma.contactInformation.findUnique({
       where: {
         phone,
+      },
+      select: {
+        contact: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
 
@@ -45,49 +65,80 @@ export class CreateContactService {
       where: {
         email,
       },
-    });
-
-    if (informationByPhone || informationByEmail) {
-      const messagePhone = `email: ${
-        (informationByPhone && informationByPhone.email) ||
-        (informationByEmail && informationByEmail.email)
-      } and phone: ${
-        (informationByPhone && informationByPhone.phone) ||
-        (informationByEmail && informationByEmail.phone)
-      } already exists`;
-
-      throw new HttpException(messagePhone, HttpStatus.CONFLICT);
-    }
-
-    const newContact: Contact = await this.prisma.contact.create({
-      data: {
-        name,
-        avatarUrl,
-        firstName,
-        lastName,
-        client: {
-          connect: {
-            id: client.id,
-          },
-        },
-        contactInformation: {
-          create: {
-            email: email,
-            phone: phone,
-          },
-        },
-      },
-      include: {
-        contactInformation: {
+      select: {
+        contact: {
           select: {
-            email: true,
-            phone: true,
             id: true,
           },
         },
       },
     });
 
-    return newContact;
+    if (!contactNameExists) {
+      const newContact: Contact = await this.prisma.contact.create({
+        data: {
+          name,
+          avatarUrl,
+          client: {
+            connect: {
+              id: client.id,
+            },
+          },
+          contactInformation: {
+            connectOrCreate: {
+              where: {
+                email: email,
+              },
+              create: {
+                email: email,
+                phone: phone,
+              },
+            },
+          },
+          ClientContact: {
+            create: {
+              clientId: client.id,
+            },
+          },
+        },
+        include: {
+          contactInformation: {
+            select: {
+              email: true,
+              phone: true,
+              id: true,
+            },
+          },
+        },
+      });
+      return newContact;
+    }
+
+    if (contactNameExists.client.find((client) => client.id === clientId)) {
+      throw new HttpException(
+        'The customer already has the contact',
+        HttpStatus.CONFLICT,
+      );
+    }
+    if (
+      contactNameExists &&
+      informationByPhone.contact.id === contactNameExists.id &&
+      informationByEmail.contact.id === contactNameExists.id
+    ) {
+      await this.prisma.client.update({
+        where: {
+          id: clientId,
+        },
+        data: {
+          contact: {
+            connect: {
+              id: contactNameExists.id,
+            },
+          },
+        },
+      });
+
+      return contactNameExists;
+    }
   }
 }

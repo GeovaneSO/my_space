@@ -1,6 +1,6 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ApiService } from 'src/app.service';
-import { GetContact } from 'src/interfaces/contact.interface';
+import { GetOneContact } from 'src/interfaces/contact.interface';
 
 @Injectable()
 export class GetOneContactService {
@@ -9,8 +9,9 @@ export class GetOneContactService {
   async getOneContact(
     contactId: string,
     clientId: string,
-  ): Promise<GetContact> {
-    const contact: GetContact = await this.prisma.contact.findUnique({
+    idToken: string,
+  ): Promise<GetOneContact> {
+    const contact = await this.prisma.contact.findUnique({
       where: {
         id: contactId,
       },
@@ -19,8 +20,6 @@ export class GetOneContactService {
         name: true,
         avatarUrl: true,
         create_at: true,
-        firstName: true,
-        lastName: true,
         client: {
           select: {
             id: true,
@@ -36,12 +35,21 @@ export class GetOneContactService {
         },
       },
     });
+
     if (!contact) {
       throw new HttpException('Contact not found', HttpStatus.NOT_FOUND);
     }
-    if (contact.client.id !== clientId) {
+
+    const client = contact.client.find((client) => client.id === clientId);
+
+    if (client) {
       throw new HttpException('Invalid client id', HttpStatus.CONFLICT);
     }
+
+    if (clientId !== idToken) {
+      throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+
     return contact;
   }
 }

@@ -1,4 +1,5 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import * as bcryptjs from 'bcryptjs';
 import { ApiService } from 'src/app.service';
 import {
   ClientUpdateRequest,
@@ -12,7 +13,10 @@ export class UpdateClientService {
   async updateClient(
     clientId: string,
     dataRequest: ClientUpdateRequest,
+    idToken: string,
   ): Promise<ClientWithout> {
+    const { name, password, avatarUrl } = dataRequest;
+
     const clientExist = await this.prisma.client.findUnique({
       where: { id: clientId },
     });
@@ -21,21 +25,20 @@ export class UpdateClientService {
       throw new HttpException('Invalid Id', HttpStatus.NOT_FOUND);
     }
 
+    if (clientId !== idToken) {
+      throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+
     return await this.prisma.client.update({
       where: {
         id: clientId,
       },
       data: {
-        firstName: dataRequest.firstName
-          ? dataRequest.firstName
-          : clientExist.firstName,
-        lastName: dataRequest.lastName
-          ? dataRequest.lastName
-          : clientExist.lastName,
-        avatarUrl: dataRequest.avatarUrl
-          ? dataRequest.avatarUrl
-          : clientExist.avatarUrl,
-        name: dataRequest.name ? dataRequest.name : clientExist.name,
+        avatarUrl: avatarUrl ? avatarUrl : clientExist.avatarUrl,
+        name: name ? name : clientExist.name,
+        password: password
+          ? await bcryptjs.hash(password, 10)
+          : clientExist.password,
       },
       select: {
         id: true,
@@ -44,8 +47,6 @@ export class UpdateClientService {
         username: true,
         avatarUrl: true,
         create_at: true,
-        firstName: true,
-        lastName: true,
       },
     });
   }

@@ -1,15 +1,13 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import * as bcryptjs from 'bcryptjs';
 import { ApiService } from 'src/app.service';
 import { ClientRequest, GetClient } from 'src/interfaces/client.interface';
 
 @Injectable()
-export class ClientService {
+export class CreateClientService {
   constructor(private prisma: ApiService) {}
 
   async createClient(dataRequest: ClientRequest): Promise<GetClient> {
-    if (!dataRequest.email && !dataRequest.phone) {
-      return this.prisma.client.create({ data: dataRequest });
-    }
     const { email, phone, name, password, username, avatarUrl } = dataRequest;
 
     const usernameExists = await this.prisma.client.findUnique({
@@ -45,10 +43,13 @@ export class ClientService {
       );
     }
 
+    console.log(password);
+    const hashPassword = await bcryptjs.hash(password, 10);
+
     const newClient: GetClient = await this.prisma.client.create({
       data: {
         name,
-        password,
+        password: hashPassword,
         username,
         avatarUrl,
         contactInformation: {
@@ -62,8 +63,6 @@ export class ClientService {
         id: true,
         name: true,
         username: true,
-        firstName: true,
-        lastName: true,
         avatarUrl: true,
         create_at: true,
         password: false,

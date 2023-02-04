@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Client } from '@prisma/client';
 import { ApiService } from 'src/app.service';
 import {
@@ -13,6 +13,7 @@ export class CreateInformationClientService {
   async createInformationClient(
     clientId: string,
     dataRequest: InformationRequest,
+    idToken: string,
   ): Promise<ContactInformationResponse> {
     const { email, phone } = dataRequest;
 
@@ -22,6 +23,10 @@ export class CreateInformationClientService {
 
     if (!client) {
       throw new HttpException('Invalid client id', HttpStatus.NOT_FOUND);
+    }
+
+    if (clientId !== idToken) {
+      throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
     }
 
     const informationByPhone = await this.prisma.contactInformation.findUnique({

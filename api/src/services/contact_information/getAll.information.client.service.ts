@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ApiService } from 'src/app.service';
 import { ContactInformationResponse } from 'src/interfaces/information.interface';
 
@@ -8,6 +8,7 @@ export class GetAllInformationClientService {
 
   async getAllInformationClient(
     clientId: string,
+    idToken: string,
   ): Promise<ContactInformationResponse[]> {
     const information: ContactInformationResponse[] =
       await this.prisma.contactInformation.findMany({
@@ -29,7 +30,17 @@ export class GetAllInformationClientService {
           },
         },
       });
-    console.log(information);
+
+    if (information.length === 0) {
+      throw new HttpException(
+        'Client not have information for contact',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    if (clientId !== idToken) {
+      throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
+    }
 
     if (!information) {
       throw new HttpException('Client not found', HttpStatus.NOT_FOUND);

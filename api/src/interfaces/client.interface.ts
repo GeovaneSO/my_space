@@ -23,7 +23,6 @@ export interface ClientUpdateRequest {
   username: string;
   password: string;
   avatarUrl?: string;
-  firstName?: string;
   lastName?: string;
 }
 

@@ -6,7 +6,11 @@ import { ApiService } from 'src/app.service';
 export class DeleteContactService {
   constructor(private prisma: ApiService) {}
 
-  async deleteContact(contactId: string, clientId: string): Promise<object> {
+  async deleteContact(
+    contactId: string,
+    clientId: string,
+    idToken: string,
+  ): Promise<object> {
     const contactExist: ClientContact =
       await this.prisma.clientContact.findUniqueOrThrow({
         where: { id: contactId },
@@ -14,6 +18,10 @@ export class DeleteContactService {
 
     if (!contactExist) {
       throw new HttpException('Invalid contact id', HttpStatus.NOT_FOUND);
+    }
+
+    if (clientId !== idToken) {
+      throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
     }
 
     if (contactExist.clientId !== clientId) {

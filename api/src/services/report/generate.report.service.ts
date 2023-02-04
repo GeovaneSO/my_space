@@ -6,7 +6,10 @@ import { ApiService } from 'src/app.service';
 export class ClientReportContactsService {
   constructor(private prisma: ApiService) {}
 
-  async clientReportContacts(clientId: string): Promise<Buffer> {
+  async clientReportContacts(
+    clientId: string,
+    idToken: string,
+  ): Promise<Buffer> {
     const client = await this.prisma.client.findUnique({
       where: {
         id: clientId,
@@ -16,6 +19,11 @@ export class ClientReportContactsService {
     if (!client) {
       throw new HttpException('Invalid client id', HttpStatus.NOT_FOUND);
     }
+
+    if (clientId !== idToken) {
+      throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+
     const clientContactsArray = await this.prisma.client.findMany({
       where: {
         id: client.id,

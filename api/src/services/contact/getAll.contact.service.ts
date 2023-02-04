@@ -7,7 +7,10 @@ import { GetClientContact } from 'src/interfaces/contact.interface';
 export class GetAllContactClientService {
   constructor(private prisma: ApiService) {}
 
-  async getAllContactClient(clientId: string): Promise<Contact[]> {
+  async getAllContactClient(
+    clientId: string,
+    idToken: string,
+  ): Promise<Contact[]> {
     const contacts: GetClientContact = await this.prisma.client.findUnique({
       where: {
         id: clientId,
@@ -39,6 +42,10 @@ export class GetAllContactClientService {
 
     if (!contacts) {
       throw new HttpException('Invalid id', HttpStatus.NOT_FOUND);
+    }
+
+    if (clientId !== idToken) {
+      throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
     }
 
     return contacts.contact;

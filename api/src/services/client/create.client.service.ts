@@ -1,9 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import * as bcryptjs from 'bcryptjs';
 import { ApiService } from 'src/app.service';
 import { ClientRequest, GetClient } from 'src/interfaces/client.interface';
 
 @Injectable()
-export class ClientService {
+export class CreateClientService {
   constructor(private prisma: ApiService) {}
 
   async createClient(dataRequest: ClientRequest): Promise<GetClient> {
@@ -42,10 +43,13 @@ export class ClientService {
       );
     }
 
+    console.log(password);
+    const hashPassword = await bcryptjs.hash(password, 10);
+
     const newClient: GetClient = await this.prisma.client.create({
       data: {
         name,
-        password,
+        password: hashPassword,
         username,
         avatarUrl,
         contactInformation: {

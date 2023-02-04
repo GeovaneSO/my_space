@@ -10,6 +10,7 @@ export class CreateContactService {
   async createContact(
     clientId: string,
     dataRequest: ContactRequest,
+    idToken: string,
   ): Promise<Contact> {
     const { name, avatarUrl, email, phone } = dataRequest;
 
@@ -30,6 +31,11 @@ export class CreateContactService {
         HttpStatus.NOT_FOUND,
       );
     }
+
+    if (clientId !== idToken) {
+      throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+
     const contactNameExists = await this.prisma.contact.findFirst({
       where: { name: name },
       include: {

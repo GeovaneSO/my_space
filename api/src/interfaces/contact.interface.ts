@@ -11,6 +11,15 @@ interface Contact {
   contactInformation: Information[];
 }
 
+export interface GetOneContact {
+  id: string;
+  name: string;
+  avatarUrl?: string;
+  create_at: Date;
+  contactInformation: Information[];
+  client: Client[];
+}
+
 interface Information {
   id: string;
   email: string;

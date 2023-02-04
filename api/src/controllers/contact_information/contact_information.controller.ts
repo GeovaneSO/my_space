@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import {
   ContactInformationResponse,
   InformationRequest,
@@ -25,54 +35,75 @@ export class ContactInformationController {
     private readonly deleteInformationContactService: DeleteInformationContactService,
   ) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Get(':informationId/clients/:clientId')
   public async getOneInformationClient(
     @Param('informationId') informationId: string,
     @Param('clientId') clientId: string,
+    @Request() req,
   ): Promise<ContactInformationResponse> {
+    const idToken = req.user.sub;
+
     const informationAll =
       await this.getOneInformationClientService.getOneInformationClient(
         informationId,
         clientId,
+        idToken,
       );
 
     return informationAll;
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Post('clients/:id/')
   public async createInformationClient(
     @Param('id') id: string,
     @Body() body: InformationRequest,
+    @Request() req,
   ): Promise<ContactInformationResponse> {
+    const idToken = req.user.sub;
+
     const newInformation =
       await this.createInformationClientService.createInformationClient(
         id,
         body,
+        idToken,
       );
 
     return newInformation;
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get('/clients/:id/')
   public async getAllInformationClient(
     @Param('id') id: string,
+    @Request() req,
   ): Promise<ContactInformationResponse[]> {
+    const idToken = req.user.sub;
+
     return await this.getAllInformationClientService.getAllInformationClient(
       id,
+      idToken,
     );
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Delete(':informationId/clients/:clientId')
   public async deleteInformationClient(
     @Param('informationId') informationId: string,
     @Param('clientId') clientId: string,
+    @Request() req,
   ): Promise<object> {
+    const idToken = req.user.sub;
+
     return await this.deleteInformationClientService.deleteInformationClient(
       informationId,
       clientId,
+      idToken,
     );
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get(':informationId/contacts/:contactId')
   public async getOneInformationContact(
     @Param('informationId') informationId: string,
@@ -87,6 +118,7 @@ export class ContactInformationController {
     return informationAll;
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Post('contacts/:id/')
   public async createInformationContact(
     @Param('id') id: string,
@@ -101,6 +133,7 @@ export class ContactInformationController {
     return newInformation;
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get('/contacts/:id/')
   public async getAllInformationContact(
     @Param('id') id: string,
@@ -110,6 +143,7 @@ export class ContactInformationController {
     return informationAll;
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Delete(':informationId/contacts/:contactId')
   public async deleteInformationContact(
     @Param('informationId') informationId: string,

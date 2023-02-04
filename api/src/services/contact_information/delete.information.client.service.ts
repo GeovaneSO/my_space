@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ApiService } from 'src/app.service';
 
 @Injectable()
@@ -8,6 +8,7 @@ export class DeleteInformationClientService {
   async deleteInformationClient(
     informationId: string,
     clientId: string,
+    idToken: string,
   ): Promise<object> {
     const informationExist =
       await this.prisma.contactInformation.findUniqueOrThrow({
@@ -31,6 +32,10 @@ export class DeleteInformationClientService {
         'Invalid id, the client does not own the information',
         HttpStatus.CONFLICT,
       );
+    }
+
+    if (clientId !== idToken) {
+      throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
     }
 
     await this.prisma.contactInformation.delete({

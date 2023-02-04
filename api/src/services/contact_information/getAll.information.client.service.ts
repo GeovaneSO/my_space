@@ -8,6 +8,7 @@ export class GetAllInformationClientService {
 
   async getAllInformationClient(
     clientId: string,
+    idToken: string,
   ): Promise<ContactInformationResponse[]> {
     const information: ContactInformationResponse[] =
       await this.prisma.contactInformation.findMany({
@@ -37,7 +38,9 @@ export class GetAllInformationClientService {
       );
     }
 
-    console.log(information);
+    if (clientId !== idToken) {
+      throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
+    }
 
     if (!information) {
       throw new HttpException('Client not found', HttpStatus.NOT_FOUND);

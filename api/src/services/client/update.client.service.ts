@@ -26,12 +26,6 @@ export class UpdateClientService {
         id: clientId,
       },
       data: {
-        firstName: dataRequest.firstName
-          ? dataRequest.firstName
-          : clientExist.firstName,
-        lastName: dataRequest.lastName
-          ? dataRequest.lastName
-          : clientExist.lastName,
         avatarUrl: dataRequest.avatarUrl
           ? dataRequest.avatarUrl
           : clientExist.avatarUrl,
@@ -44,8 +38,6 @@ export class UpdateClientService {
         username: true,
         avatarUrl: true,
         create_at: true,
-        firstName: true,
-        lastName: true,
       },
     });
   }

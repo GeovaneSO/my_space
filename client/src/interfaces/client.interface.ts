@@ -5,6 +5,4 @@ export interface ClientRequest {
   email: string;
   phone: string;
   avatarUrl: string;
-  firstName?: string;
-  lastName?: string;
 }

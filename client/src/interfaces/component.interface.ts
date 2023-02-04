@@ -25,7 +25,5 @@ export interface PropsInput {
     | 'email'
     | 'phone'
     | 'avatarUrl'
-    | 'firstName'
-    | 'lastName';
   placeholder?: string;
 }

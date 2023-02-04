@@ -7,22 +7,22 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL_LOCAL")
 }
 
 model Client {
   id        String   @id @default(uuid())
   name      String   @db.VarChar(150)
-  firstName String?
-  lastName  String?
   username  String   @unique @db.VarChar(150)
   password  String
   avatarUrl String?
   create_at DateTime @default(now())
+  update_at DateTime @updatedAt()
 
-  contact Contact[] 
+  contact Contact[]
 
   contactInformation ContactInformation[]
+  ClientContact      ClientContact[]
 
   @@map("clients")
 }
@@ -30,17 +30,28 @@ model Client {
 model Contact {
   id        String   @id @default(uuid())
   name      String   @unique @db.VarChar(150)
-  firstName String?
-  lastName  String?
   avatarUrl String?
   create_at DateTime @default(now())
+  update_at DateTime @updatedAt
 
-  client   Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  clientId String
+  client Client[]
 
   contactInformation ContactInformation[]
+  ClientContact      ClientContact[]
 
   @@map("contacts")
+}
+
+model ClientContact {
+  id       String  @id @default(uuid())
+  client   Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  clientId String 
+
+  contact   Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  contactId String
+  create_at DateTime @default(now())
+
+  @@map("client_contact")
 }
 
 model ContactInformation {

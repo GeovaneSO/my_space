@@ -1,4 +1,5 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ClientContact } from '@prisma/client';
 import { ApiService } from 'src/app.service';
 
 @Injectable()
@@ -6,9 +7,10 @@ export class DeleteContactService {
   constructor(private prisma: ApiService) {}
 
   async deleteContact(contactId: string, clientId: string): Promise<object> {
-    const contactExist = await this.prisma.contact.findUniqueOrThrow({
-      where: { id: contactId },
-    });
+    const contactExist: ClientContact =
+      await this.prisma.clientContact.findUniqueOrThrow({
+        where: { id: contactId },
+      });
 
     if (!contactExist) {
       throw new HttpException('Invalid contact id', HttpStatus.NOT_FOUND);
@@ -26,9 +28,11 @@ export class DeleteContactService {
         id: contactId,
       },
     });
+
     const message = {
       message: 'Client deleted',
     };
+
     return message;
   }
 }

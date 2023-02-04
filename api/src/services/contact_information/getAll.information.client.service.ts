@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ApiService } from 'src/app.service';
 import { ContactInformationResponse } from 'src/interfaces/information.interface';
 
@@ -29,6 +29,14 @@ export class GetAllInformationClientService {
           },
         },
       });
+
+    if (information.length === 0) {
+      throw new HttpException(
+        'Client not have information for contact',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
     console.log(information);
 
     if (!information) {

@@ -1,6 +1,6 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { ApiService } from 'src/app.service';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import PDFDocument from 'pdfkit-table';
+import { ApiService } from 'src/app.service';
 
 @Injectable()
 export class ClientReportContactsService {
@@ -16,20 +16,20 @@ export class ClientReportContactsService {
     if (!client) {
       throw new HttpException('Invalid client id', HttpStatus.NOT_FOUND);
     }
-
-    const contacts = await this.prisma.contact.findMany({
+    const clientContactsArray = await this.prisma.client.findMany({
       where: {
-        client: {
-          id: client.id,
-        },
+        id: client.id,
       },
       select: {
-        id: true,
-        name: true,
-        contactInformation: {
+        contact: {
           select: {
-            email: true,
-            phone: true,
+            name: true,
+            contactInformation: {
+              select: {
+                email: true,
+                phone: true,
+              },
+            },
           },
         },
       },
@@ -77,17 +77,20 @@ export class ClientReportContactsService {
       });
 
       let counter = 0;
-      const infoRow = contacts.map((contact, index) => {
-        counter++;
 
-        if (index <= counter) {
-          return [
-            contact.name,
-            contact.contactInformation[0].email,
-            contact.contactInformation[0].phone,
-          ];
-        }
-      });
+      const infoRow = clientContactsArray[0].contact.map(
+        (clientContact, index) => {
+          counter++;
+
+          if (index <= counter) {
+            return [
+              clientContact.name,
+              clientContact.contactInformation[0].email,
+              clientContact.contactInformation[0].phone,
+            ];
+          }
+        },
+      );
 
       const table = {
         title: 'Contacts report',
@@ -105,9 +108,6 @@ export class ClientReportContactsService {
 
       doc.font('Helvetica', 8);
       doc.text(`Report created at ${new Date()}`, { goTo: 'finish' });
-      // doc.text(, {
-      //   align: 'center',
-      // });
 
       const buffer = [];
       doc.on('data', buffer.push.bind(buffer));

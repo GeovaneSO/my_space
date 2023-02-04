@@ -1,36 +1,37 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Contact } from '@prisma/client';
 import { ApiService } from 'src/app.service';
-import { GetContact } from 'src/interfaces/contact.interface';
+import { GetClientContact } from 'src/interfaces/contact.interface';
 
 @Injectable()
 export class GetAllContactClientService {
   constructor(private prisma: ApiService) {}
 
-  async getAllContactClient(clientId: string): Promise<GetContact[]> {
-    const contacts = this.prisma.contact.findMany({
+  async getAllContactClient(clientId: string): Promise<Contact[]> {
+    const contacts: GetClientContact = await this.prisma.client.findUnique({
       where: {
-        client: {
-          id: clientId,
-        },
+        id: clientId,
       },
       select: {
-        id: true,
-        name: true,
-        firstName: true,
-        lastName: true,
-        avatarUrl: true,
-        create_at: true,
-        client: {
+        update_at: true,
+        contact: {
           select: {
             id: true,
             name: true,
-          },
-        },
-        contactInformation: {
-          select: {
-            id: true,
-            email: true,
-            phone: true,
+            create_at: true,
+            client: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+            contactInformation: {
+              select: {
+                id: true,
+                email: true,
+                phone: true,
+              },
+            },
           },
         },
       },
@@ -40,6 +41,6 @@ export class GetAllContactClientService {
       throw new HttpException('Invalid id', HttpStatus.NOT_FOUND);
     }
 
-    return contacts;
+    return contacts.contact;
   }
 }

@@ -17,8 +17,6 @@ export class GetOneClientService {
         username: true,
         avatarUrl: true,
         create_at: true,
-        firstName: true,
-        lastName: true,
         contact: {
           select: {
             id: true,

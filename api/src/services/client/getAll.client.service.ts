@@ -7,13 +7,11 @@ export class GetClientService {
   constructor(private prisma: ApiService) {}
 
   async getClientAll(): Promise<GetClient[]> {
-    return this.prisma.client.findMany({
+    return await this.prisma.client.findMany({
       select: {
         id: true,
         name: true,
         username: true,
-        firstName: true,
-        lastName: true,
         avatarUrl: true,
         create_at: true,
         password: false,

@@ -1,15 +1,18 @@
 import {
   Body,
-  Param,
   Controller,
   Delete,
   Get,
+  Param,
   Patch,
   Post,
 } from '@nestjs/common';
 import { Contact } from '@prisma/client';
 import { ClientUpdateRequest } from 'src/interfaces/client.interface';
-import { ContactRequest, GetContact } from 'src/interfaces/contact.interface';
+import {
+  ContactRequest,
+  GetClientContact,
+} from 'src/interfaces/contact.interface';
 import { CreateContactService } from 'src/services/contact/create.contact.service';
 import { DeleteContactService } from 'src/services/contact/delete.contact.service';
 import { GetAllContactClientService } from 'src/services/contact/getAll.contact.service';
@@ -37,8 +40,9 @@ export class ContactController {
   }
 
   @Get('/clients/:id')
-  public getAllContactClient(@Param(':id') id: string): Promise<GetContact[]> {
+  public getAllContactClient(@Param('id') id: string): Promise<Contact[]> {
     const contacts = this.getContactManyService.getAllContactClient(id);
+
     return contacts;
   }
 
@@ -46,7 +50,7 @@ export class ContactController {
   public async getOne(
     @Param('contactId') contactId: string,
     @Param('clientId') clientId: string,
-  ): Promise<GetContact> {
+  ): Promise<GetClientContact> {
     const contact = await this.getOneContactService.getOneContact(
       contactId,
       clientId,

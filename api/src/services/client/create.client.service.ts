@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ApiService } from 'src/app.service';
 import { ClientRequest, GetClient } from 'src/interfaces/client.interface';
 
@@ -7,9 +7,6 @@ export class ClientService {
   constructor(private prisma: ApiService) {}
 
   async createClient(dataRequest: ClientRequest): Promise<GetClient> {
-    if (!dataRequest.email && !dataRequest.phone) {
-      return this.prisma.client.create({ data: dataRequest });
-    }
     const { email, phone, name, password, username, avatarUrl } = dataRequest;
 
     const usernameExists = await this.prisma.client.findUnique({
@@ -62,8 +59,6 @@ export class ClientService {
         id: true,
         name: true,
         username: true,
-        firstName: true,
-        lastName: true,
         avatarUrl: true,
         create_at: true,
         password: false,

@@ -3,6 +3,14 @@ interface Client {
   name: string;
 }
 
+interface Contact {
+  id: string;
+  name: string;
+  avatarUrl?: string;
+  create_at: Date;
+  contactInformation: Information[];
+}
+
 interface Information {
   id: string;
   email: string;
@@ -12,26 +20,15 @@ interface Information {
 export interface ContactRequest {
   name: string;
   avatarUrl?: string;
-  firstName?: string;
-  lastName?: string;
   email: string;
   phone: string;
 }
 
-export interface GetContact {
-  id: string;
-  name: string;
-  firstName?: string;
-  lastName?: string;
-  avatarUrl?: string;
-  create_at: Date;
-  client?: Client;
-  contactInformation?: Information[];
+export interface GetClientContact {
+  contact?: Contact[];
 }
 
 export interface ContactUpdateRequest {
   name: string;
   avatarUrl?: string;
-  firstName?: string;
-  lastName?: string;
 }

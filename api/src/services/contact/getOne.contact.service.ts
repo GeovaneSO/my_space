@@ -42,7 +42,7 @@ export class GetOneContactService {
 
     const client = contact.client.find((client) => client.id === clientId);
 
-    if (client) {
+    if (!client) {
       throw new HttpException('Invalid client id', HttpStatus.CONFLICT);
     }
 

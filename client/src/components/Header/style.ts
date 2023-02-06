@@ -3,18 +3,28 @@ import styled from 'styled-components';
 export const HeaderContainer = styled.header`
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
 
 
-    width: fit-content;
-    height: fit-content;
-    padding: 2%;
+    .container{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 5%;
+        
+        span{
+                color: #868E96;
+            }
+
+            .box_bnt{
+                display: flex;
+                gap: 10px;
+            }
+    }
 
     border: none;
     
     font-size: 70%;
-    background-color: #fff;
 
         h2{
             font-size: 22px;
@@ -25,5 +35,22 @@ export const HeaderContainer = styled.header`
             width: fit-content;
         }
     margin:  0 auto;
+
+    @media(min-width: 320px) {
+        
+        .container{
+            padding: 3%;
+        }
+        
+    }
+    @media(min-width: 1000px) {
+        
+        align-items: center;
+        .container{
+            width: 1000px;
+
+        }
+        
+    }
 
 `

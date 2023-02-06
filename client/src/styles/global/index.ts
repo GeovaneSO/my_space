@@ -7,16 +7,19 @@ export default createGlobalStyle`
         outline:0;
         box-sizing: border-box;
     }
-    body,html{
-        width: 100vw;
-        height: 100vh;
-    }
+    html, body, #root {
+    width: 100%;
+    height: 100%;
+    margin:0;
+    padding:0;
+    font-family: 'Inter', sans-serif;
+  }  
     body {
         background: var(--color-background);
         color: var(--color-text);
         -webkit-font-smoothing: antialiased;
         overflow-x: hidden;
-        background: #ffff;   
+        background: #F4F4F4;   
     }
     body, input, button, textarea {
         font-family: 'Inter', sans-serif;

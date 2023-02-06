@@ -1,13 +1,5 @@
-import { HeaderContainer } from "./style";
+import { HeaderDashboard } from "./dashboard";
+import { HeaderForms } from "./forms";
 
-const Header = () => {
 
-    return (
-        <HeaderContainer>
-            <h2>Crie sua conta</h2>
-            <span>Rápido e grátis, vamos nessa</span>
-        </HeaderContainer>
-    );
-};
-
-export { Header };
+export { HeaderDashboard, HeaderForms };

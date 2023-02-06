@@ -19,13 +19,26 @@ export const ContainerModal = styled.div`
 
         width: 100%;
         position: relative;
-        top: -20px;
+
+        h3{
+            margin-top: 0;
+        }
+        /* top: -20px; */
 
     }
 
     .form{
         height: 50%;
         padding: 20px;
+        gap: 35px;
+
+        .box_input_value{
+            gap: 20px;
+        }
+        .box_btns{
+            display: flex;
+            gap: 12px;
+        }
     }
 `
 

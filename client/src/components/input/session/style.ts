@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
 export const ContainerInput = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-  gap: 15px;
-  height: 40%;
-  width: 100%;
+    /* gap: 5px; */
+    height: 40%;
+    width: 100%;
 
-
-  label{
+    
+    label{
     font-weight: 400;
     font-size: 12px;
     line-height: 0px;

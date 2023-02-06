@@ -1,6 +1,6 @@
 import { BsExclamationCircle } from "react-icons/bs";
 import { PropsInputSession } from '../../../interfaces/component.interface';
-import { ContainerInput } from '../style';
+import { ContainerInput } from './style';
 
 const InputSession = ({
 	register,

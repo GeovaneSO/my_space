@@ -153,6 +153,7 @@ const ClientProvider = ({ children }: Props) => {
 			deleteClient,
 			setInformationByClient,
 			setOpenModal,
+			navigate,
 			openModal,
 			informationByClient,
 			client,

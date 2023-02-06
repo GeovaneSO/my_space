@@ -2,20 +2,19 @@ import { AxiosError } from 'axios';
 import jwt_decode, { JwtPayload } from "jwt-decode";
 import { createContext, useContext, useState } from 'react';
 import api from '../../api';
-import { ContactContext } from "../contact/contact.context";
 import { InformationProviderData, Props } from '../../interfaces/contexts.interface';
 import { InformationRequest } from '../../interfaces/information.interface';
+import { ContactContext } from "../contact/contact.context";
 import { MatrixContext } from '../matrix.context';
 import { getToken } from '../session/auth';
-
 
 const Context = createContext<InformationProviderData>({} as InformationProviderData)
 
 const InformationProvider = ({ children }: Props) => {
 
     const [createInformationModal, setCreateInformationModal] = useState<boolean>(false)
-	const { reload, setReload } = MatrixContext();
-    const { contact } = ContactContext();
+    const { reload, setReload } = MatrixContext();
+    const { contact, getOneContactByClient } = ContactContext();
 
     let decoded: JwtPayload = {
         exp: 1,
@@ -32,13 +31,23 @@ const InformationProvider = ({ children }: Props) => {
                 decoded = jwt_decode(token!);
             };
 
-          const response =  await api.post(`/information/clients/${decoded.sub}`, {
+            if (contact.id) {
+                const response = await api.post(`/information/contacts/${contact.id}`, {
+                    ...data
+                });
+
+
+                setReload(!reload);
+                return response.data
+            }
+
+            const response = await api.post(`/information/clients/${decoded.sub}`, {
                 ...data
             });
-            console.log(response.data);
-            
-            setReload(!reload)
 
+            setReload(!reload);
+
+            return response.data
         } catch (error) {
             if (error instanceof AxiosError) {
 
@@ -46,15 +55,30 @@ const InformationProvider = ({ children }: Props) => {
             };
         };
     };
-    const createInformationByContact = async (data: InformationRequest) => {
+    const deleteInformation = async (informationId: string) => {
 
         try {
 
-            await api.post(`/information/contacts/${contact.id}`, {
-                ...data
-            });
+            const token = getToken();
 
+            if (token) {
+                decoded = jwt_decode(token!);
+            };
+
+            if (contact.id) {
+                
+                const response = await api.delete(`/information/${informationId}/contacts/${contact.id}`);
+                
+                getOneContactByClient(contact.id)
+
+                return response.data
+            }
+
+            const response = await api.delete(`/information/${informationId}/clients/${decoded.sub}`);
+            
             setReload(!reload)
+            
+            return response.data
 
         } catch (error) {
             if (error instanceof AxiosError) {
@@ -63,13 +87,18 @@ const InformationProvider = ({ children }: Props) => {
             };
         };
     };
+
+    const getInformationById = (informationId: string) => {
+        deleteInformation(informationId)
+    }
 
     return (
         <Context.Provider value={{
             createInformationByClient,
-            createInformationByContact,
-            createInformationModal, 
+            deleteInformation,
+            createInformationModal,
             setCreateInformationModal,
+            getInformationById,
         }}>
             {children}
         </Context.Provider>

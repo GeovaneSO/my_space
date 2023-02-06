@@ -4,14 +4,22 @@ import { GrFormClose } from "react-icons/gr";
 import { ContactContext } from "../../../contexts/contact/contact.context";
 import { ContactRequest } from "../../../interfaces/contact.interface";
 import { updateContactSchema } from "../../../serializers/index";
-import { ButtonAdd, ButtonForm } from "../../Button";
+import { ButtonAdd, ButtonForm, ButtonModal } from "../../Button";
 import { InputContact } from "../../input/create.contact/create.contact.input";
 import { BoxFormInputValue, ContainerForm } from '../style';
 import { BoxButtons, ContainerModal } from "./style";
+import { CgMenuGridO } from 'react-icons/cg';
 
 const DetailContact = () => {
 
-    const { updateContact, deleteContact, setOpenDetailContact, openDetailContact } = ContactContext();
+    const { 
+        updateContact,
+        deleteContact, 
+        setOpenDetailContact, 
+        openDetailContact, 
+        setOpenContactInformation, 
+        openContactInformation, 
+    } = ContactContext();
 
     const { register, handleSubmit, formState: { errors } } = useForm<ContactRequest>({
         resolver: yupResolver(updateContactSchema)
@@ -24,11 +32,24 @@ const DetailContact = () => {
 
                 <div className="box_title">
                     <h3>Contato</h3>
-                    <ButtonAdd
-                        onClick={() => setOpenDetailContact(!openDetailContact)}
-                    >
-                        <GrFormClose className="svg" />
-                    </ButtonAdd>
+
+                    <div className="box_btns">
+
+                        <ButtonModal
+                            type="button"
+                            onClick={() => {
+                                setOpenDetailContact(!openDetailContact)
+                                setOpenContactInformation(!openContactInformation)}
+                            }
+                        >
+                            <CgMenuGridO className="svg" />
+                        </ButtonModal>
+                        <ButtonAdd
+                            onClick={() => setOpenDetailContact(!openDetailContact)}
+                        >
+                            <GrFormClose className="svg" />
+                        </ButtonAdd>
+                    </div>
                 </div>
 
                 <BoxFormInputValue className="box_input_value">

@@ -37,12 +37,16 @@ const SessionProvider = ({ children }: Props) => {
 				console.log(error.response?.data);
 			};
 		};
-
 	};
+	const logout = () => {
+		localStorage.removeItem('TOKEN_KEY');
+		navigate('/', { replace: true });
+	  };
 
 	return (
 		<Context.Provider value={{
-			createSession
+			createSession,
+			logout,
 		}}>
 			{children}
 		</Context.Provider>

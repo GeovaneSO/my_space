@@ -1,58 +1,68 @@
 import { GrFormClose } from 'react-icons/gr';
-import { TbPlaylistAdd } from 'react-icons/tb';
-import { ClientContext } from '../../../../contexts';
-import { ButtonAdd, ButtonModal } from '../../../Button';
+import { MdAddIcCall, MdOutlineAutoDelete } from 'react-icons/md';
+import { ContactContext } from '../../../../contexts/contact/contact.context';
+import { ButtonAdd } from '../../../Button';
 import { ContainerList, ContainerListInformation } from '../style';
+import { InformationContext } from '../../../../contexts/information/information.context';
 
 const ListContactInformation = () => {
-    const { informationByClient, setOpenModal } = ClientContext()
+    const { createInformationModal, setCreateInformationModal, getInformationById } = InformationContext()
+    const { contact, setOpenContactInformation, openContactInformation,  } = ContactContext()
 
     return (
         <ContainerListInformation>
 
-            <ContainerList>
+            <div className='box'>
                 <div className='box_title'>
                     <h3>Informações para contato</h3>
-                    <ButtonAdd
-                        onClick={() => setOpenModal(false)}
-                    >
-                        <GrFormClose className="svg" />
-                    </ButtonAdd>
+                   
+                    <div className='box_btsn'>
+                        <ButtonAdd
+                            onClick={() => {
+                                setCreateInformationModal(!createInformationModal)                            
+                                setOpenContactInformation(!openContactInformation)
+                            }}
+                        >
+                            <MdAddIcCall className="svg" />
+                        </ButtonAdd>
+
+                        <ButtonAdd
+                            onClick={() => setOpenContactInformation(!openContactInformation)}
+                        >
+                            <GrFormClose className="svg" />
+                        </ButtonAdd>
+                    </div>
+
                 </div>
-                {
-                    informationByClient.length > 0 ?
-                        informationByClient.map((information) =>
-                            <li
-                                className="card"
-                                key={information.id}
-                            >
-
-                                <div className='box_information'>
-                                    <p>E-mail: {information.email}</p>
-                                    <p>Telefone: {information.phone}</p>
-                                </div>
-                            </li>
-
+                <ContainerList>
+                    {
+                        contact.contactInformation!.length > 0 ?
+                        contact.contactInformation!.map((information) =>
+                        <li
+                            className="card"
+                            key={information.id}
+                        >
+                            <div className='box_information'>
+                                <p>E-mail: {information.email}</p>
+                                <p>Telefone: {information.phone}</p>
+                            </div>
+                            <ButtonAdd
+                                    onClick={() => {
+                                        getInformationById(information.id)
+                                    }}
+                                >
+                                    <MdOutlineAutoDelete />
+                                </ButtonAdd>
+                        </li>
                         ) :
                         <div>
-                            <h2>
+                            <span>
                                 Adicione uma informação para contato!
-                            </h2>
-
-                            <ButtonModal
-                                // id={information.id}
-                                className='btn_detail'
-                            // onClick={
-                            //     () => 
-                            // }
-                            >
-                                <TbPlaylistAdd className='svg' />
-                            </ButtonModal>
-
+                            </span>
                         </div>
-
-                }
-            </ContainerList>
+                    }
+                </ContainerList>
+            </div>
         </ContainerListInformation>
     );
 };

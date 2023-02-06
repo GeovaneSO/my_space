@@ -4,13 +4,13 @@ export const HeaderContainer = styled.header`
     display: flex;
     flex-direction: column;
     width: 100%;
-
+    padding-top: 20px;
 
     .container{
         display: flex;
         justify-content: space-around;
         align-items: center;
-        padding: 5%;
+        padding: 2%;
         
         span{
                 color: #868E96;

@@ -1,16 +1,19 @@
 import { ReactNode } from "react";
 import { HeaderContainer } from "../style";
+import { ContainerRegister } from "./style";
+
 interface PropsHeader {
     children: ReactNode
 }
+
 const HeaderForms = (children: PropsHeader) => {
 
     return (
         <HeaderContainer>
-            <div className="container">
+            <ContainerRegister>
                 {children.children}
 
-            </div>
+            </ContainerRegister>
         </HeaderContainer>
     );
 };

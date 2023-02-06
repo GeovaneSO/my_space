@@ -14,6 +14,7 @@ const ContactProvider = ({ children }: Props) => {
 	const [contact, setContact] = useState<IContact>({} as IContact);
 	const [openCreateContact, setOpenCreateContact] = useState<boolean>(false)
 	const [openDetailContact, setOpenDetailContact] = useState<boolean>(false)
+	const [openContactInformation, setOpenContactInformation] = useState<boolean>(false)
 	const { reload, setReload } = MatrixContext();
 
 	let decoded: JwtPayload = {
@@ -72,6 +73,9 @@ const ContactProvider = ({ children }: Props) => {
 
 			setContact(response.data);
 
+			console.log(contact);
+			return response
+
 		} catch (error) {
 			console.log(error);
 		}
@@ -84,12 +88,11 @@ const ContactProvider = ({ children }: Props) => {
 			if (token) {
 				decoded = jwt_decode(token!);
 			};
-			
+
 			const response = await api.patch(`/contacts/${contact.id}/clients/${decoded.sub}`, {
 				...data
 			});
-			
-			console.log(response.data);
+
 			setReload(!reload);
 
 			setContact(response.data);
@@ -120,10 +123,13 @@ const ContactProvider = ({ children }: Props) => {
 
 	function openModalDetail(contactId: string) {
 		const findContact = contactsByClient.find((contact) => contact.id === contactId);
-		console.log(findContact?.id);
-		
-		findContact && setContact(findContact);
-	
+
+		if (findContact) {
+			getOneContactByClient(findContact.id)
+		}
+		// setContact(findContact);
+		console.log(contact);
+
 		setOpenDetailContact(!openDetailContact);
 	};
 
@@ -138,6 +144,8 @@ const ContactProvider = ({ children }: Props) => {
 			setOpenCreateContact,
 			setOpenDetailContact,
 			openModalDetail,
+			setOpenContactInformation,
+			openContactInformation,
 			openDetailContact,
 			openCreateContact,
 			contactsByClient,

@@ -5,8 +5,8 @@ export const ContainerButton = styled.div`
   justify-content: center;
   align-items: center;
   
-  height: 60px;
-  width: 70%;
+  height: 50px;
+  width: 60%;
 
   margin: 0;
 
@@ -23,7 +23,7 @@ export const ContainerButton = styled.div`
 
     font-size: 85%;
     width: 70%;
-    height: 100%; 
+    height: 60%; 
     .svg{
       color: gray;
       background-color:  transparent;

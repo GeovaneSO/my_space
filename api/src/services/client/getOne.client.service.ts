@@ -21,6 +21,7 @@ export class GetOneClientService {
           select: {
             id: true,
             name: true,
+            avatarUrl: true,
           },
         },
         contactInformation: {

@@ -14,11 +14,15 @@ export class UpdateContactService {
     idToken: string,
   ): Promise<Contact> {
     const { name, avatarUrl } = dataRequest;
-    const contactExist = await this.prisma.clientContact.findFirst({
-      where: { contactId: contactId },
+    const contactExist = await this.prisma.contact.findUnique({
+      where: {
+        id: contactId,
+      },
       select: {
-        contact: true,
-        clientId: true,
+        contactInformation: true,
+        client: true,
+        name: true,
+        avatarUrl: true,
       },
     });
 
@@ -30,7 +34,8 @@ export class UpdateContactService {
       throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
     }
 
-    if (contactExist.clientId !== clientId) {
+    const client = contactExist.client.find((client) => client.id === clientId);
+    if (!client) {
       throw new HttpException(
         'Invalid id, the client does not own the contact',
         HttpStatus.CONFLICT,
@@ -42,8 +47,8 @@ export class UpdateContactService {
         id: contactId,
       },
       data: {
-        avatarUrl: avatarUrl ? avatarUrl : contactExist.contact.avatarUrl,
-        name: name ? name : contactExist.contact.name,
+        avatarUrl: avatarUrl ? avatarUrl : contactExist.avatarUrl,
+        name: name ? name : contactExist.name,
       },
       select: {
         id: true,

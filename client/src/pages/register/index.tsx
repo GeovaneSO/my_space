@@ -1,15 +1,21 @@
-import { Form } from "../../components/Form";
-import { Header } from "../../components/Header";
-import { ContainerMainRegister, SectionForm } from "./style";
+import { FormRegister } from "../../components/Form/";
+import { HeaderForms } from "../../components/Header";
+import { ContainerMainRegister, SectionForm, ContainerPageRegister } from "./style";
 
 const Register = () => {
     return (
-        <ContainerMainRegister>
-            <Header />
-            <SectionForm>
-                <Form />
-            </SectionForm>
-        </ContainerMainRegister>
+        <ContainerPageRegister>
+            <HeaderForms >
+                <h2>Crie sua conta</h2>
+                <span>Rápido e grátis, vamos nessa</span>
+
+            </HeaderForms>
+            <ContainerMainRegister>
+                <SectionForm>
+                    <FormRegister />
+                </SectionForm>
+            </ContainerMainRegister>
+        </ContainerPageRegister>
     );
 };
 

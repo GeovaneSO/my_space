@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { ClientRequest } from './client.interface';
+import { ClientRequest, ClientRequestSession } from './client.interface';
+import { ContactRequest } from './contact.interface';
+import { InformationRequest } from './information.interface';
 
 export interface PropsButton {
   children: ReactNode;
@@ -15,10 +17,10 @@ export interface PropsInput {
   label?: string;
     errors: FieldErrors<ClientRequest>
   children?: ReactNode;
-  type?: 'text' | 'button' | 'checkboc' | undefined;
+  type?: 'text' | 'button' | 'checkbox' | 'password' | undefined;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | any;
-  register: UseFormRegister<ClientRequest>;
-  name:
+  register?: UseFormRegister<ClientRequest>;
+  name?:
     | 'name'
     | 'username'
     | 'password'
@@ -27,3 +29,48 @@ export interface PropsInput {
     | 'avatarUrl'
   placeholder?: string;
 }
+export interface PropsInputContact {
+  id?: string;
+  label?: string;
+    errors: FieldErrors<ClientRequest>
+  children?: ReactNode;
+  type?: 'text' | 'button' | 'checkbox' | 'password' | undefined;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | any;
+  register?: UseFormRegister<ContactRequest>;
+  name?:
+    | 'name'
+    | 'email'
+    | 'phone'
+    | 'avatarUrl'
+  placeholder?: string;
+}
+
+export interface PropsInputInformation {
+  id?: string;
+  label?: string;
+    errors: FieldErrors<ClientRequest>
+  children?: ReactNode;
+  type?: 'text' | 'button' | 'checkbox' | 'password' | undefined;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | any;
+  register?: UseFormRegister<InformationRequest>;
+  name?:
+    | 'email'
+    | 'phone'
+  placeholder?: string;
+}
+
+export interface PropsInputSession {
+  id?: string;
+  label?: string;
+    errors: FieldErrors<ClientRequest>
+  children?: ReactNode;
+  type?: 'text' | 'button' | 'checkbox' | 'password' | undefined;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | any;
+
+  register: UseFormRegister<ClientRequestSession>;
+  placeholder?: string;
+  nameSession:
+    | 'username'
+    | 'password';
+}
+

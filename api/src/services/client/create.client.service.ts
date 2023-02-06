@@ -43,7 +43,6 @@ export class CreateClientService {
       );
     }
 
-    console.log(password);
     const hashPassword = await bcryptjs.hash(password, 10);
 
     const newClient: GetClient = await this.prisma.client.create({

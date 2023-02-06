@@ -2,25 +2,27 @@ import styled from 'styled-components';
 
 export const ContainerForm = styled.form`
     display: flex;
-    justify-content: center;
+    /* justify-content: s; */
     flex-direction: column;
     align-items: center;
 
-    gap: 20px;
+    gap: 30px;
 
-    width: 100%;
-    height: 80%;
+    width: 90%;
+    height: 60%;
 
     padding: 15px;
     background-color:  #fff;
 
     border: solid 1px;
+    border-radius: 5px;
 
     h3 {
         font-size: 15px;
         font-weight: 600;
+        margin-top: 10px;
     }
-    @media(min-width: 320px) {
+    @media(min-width: 330px) {
         
         width: 320px;
         
@@ -33,9 +35,8 @@ export const BoxFormInputValue = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 
-    /* padding: 10px; */
     width: 100%;
     height: 70%;
 

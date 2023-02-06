@@ -7,7 +7,7 @@ export const ContainerMainRegister = styled.main`
     gap: 10px;
 
     width: 100vw;
-    /* height: ; */
+    height: 100vh;
 
     background-color:  #f3f7f9;
 `
@@ -17,7 +17,7 @@ export const SectionForm = styled.section`
     justify-content: center;
     align-items: center;
     width: 90%;
-    height: 70%;
+    height: 100%;
 
     margin: 0 auto;
 `;

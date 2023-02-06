@@ -22,6 +22,7 @@ export class GetAllContactClientService {
             id: true,
             name: true,
             create_at: true,
+            update_at: true,
             client: {
               select: {
                 id: true,

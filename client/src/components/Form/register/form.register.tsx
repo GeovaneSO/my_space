@@ -1,11 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
+import { Link } from "react-router-dom";
 import { ClientContext } from '../../../contexts';
 import { ClientRequest } from '../../../interfaces/client.interface';
 import { clientFormSchema } from "../../../serializers/index";
 import { ButtonForm } from "../../Button";
 import { InputRegister } from '../../input/';
 import { BoxFormInputValue, ContainerForm } from '../style';
+import { ContainerLink } from "./style";
 
 const FormRegister = () => {
 
@@ -85,6 +87,10 @@ const FormRegister = () => {
                 <ButtonForm className="button_register" type="submit">
                     Cadastrar
                 </ButtonForm>
+                <ContainerLink>
+                    <span>Já possuí uma conta?</span>
+                    <Link to={'/'}>Faça o login</Link>
+                </ContainerLink>
             </BoxFormInputValue>
         </ContainerForm>
     );

@@ -1,5 +1,14 @@
 import styled from 'styled-components';
 
+export const ContainerPageRegister = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    width: 100vw;
+    /* height: 100%; */
+`
+
 export const ContainerMainRegister = styled.main`
     display: flex;
     flex-direction: column;

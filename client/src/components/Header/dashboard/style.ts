@@ -7,20 +7,28 @@ export const HeaderContainer = styled.header`
     background-color: white;
 
     box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.3);    .container{
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        padding: 5%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5%;
         
-        span{
-                color: #868E96;
-            }
 
-            .box_bnt{
-                display: flex;
-                gap: 10px;
-            }
+    .box_logout{
+        display: flex;
+        gap: 5px;
+        .logout{
+            font-size: 15px;
+        }
     }
+    span{
+        color: #868E96;
+    }
+
+    .box_bnt{
+        display: flex;
+        gap: 10px;
+    }
+}
 
     border: none;
     

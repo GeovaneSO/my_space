@@ -11,26 +11,10 @@ export const ContainerListInformation = styled.div`
     width: 100%;
     min-height: 100%;
     background: rgba(18, 18, 20, 0.5);
-`
-
-export const ContainerList = styled.ul`
-    display: flex;
-    flex-direction: column;
-    
-    gap: 20px;
-    
-    overflow-y: auto;
-    
-    margin: 0;
-    padding: 20px;
-
-    width: 85%;
-
-    height: 60%;
-
-    background-color: white;
-
-    border: 0.2px solid gray ;
+    .box{
+        height: 60%;
+        background-color: white;
+        border: 0.2px solid gray ;
     border-radius: 5px;
     .box_title{
         display: flex;
@@ -39,6 +23,9 @@ export const ContainerList = styled.ul`
         gap: 15px;
         align-items: center;
         text-align: center;
+        padding: 10px;
+        box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.3);   
+
 
         h3{
             font-size: 12px;
@@ -48,7 +35,35 @@ export const ContainerList = styled.ul`
             color: gray;
             background-color: transparent;
         }
+
+        .box_btsn{
+            display: flex;
+            gap: 10px;
+        }
     }
+
+
+    }
+
+`
+
+export const ContainerList = styled.ul`
+    display: flex;
+    flex-direction: column;
+    
+    gap: 20px;
+    
+    overflow-y: auto;
+    margin: 0;
+    padding: 20px;
+
+    width: 85%;
+
+    height: 100%;
+
+    background-color: white;
+
+    border-radius: 5px;
     li{
         display: flex;
         justify-content: space-around;

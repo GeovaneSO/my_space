@@ -1,10 +1,10 @@
 import { FormRegister } from "../../components/Form/";
 import { HeaderForms } from "../../components/Header";
-import { ContainerMainRegister, SectionForm } from "./style";
+import { ContainerMainRegister, SectionForm, ContainerPageRegister } from "./style";
 
 const Register = () => {
     return (
-        <>
+        <ContainerPageRegister>
             <HeaderForms >
                 <h2>Crie sua conta</h2>
                 <span>Rápido e grátis, vamos nessa</span>
@@ -15,7 +15,7 @@ const Register = () => {
                     <FormRegister />
                 </SectionForm>
             </ContainerMainRegister>
-        </>
+        </ContainerPageRegister>
     );
 };
 

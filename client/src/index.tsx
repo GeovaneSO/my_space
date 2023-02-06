@@ -20,8 +20,8 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
     <MatrixProvider>
-      <InformationProvider>        
       <ContactProvider>
+      <InformationProvider>        
         <ClientProvider>
           <SessionProvider>
               <ReportProvider>
@@ -30,8 +30,8 @@ root.render(
               </ReportProvider>
           </SessionProvider>
         </ClientProvider>
-      </ContactProvider>
       </InformationProvider>
+      </ContactProvider>
     </MatrixProvider>
     </BrowserRouter>
   </React.StrictMode>

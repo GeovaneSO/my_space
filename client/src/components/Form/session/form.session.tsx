@@ -1,11 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
+import { Link } from "react-router-dom";
 import { SessionContext } from '../../../contexts';
 import { ClientRequestSession } from '../../../interfaces/client.interface';
 import { clientSessionSchema } from "../../../serializers/index";
 import { ButtonForm } from "../../Button";
 import { InputSession } from "../../input";
 import { BoxFormInputValue, ContainerForm } from '../style';
+import { ContainerLink } from "./style";
 
 const FormSession = () => {
 
@@ -41,8 +43,13 @@ const FormSession = () => {
                 />
 
                 <ButtonForm className="button_register" type="submit">
-                    Cadastrar
+                    Entre
                 </ButtonForm>
+                
+                <ContainerLink>
+                    <span>Ainda não possui uma conta?</span>
+                    <Link className='a' to='/register'>Cadastre-se</Link>
+                </ContainerLink>
             </BoxFormInputValue>
         </ContainerForm>
     );

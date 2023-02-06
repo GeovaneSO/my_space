@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { NavigateFunction } from 'react-router-dom';
 import { ClientRequest, ClientUpdateRequest, IClient, InformationResponse, ResponseContact } from './client.interface';
 import { ContactUpdateRequest, IContact } from './contact.interface';
 import { InformationRequest } from './information.interface';
@@ -17,6 +18,7 @@ export interface ClientProviderData {
     getOneClient: () => {};
     updateClient: (data: ClientUpdateRequest) => void;
     deleteClient: () => void;
+    navigate:  NavigateFunction;
     setInformationByClient: Function
     setOpenModal: Function;
     openModal: boolean;
@@ -30,11 +32,13 @@ export interface ReportContactsProviderData{
 
 export interface SessionProviderData {
     createSession: (data: any) => void;
+    logout: () => void;
 };
 
 export interface InformationProviderData {
     createInformationByClient: (data: InformationRequest) => void,
-    createInformationByContact: (data: InformationRequest) => void,
+    deleteInformation: (informationId: string) => void,
+    getInformationById: (informationId: string) => void;
     setCreateInformationModal: Function;
     createInformationModal: boolean;
 };
@@ -49,6 +53,8 @@ export interface ContactProviderData {
     setOpenCreateContact: Function
     setContactsByClient:Function;
     setOpenDetailContact: Function;
+    setOpenContactInformation: Function;
+    openContactInformation: boolean; 
     openDetailContact: boolean;
     openCreateContact: boolean;
     contactsByClient: ResponseContact[];

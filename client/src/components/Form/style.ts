@@ -2,14 +2,14 @@ import styled from 'styled-components';
 
 export const ContainerForm = styled.form`
     display: flex;
-    justify-content: center;
+    /* justify-content: s; */
     flex-direction: column;
     align-items: center;
 
-    gap: 20px;
+    gap: 30px;
 
     width: 90%;
-    height: 80%;
+    height: 60%;
 
     padding: 15px;
     background-color:  #fff;
@@ -20,6 +20,7 @@ export const ContainerForm = styled.form`
     h3 {
         font-size: 15px;
         font-weight: 600;
+        margin-top: 10px;
     }
     @media(min-width: 330px) {
         
@@ -34,7 +35,7 @@ export const BoxFormInputValue = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 
     width: 100%;
     height: 70%;

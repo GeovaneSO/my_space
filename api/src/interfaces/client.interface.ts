@@ -7,6 +7,7 @@ interface Information {
 interface Contact {
   id: string;
   name: string;
+  avatarUrl?: string;
 }
 
 export interface ClientRequest {

@@ -35,24 +35,13 @@ export class CreateContactService {
     if (clientId !== idToken) {
       throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
     }
-
-    const contactNameExists = await this.prisma.contact.findFirst({
-      where: { name: name },
-      include: {
-        client: {
-          where: {
-            id: client.id,
-          },
-        },
-        contactInformation: true,
-      },
-    });
-
     const informationByPhone = await this.prisma.contactInformation.findUnique({
       where: {
         phone,
       },
       select: {
+        phone: true,
+        email: true,
         contact: {
           select: {
             id: true,
@@ -66,6 +55,8 @@ export class CreateContactService {
         email,
       },
       select: {
+        email: true,
+        phone: true,
         contact: {
           select: {
             id: true,
@@ -73,8 +64,30 @@ export class CreateContactService {
         },
       },
     });
+    const contactNameExists = await this.prisma.contact.findFirst({
+      where: { name: name },
+      include: {
+        client: {
+          where: {
+            id: client.id,
+          },
+        },
+        contactInformation: true,
+      },
+    });
 
     if (!contactNameExists) {
+      if (informationByPhone || informationByEmail) {
+        const message = `email: ${
+          (informationByPhone && informationByPhone.email) ||
+          (informationByEmail && informationByEmail.email)
+        } and phone: ${
+          (informationByPhone && informationByPhone.phone) ||
+          (informationByEmail && informationByEmail.phone)
+        } already exists`;
+
+        throw new HttpException(message, HttpStatus.CONFLICT);
+      }
       const newContact: Contact = await this.prisma.contact.create({
         data: {
           name,
@@ -120,6 +133,7 @@ export class CreateContactService {
         HttpStatus.CONFLICT,
       );
     }
+
     if (
       contactNameExists &&
       informationByPhone.contact.id === contactNameExists.id &&

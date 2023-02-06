@@ -1,28 +1,28 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
-import { ClientRequest } from '../../interfaces/client.interface';
-import Button from '../Button';
-import { Input } from '../input';
-import { BoxFormInputValue, ContainerForm } from './style';
+import { ClientContext } from '../../../contexts';
+import { ClientRequest } from '../../../interfaces/client.interface';
+import { clientFormSchema } from "../../../serializers/index";
+import { ButtonForm } from "../../Button";
+import { InputRegister } from '../../input/';
+import { BoxFormInputValue, ContainerForm } from '../style';
 
-const Form = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<ClientRequest>({
-        // resolver: yupResolver()
+const FormRegister = () => {
+
+    const { createClient } = ClientContext();
+
+    const { register, handleSubmit, formState: { errors } } = useForm<ClientRequest>({
+        resolver: yupResolver(clientFormSchema)
     });
 
     return (
-        <ContainerForm className='form' onSubmit={handleSubmit(() => {
-
-        })}>
+        <ContainerForm className='form' onSubmit={handleSubmit(createClient)}>
             <h3>Cadastre-se</h3>
 
             <BoxFormInputValue>
 
 
-                <Input
+                <InputRegister
                     type="text"
                     name="name"
                     id="name"
@@ -32,7 +32,7 @@ const Form = () => {
                     register={register}
                 />
 
-                <Input
+                <InputRegister
                     type="text"
                     name="username"
                     id="username"
@@ -42,7 +42,7 @@ const Form = () => {
                     register={register}
                 />
 
-                <Input
+                <InputRegister
                     type="text"
                     name="email"
                     id="email"
@@ -52,18 +52,18 @@ const Form = () => {
                     register={register}
                 />
 
-                <Input
+                <InputRegister
                     type="text"
                     name="phone"
                     id="phone"
                     label="Número de telefone"
-                    placeholder="+55 977778888"
+                    placeholder="73977778888"
                     errors={errors}
                     register={register}
                 />
 
-                <Input
-                    type="text"
+                <InputRegister
+                    type="password"
                     name="password"
                     id="password"
                     label="Senha"
@@ -72,7 +72,7 @@ const Form = () => {
                     register={register}
                 />
 
-                <Input
+                <InputRegister
                     type="text"
                     name="avatarUrl"
                     id="avatarUrl"
@@ -82,12 +82,12 @@ const Form = () => {
                     register={register}
                 />
 
-                <Button className="button_register" type="submit">
+                <ButtonForm className="button_register" type="submit">
                     Cadastrar
-                </Button>
+                </ButtonForm>
             </BoxFormInputValue>
         </ContainerForm>
     );
 };
 
-export { Form };
+export { FormRegister };

@@ -93,8 +93,12 @@ export class ClientReportContactsService {
           if (index <= counter) {
             return [
               clientContact.name,
-              clientContact.contactInformation[0].email,
-              clientContact.contactInformation[0].phone,
+              clientContact.contactInformation.length > 0
+                ? clientContact.contactInformation[0].email
+                : '-',
+              clientContact.contactInformation.length > 0
+                ? clientContact.contactInformation[0].phone
+                : '-',
             ];
           }
         },

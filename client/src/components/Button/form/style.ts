@@ -5,21 +5,30 @@ export const ContainerButton = styled.div`
   justify-content: center;
   align-items: center;
   
-  height: 50px;
+  height: 60px;
   width: 70%;
 
   margin: 0;
 
   button {
 
-    background-color: #4b8bdf;
-
+    color: gray;
     border: none;
     border-radius: 5px;
 
     color: white;
+    padding: 5px;
+
+    background-color: #2C3357;
+
     font-size: 85%;
     width: 70%;
-    height: 80%; 
+    height: 100%; 
+    .svg{
+      color: gray;
+      background-color:  transparent;
+      width: 20px;
+
+    }
   }
 `;

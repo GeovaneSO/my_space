@@ -1,7 +1,7 @@
-import { PropsButton } from '../../interfaces/component.interface'
+import { PropsButton } from '../../../interfaces/component.interface'
 import { ContainerButton } from './style'
 
-const Button = ({ children, id, type, onClick, className }: PropsButton) => {
+const ButtonModal = ({ children, id, type, onClick, className }: PropsButton) => {
 	return (
 		<ContainerButton>
 			<button id={id} className={className} type={type} onClick={onClick}>
@@ -11,4 +11,4 @@ const Button = ({ children, id, type, onClick, className }: PropsButton) => {
 	)
 }
 
-export default Button
+export default ButtonModal

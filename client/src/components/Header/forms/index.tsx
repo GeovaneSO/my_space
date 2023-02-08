@@ -10,6 +10,7 @@ const HeaderForms = (children: PropsHeader) => {
 
     return (
         <HeaderContainer>
+            
             <ContainerRegister>
                 {children.children}
 

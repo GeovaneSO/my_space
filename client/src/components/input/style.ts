@@ -3,10 +3,7 @@ import styled from 'styled-components';
 export const ContainerInput = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
-  gap: 15px;
-  height: 40%;
   width: 100%;
 
 
@@ -14,7 +11,6 @@ export const ContainerInput = styled.div`
     font-weight: 400;
     font-size: 12px;
     line-height: 0px;
-    /* width: fit-content; */
   }
 
   input {
@@ -28,12 +24,10 @@ export const ContainerInput = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    gap: 15px;
+    gap: 20px;
   }
 
   .box_label_error{
-      /* display: ; */
-    /* justify-content: space-between; */
     height: 14px;
   }
 
@@ -54,8 +48,8 @@ export const ContainerInput = styled.div`
   .dropdown-content {
     display: none;
     position: absolute;
-    background-color: ${(props) => props.theme.white};
     min-width: 160px;
+    background-color: white;
     box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.2);
     padding: 10px;
     z-index: 1;

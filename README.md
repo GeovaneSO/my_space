@@ -3,7 +3,7 @@
 
 ## Fluxo da aplicação
 
-Essa é uma apicação possíbilita ao usuário criar uma conta no serviço, o que na api é denominado de `client`, com o cadastro feito o usuário é direcionado a página de login, onde será realizada a confirmação dos dados fornecidos na requisição.
+Essa é uma apicação possíbilita ao usuário criar uma conta no serviço, o que na api é denominado de `client`. Com o cadastro feito o usuário é direcionado a página de login, onde será realizada a confirmação dos dados fornecidos na requisição.
 
 Em caso de confirmação positiva dos dados o usuário é direcionado à página principal da aplicação. 
 

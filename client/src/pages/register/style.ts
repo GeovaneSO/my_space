@@ -6,27 +6,30 @@ export const ContainerPageRegister = styled.div`
     gap: 15px;
 
     width: 100vw;
-    /* height: 100%; */
 `
 
 export const ContainerMainRegister = styled.main`
     display: flex;
     flex-direction: column;
 
-    gap: 10px;
-
+    gap: 30px;
+    padding: 20% 8%;
+    padding-bottom: 2%;
     width: 100vw;
-    /* height: ; */
-
+    
     background-color:  #f3f7f9;
+    @media (min-width: 450px) {
+        padding-top: 8%;
+    }
 `
-
 export const SectionForm = styled.section`
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 90%;
-    height: 70%;
-
-    margin: 0 auto;
+    justify-content: space-between;
+    width: 100%; 
+    height: 100%;
 `;
+
+export const SvgContainer = styled.div`
+    width: 40%;
+`

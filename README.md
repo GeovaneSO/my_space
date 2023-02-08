@@ -3,13 +3,17 @@
 
 ## Fluxo da aplicação
 
-Essa é uma apicação possíbilita ao usuário criar uma conta no serviço, o que na api é denominado de `client`. Com o cadastro feito o usuário é direcionado a página de login, onde será realizada a confirmação dos dados fornecidos na requisição.
 
-Em caso de confirmação positiva dos dados o usuário é direcionado à página principal da aplicação. 
+Essa é uma apicação que possíbilita ao usuário criar uma conta no serviço, o que na api é denominado de `client`, com o cadastro feito o usuário, o mesmo é direcionado a página de login, onde será realizada a confirmação dos dados fornecidos na requisição.
 
-Na página principal, o usuário tem algumas informações mostradas, como os contatos que possuí e que estão vinculadas a sua conta, além das suas próprias informações de contato. Além disso, com um clique é possível gerar um relatório em pdf contendo os contatos que o cliente possui, junto com as informações de contato.
+
+Em caso de confirmação dos dados, o usuário é direcionado à página principal da aplicação. 
+
+Na página principal, o usuário tem algumas informações mostradas, como os contatos que possuí e que estão vinculadas a sua conta e das suas próprias informações de contato. Além disso, com um clique é possível gerar um relatório em pdf contendo os contatos que o cliente possui, junto com as informações de contato.
 
 Há também a possíbilidade de criar contatos novos contatos com informações `email`, `telefone` e `nome`, diferente dos que já existe e estão vinculados com sua conta. 
+
+Os relacionamentos criados no back-end da aplicação possibilta ao usuário cadastrar na sua conta contatos já existentes na aplicação, possibilitando que mais de um usuário possua o mesmo contato.
 
 Essa é uma aplicação que possui front-end e back-end e se encontra com os arquivos docker para que a aplicação seja executada em um container docker.
 

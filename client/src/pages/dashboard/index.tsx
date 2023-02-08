@@ -8,7 +8,7 @@ import { ListContacts, ListInformation, ListContactInformation } from "../../com
 import { ClientContext, ReportContext, SessionContext } from "../../contexts";
 import { ContactContext } from "../../contexts/contact/contact.context";
 import { InformationContext } from '../../contexts/information/information.context';
-import { ContainerDashboard, SectionContacts } from "./style";
+import { ContainerDashboard, ContainerMainDashboard, SectionContacts } from "./style";
 
 const Dashboard = () => {
 
@@ -54,11 +54,11 @@ const Dashboard = () => {
                             </ButtonModal>
                         </div>
                     </HeaderDashboard>
-                    <main>
+                    <ContainerMainDashboard>
                         <SectionContacts>
                             <ListContacts />
                         </SectionContacts>
-                    </main>
+                    </ContainerMainDashboard>
                 </ContainerDashboard>
             }
         </>

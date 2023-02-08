@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ContainerLink = styled.form`
+export const ContainerLink = styled.div`
     display: flex;
     span{
         font-size: 10px;

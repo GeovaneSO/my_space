@@ -12,7 +12,8 @@ const Context = createContext<SessionProviderData>({} as SessionProviderData)
 
 const SessionProvider = ({ children }: Props) => {
 	const navigate = useNavigate();
-	const { setReload, reload } = MatrixContext()
+	const { setReload, reload } = MatrixContext();
+
 
 	const createSession = async (data: ClientRequest) => {
 

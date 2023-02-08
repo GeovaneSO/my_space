@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle }  from "styled-components";
 
 export default createGlobalStyle`
     * {
@@ -12,7 +12,7 @@ export default createGlobalStyle`
     height: 100%;
     margin:0;
     padding:0;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
   }  
     body {
         background: var(--color-background);
@@ -21,8 +21,8 @@ export default createGlobalStyle`
         overflow-x: hidden;
         background: #F4F4F4;   
     }
-    body, input, button, textarea {
-        font-family: 'Inter', sans-serif;
+    body, label,input, button, textarea {
+        font-family: 'Roboto', sans-serif;
     }
     h1, h2, h3, h4, h5, h6, strong {
         /* font-weight: 500; */
@@ -36,4 +36,12 @@ export default createGlobalStyle`
     a{
         text-decoration: none;
     }
+`;
+
+export const SectionForm = styled.section`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%; 
+    height: 100%;
 `;

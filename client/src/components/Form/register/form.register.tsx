@@ -6,8 +6,8 @@ import { ClientRequest } from '../../../interfaces/client.interface';
 import { clientFormSchema } from "../../../serializers/index";
 import { ButtonForm } from "../../Button";
 import { InputRegister } from '../../input/';
-import { BoxFormInputValue, ContainerForm } from '../style';
-import { ContainerLink } from "./style";
+import { BoxFormInputValue, ContainerLink,ContainerForm } from '../style';
+// import {  } from "./style";
 
 const FormRegister = () => {
 
@@ -22,8 +22,6 @@ const FormRegister = () => {
             <h3>Cadastre-se</h3>
 
             <BoxFormInputValue>
-
-
                 <InputRegister
                     type="text"
                     name="name"
@@ -83,15 +81,18 @@ const FormRegister = () => {
                     errors={errors}
                     register={register}
                 />
+                <div className="footer">
 
-                <ButtonForm className="button_register" type="submit">
-                    Cadastrar
-                </ButtonForm>
-                <ContainerLink>
-                    <span>Já possuí uma conta?</span>
-                    <Link to={'/'}>Faça o login</Link>
-                </ContainerLink>
+                    <ButtonForm className="button_register" type="submit">
+                        Cadastrar
+                    </ButtonForm>
+                    <ContainerLink>
+                        <span>Já possuí uma conta?</span>
+                        <Link to={'/'}>Faça o login</Link>
+                    </ContainerLink>
+                </div>
             </BoxFormInputValue>
+
         </ContainerForm>
     );
 };

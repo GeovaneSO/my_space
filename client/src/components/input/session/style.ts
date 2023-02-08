@@ -5,8 +5,8 @@ export const ContainerInput = styled.div`
     flex-direction: column;
     justify-content: space-between;
 
-    /* gap: 5px; */
-    height: 40%;
+    gap: 20px;
+    height: 20%;
     width: 100%;
 
     
@@ -18,6 +18,7 @@ export const ContainerInput = styled.div`
   }
 
   input {
+    height: 48px;
     width: 100%;
     padding: 5px;
     border: none;
@@ -28,7 +29,7 @@ export const ContainerInput = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    gap: 15px;
+    gap: 5px;
   }
 
   .box_label_error{

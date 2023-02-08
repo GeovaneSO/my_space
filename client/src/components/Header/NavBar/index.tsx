@@ -3,7 +3,6 @@ import { NavBarContainer, NavBarSection } from "./style";
 import { ButtonAdd, ButtonModal } from "../../../components/Button";
 import { ClientContext, ReportContext } from "../../../contexts";
 
-import { CgMenuGridO } from 'react-icons/cg';
 import { TbReportSearch } from 'react-icons/tb';
 import { GrFormClose } from "react-icons/gr";
 import { MdOutlinePermDeviceInformation } from "react-icons/md";

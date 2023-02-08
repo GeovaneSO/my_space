@@ -1,5 +1,4 @@
 import { CgMenuGridO } from 'react-icons/cg';
-import { TbReportSearch } from 'react-icons/tb';
 import { BiLogOut } from 'react-icons/bi';
 import { ButtonAdd, ButtonModal } from "../../components/Button";
 import { CreateContact, CreateInformationModal, DetailContact } from "../../components/Form";

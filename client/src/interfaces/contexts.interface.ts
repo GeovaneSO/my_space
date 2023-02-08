@@ -11,6 +11,8 @@ export interface Props {
 export interface MatrixProviderData {
     setReload: Function;
     reload: boolean;
+    isPaused: boolean
+    isStopped: boolean;
 }
 
 export interface ClientProviderData {

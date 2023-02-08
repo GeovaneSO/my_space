@@ -7,7 +7,7 @@ export const ContainerForm = styled.form`
     align-items: center;
 
     width: 100%;
-    height: 70%;
+    height: 72%;
 
     padding: 8% 10%;
     background-color:  #fff;
@@ -36,7 +36,6 @@ export const BoxFormInputValue = styled.div`
     justify-content: center;
     align-items: center;
     gap: 15px;
-    margin-top: 20px;
     width: 100%;
     height: 80%;
 

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const HeaderContainer = styled.header`
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: 100%;
     
     background-color: rgb(100, 910, 902);
@@ -10,8 +11,8 @@ export const HeaderContainer = styled.header`
     position: fixed;
     z-index: 1;
     inset: -1000;
-
-    padding: 0.75%;
+    height: 62px;
+    padding: 1%;
     font-size: 70%;
 
         h2{

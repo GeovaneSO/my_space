@@ -4,15 +4,26 @@ export const HeaderContainer = styled.header`
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: white;
+    height: 62px;
+    background-color: rgb(100, 910, 902);
 
-    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.3);    .container{
+    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.3);    
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    padding: 5%;
-        
+    padding:21px;
+    /* position: fixed;
+    z-index: 1;
+    inset: -1000; */
 
+    .container{
+        width: 100%;
+        padding: 2%;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+    }
+        
     .box_logout{
         display: flex;
         gap: 5px;
@@ -28,7 +39,6 @@ export const HeaderContainer = styled.header`
         display: flex;
         gap: 10px;
     }
-}
 
     border: none;
     
@@ -44,27 +54,13 @@ export const HeaderContainer = styled.header`
         }
     margin:  0 auto;
 
-    @media(min-width: 320px) {
-        
-        .container{
-            padding: 3%;
-        }
-        
-    }
-    @media(min-width: 530px) {
-        
-        padding: 5px;
-        .container{
-            padding: 10px;
 
-        }
-        
-    }
+
     @media(min-width: 1000px) {
         
         align-items: center;
         .container{
-            width: 1000px;
+            /* width: 1000px; */
 
         }
         

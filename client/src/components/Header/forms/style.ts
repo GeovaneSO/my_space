@@ -16,5 +16,7 @@ export const ContainerRegister = styled.div`
                 gap: 10px;
             }
     
-
+    @media (min-width: 450px) {
+        padding: 0px;
+    }
 `

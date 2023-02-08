@@ -9,4 +9,9 @@ export const BoxFormInputValue = styled.div`
     gap: 70px;
 
     width: 100%;
+    .footer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 `

@@ -12,37 +12,51 @@ export const ContainerListInformation = styled.div`
     min-height: 100%;
     background: rgba(18, 18, 20, 0.5);
     .box{
-        height: 60%;
-        background-color: white;
-        border: 0.2px solid gray ;
-    border-radius: 5px;
-    .box_title{
         display: flex;
-        justify-content: space-between;
-
-        gap: 15px;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        text-align: center;
-        padding: 10px;
-        box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.3);   
-
-
-        h3{
-            font-size: 12px;
-        }
-
-        .svg{
-            color: gray;
-            background-color: transparent;
-        }
-
-        .box_btsn{
+        
+        width: 80%;
+        height: 60%;
+        border: 0.2px solid gray ;
+        .box_title{
             display: flex;
-            gap: 10px;
+            justify-content: space-between;
+            
+            gap: 15px;
+            align-items: center;
+            text-align: center;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            padding: 15px;
+            box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.3);   
+            width: 100%;
+            background-color: white;
+            background-color: rgb(100, 910, 902);
+
+            h3{
+                font-size: 14px;
+            }
+
+            .svg{
+                color: gray;
+                background-color: transparent;
+            }
+
+            .box_btsn{
+                display: flex;
+                gap: 10px;
+            }
         }
+
+
     }
 
-
+    @media (min-width: 384px) {
+       .box{
+        width: 310px;
+       }
     }
 
 `
@@ -57,13 +71,14 @@ export const ContainerList = styled.ul`
     margin: 0;
     padding: 20px;
 
-    width: 85%;
+    width: 100%;
 
     height: 100%;
 
     background-color: white;
 
-    border-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
     li{
         display: flex;
         justify-content: space-around;
@@ -78,19 +93,19 @@ export const ContainerList = styled.ul`
             width: 100%;
             p{
                 width: 100%;
-                font-size: 10px;
+                font-size: 12px;
             }
         }
     }
-
+/* 
     @media(min-width: 320px) {
         
         width: 272px;
         
-    }
+    } */
     @media(min-width: 1400px) {
         
-        width: 300px;
+        /* width: 300px; */
         
     }
 `

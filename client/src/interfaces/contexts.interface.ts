@@ -21,6 +21,8 @@ export interface ClientProviderData {
     updateClient: (data: ClientUpdateRequest) => void;
     deleteClient: () => void;
     navigate:  NavigateFunction;
+    openModalInformation: boolean;
+    setOpenModalInformation: Function;
     setInformationByClient: Function
     setOpenModal: Function;
     openModal: boolean;

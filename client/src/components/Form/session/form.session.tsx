@@ -47,14 +47,14 @@ const FormSession = () => {
             </BoxFormInputValue>
 
                 <div className="footer">
-                <ButtonForm className="button_register" type="submit">
-                    Entre
-                </ButtonForm>
-                
-                <ContainerLink>
-                    <span>Ainda não possui uma conta?</span>
-                    <Link className='a' to='/register'>Cadastre-se</Link>
-                </ContainerLink>
+                    <ButtonForm className="button_register" type="submit">
+                        Entre
+                    </ButtonForm>
+                    
+                    <ContainerLink>
+                        <span>Ainda não possui uma conta?</span>
+                        <Link className='a' to='/register'>Cadastre-se</Link>
+                    </ContainerLink>
 
                 </div>
         </ContainerForm>

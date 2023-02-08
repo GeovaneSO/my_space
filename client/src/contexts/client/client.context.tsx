@@ -15,6 +15,7 @@ const ClientProvider = ({ children }: Props) => {
 	const navigate = useNavigate();
 	const [ client, setClient] = useState<IClient>({} as IClient);
 	const [ openModal, setOpenModal ] = useState<boolean>(false)
+	const [ openModalInformation, setOpenModalInformation ] = useState<boolean>(false)
 	const [ informationByClient, setInformationByClient ] = useState<InformationResponse[]>([] as InformationResponse[]);
 	
 	const { reload, setReload } = MatrixContext();
@@ -152,8 +153,10 @@ const ClientProvider = ({ children }: Props) => {
 			updateClient,
 			deleteClient,
 			setInformationByClient,
+			setOpenModalInformation,
 			setOpenModal,
 			navigate,
+			openModalInformation, 
 			openModal,
 			informationByClient,
 			client,

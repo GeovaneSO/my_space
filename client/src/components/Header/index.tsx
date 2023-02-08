@@ -1,5 +1,6 @@
 import { HeaderDashboard } from "./dashboard";
 import { HeaderForms } from "./forms";
+import { NavBar } from './NavBar'
 
 
-export { HeaderDashboard, HeaderForms };
+export { HeaderDashboard, HeaderForms, NavBar };

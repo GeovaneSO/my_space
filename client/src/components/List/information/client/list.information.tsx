@@ -6,7 +6,7 @@ import { ButtonAdd } from '../../../Button';
 import { ContainerList, ContainerListInformation } from '../style';
 
 const ListInformation = () => {
-    const { informationByClient, setOpenModal } = ClientContext()
+    const { informationByClient, setOpenModal, openModal, openModalInformation, setOpenModalInformation } = ClientContext()
     const { createInformationModal, setCreateInformationModal, getInformationById } = InformationContext()
 
     return (
@@ -20,14 +20,14 @@ const ListInformation = () => {
                         <ButtonAdd
                             onClick={() => {
                                 setCreateInformationModal(!createInformationModal)                            
-                                setOpenModal(false) 
+                                setOpenModalInformation(!openModalInformation) 
                             }}
                         >
                             <MdAddIcCall className="svg" />
                         </ButtonAdd>
 
                         <ButtonAdd
-                            onClick={() => setOpenModal(false)}
+                            onClick={() => setOpenModalInformation(!openModalInformation)}
                         >
                             <GrFormClose className="svg" />
                         </ButtonAdd>

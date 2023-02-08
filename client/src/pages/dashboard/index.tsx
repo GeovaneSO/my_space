@@ -3,7 +3,7 @@ import { TbReportSearch } from 'react-icons/tb';
 import { BiLogOut } from 'react-icons/bi';
 import { ButtonAdd, ButtonModal } from "../../components/Button";
 import { CreateContact, CreateInformationModal, DetailContact } from "../../components/Form";
-import { HeaderDashboard } from "../../components/Header";
+import { HeaderDashboard, NavBar } from "../../components/Header";
 import { ListContacts, ListInformation, ListContactInformation } from "../../components/List";
 import { ClientContext, ReportContext, SessionContext } from "../../contexts";
 import { ContactContext } from "../../contexts/contact/contact.context";
@@ -12,7 +12,7 @@ import { ContainerDashboard, ContainerMainDashboard, SectionContacts } from "./s
 
 const Dashboard = () => {
 
-    const { client, openModal, setOpenModal } = ClientContext();
+    const { client, openModal, setOpenModal, openModalInformation, setOpenModalInformation } = ClientContext();
     const { openCreateContact, openDetailContact, openContactInformation } = ContactContext();
     const { createReportContacts } = ReportContext();
     const { createInformationModal } = InformationContext()
@@ -21,7 +21,8 @@ const Dashboard = () => {
 
     return (
         <>
-            {openModal && <ListInformation />}
+            {openModalInformation && <ListInformation />}
+            {openModal && <NavBar/>}
             {openCreateContact && <CreateContact />}
             {openDetailContact && <DetailContact />}
             {createInformationModal && <CreateInformationModal />}
@@ -29,29 +30,30 @@ const Dashboard = () => {
             {
                 client &&
                 <ContainerDashboard>
+                    
                     <HeaderDashboard >
                         <div className='box_logout'>
+                        <h2>Olá, {client.username}</h2>
                         <ButtonAdd 
                             onClick={() => logout()}
                         >
                             <BiLogOut className='logout'/>
                         </ButtonAdd>
-                        <h2>Olá, {client.username}</h2>
 
                         </div>
 
                         <div className="box_bnt">
-                            <ButtonAdd
-                                onClick={() => createReportContacts()}
-                            >
-                                <TbReportSearch className="svg" />
-                            </ButtonAdd>
 
                             <ButtonModal
-                                onClick={() => setOpenModal(true)}
+                                onClick={() => setOpenModal(!openModal)}
                             >
                                 <CgMenuGridO className="svg" />
                             </ButtonModal>
+                            {/* <ButtonAdd
+                                onClick={() => createReportContacts()}
+                            >
+                                <TbReportSearch className="svg" />
+                            </ButtonAdd> */}
                         </div>
                     </HeaderDashboard>
                     <ContainerMainDashboard>

@@ -11,7 +11,7 @@ export class GetAllContactClientService {
     clientId: string,
     idToken: string,
   ): Promise<Contact[]> {
-    const contacts: GetClientContact = await this.prisma.client.findUnique({
+    const client: GetClientContact = await this.prisma.client.findUnique({
       where: {
         id: clientId,
       },
@@ -21,6 +21,7 @@ export class GetAllContactClientService {
           select: {
             id: true,
             name: true,
+            avatarUrl: true,
             create_at: true,
             update_at: true,
             client: {
@@ -41,7 +42,7 @@ export class GetAllContactClientService {
       },
     });
 
-    if (!contacts) {
+    if (!client) {
       throw new HttpException('Invalid id', HttpStatus.NOT_FOUND);
     }
 
@@ -49,6 +50,6 @@ export class GetAllContactClientService {
       throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
     }
 
-    return contacts.contact;
+    return client.contact;
   }
 }

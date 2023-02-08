@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ContainerModal = styled.div`
-         position: fixed;
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,13 +24,23 @@ export const ContainerModal = styled.div`
     }
 
     .form{
-        height: 70%;
-        padding: 22px;
+        width: 85%;
+        height: 75%;
+        padding: 8%;
         .box_input_value{
             height: 80%;
         }
     }
     .button_register{
         height: 100%;
+        padding: 5%;
+
+    }
+
+    @media (min-width: 456px) {
+        .form{
+            width: 367px;
+            padding:38px
+        }
     }
 `

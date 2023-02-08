@@ -27,7 +27,7 @@ Criar e rodar o container
 
 Os comandos acima devem ser executados com o aplicativo Docker Desktop em execução. 
 
-Além disso, é necessário configurar os arquivos `.env` dos diretórios `./api` e `./client`, assim erros na criação dos containers serão evitados.
+Além disso, é necessário configurar os arquivos `.env` dos diretórios `./api` e `./client`, assim erros na criação dos containers serão evitados. Cada diretório possui seu .env particular, juntamente com suas instuções no .env.example
 
 Com os containers em execução, a aplicação será executada em duas portas, são elas: `http://localhost:3000` e `http://localhost:4000`
 
@@ -53,6 +53,8 @@ dentro de cada diretório será necessário instalar as depências das aplicaç�
 ### `yarn` ou `yarn install`
 
 Com as depêndencias do projeto devidamente instaladas, em cada diretório será necessário executar a aplicação.
+
+Antes de rodar o servidor, ceertifique de ter especificado no arquivo schema.prisma a o dattabase_url correto, no caso é o `DATABASE_URL_LOCAL` demonstrado no arquivo .env.example
 
 ### `yarn start` no diretório ./client e `yarn start:dev` no diretório ./api
 

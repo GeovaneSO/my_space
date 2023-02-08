@@ -19,7 +19,10 @@ export const ContainerMainRegister = styled.main`
     
     background-color:  #f3f7f9;
     @media (min-width: 450px) {
-        padding-top: 8%;
+        padding-top: 15%;
+    }
+    @media (min-width: 710px) {
+        padding-top: 100px;
     }
 `
 export const SectionForm = styled.section`

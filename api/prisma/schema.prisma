@@ -17,7 +17,7 @@ model Client {
   password  String
   avatarUrl String?
   create_at DateTime @default(now())
-  update_at DateTime @updatedAt()
+  update_at DateTime @updatedAt
 
   contact Contact[]
 

@@ -9,6 +9,9 @@ import { InputContact } from "../../input/create.contact/create.contact.input";
 import { BoxFormInputValue, ContainerForm } from '../style';
 import { BoxButtons, ContainerModal } from "./style";
 import { CgMenuGridO } from 'react-icons/cg';
+import { TbReportSearch } from 'react-icons/tb';
+import { MdOutlinePermDeviceInformation } from "react-icons/md";
+
 
 const DetailContact = () => {
 
@@ -42,7 +45,7 @@ const DetailContact = () => {
                                 setOpenContactInformation(!openContactInformation)}
                             }
                         >
-                            <CgMenuGridO className="svg" />
+                            <MdOutlinePermDeviceInformation className="svg" />
                         </ButtonModal>
                         <ButtonAdd
                             onClick={() => setOpenDetailContact(!openDetailContact)}

@@ -22,7 +22,7 @@ export const ContainerButton = styled.div`
     background-color: #2C3357;
 
     font-size: 85%;
-    width: 100%;
+    width: 70%;
     height: 80%; 
     .svg{
       color: gray;

@@ -6,8 +6,9 @@ interface Client {
 interface Contact {
   id: string;
   name: string;
-  avatarUrl?: string;
+  avatarUrl: string;
   create_at: Date;
+  update_at: Date;
   contactInformation: Information[];
 }
 

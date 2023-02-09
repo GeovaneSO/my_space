@@ -17,20 +17,20 @@ export class GetAllContactClientService {
       },
       select: {
         update_at: true,
-        contact: {
+        contacts: {
           select: {
             id: true,
             name: true,
             avatarUrl: true,
             create_at: true,
             update_at: true,
-            client: {
+            clients: {
               select: {
                 id: true,
                 name: true,
               },
             },
-            contactInformation: {
+            contactInformations: {
               select: {
                 id: true,
                 email: true,
@@ -50,6 +50,6 @@ export class GetAllContactClientService {
       throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
     }
 
-    return client.contact;
+    return client.contacts;
   }
 }

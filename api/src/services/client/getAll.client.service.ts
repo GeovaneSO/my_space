@@ -15,13 +15,13 @@ export class GetClientService {
         avatarUrl: true,
         create_at: true,
         password: false,
-        contact: {
+        contacts: {
           select: {
             id: true,
             name: true,
           },
         },
-        contactInformation: {
+        contactInformations: {
           select: {
             id: true,
             email: true,

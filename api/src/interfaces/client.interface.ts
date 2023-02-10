@@ -34,8 +34,8 @@ export interface GetClient {
   email?: string;
   phone?: string;
   create_at: Date;
-  contact?: Contact[];
-  contactInformation?: Information[];
+  contacts?: Contact[];
+  contactInformations?: Information[];
 }
 export interface ClientWithout {
   name: string;

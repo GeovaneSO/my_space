@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { createContext, useContext } from 'react';
-import api from '../../api';
+import { api } from '../../api';
 import { ClientRequest } from '../../interfaces/client.interface';
 import { Props, SessionProviderData } from '../../interfaces/contexts.interface';
 import { login } from './auth';

@@ -20,13 +20,13 @@ export class GetOneContactService {
         name: true,
         avatarUrl: true,
         create_at: true,
-        client: {
+        clients: {
           select: {
             id: true,
             name: true,
           },
         },
-        contactInformation: {
+        contactInformations: {
           select: {
             id: true,
             email: true,
@@ -40,7 +40,7 @@ export class GetOneContactService {
       throw new HttpException('Contact not found', HttpStatus.NOT_FOUND);
     }
 
-    const client = contact.client.find((client) => client.id === clientId);
+    const client = contact.clients.find((client) => client.id === clientId);
 
     if (!client) {
       throw new HttpException('Invalid client id', HttpStatus.CONFLICT);

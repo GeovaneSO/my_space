@@ -6,18 +6,20 @@ export const ContainerButton = styled.div`
   button {
     display: flex;
     align-items: center;
+    
+    gap: 10px;
+    
     border: none;
     border-radius: 5px;
-
-    color: white;
-    font-size: 85%;
+    
+    
     width: 100%;
     height: 100%; 
+    
     background-color: transparent;
-
-    /* p{ */
+    
+    font-size: 85%;
       color: black;
-    /* } */
     .svg{
       background-color: transparent;
 

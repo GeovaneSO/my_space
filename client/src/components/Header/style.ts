@@ -6,11 +6,12 @@ export const HeaderContainer = styled.header`
     justify-content: center;
     width: 100%;
     
-    background-color: rgb(100, 910, 902);
-    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.1);  
     position: fixed;
     z-index: 1;
     inset: -1000;
+    /* background-color: rgb(100, 910, 902); */
+    background-color: rgb(117 222 255);
+    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.1);  
     height: 62px;
     padding: 1%;
     font-size: 70%;

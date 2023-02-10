@@ -38,6 +38,6 @@ export interface IClient {
   email?: string;
   phone?: string;
   create_at?: Date;
-  contact: ResponseContact[];
-  contactInformation?: InformationResponse[];
+  contacts: ResponseContact[];
+  contactInformations?: InformationResponse[];
 };

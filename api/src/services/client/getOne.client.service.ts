@@ -17,14 +17,14 @@ export class GetOneClientService {
         username: true,
         avatarUrl: true,
         create_at: true,
-        contact: {
+        contacts: {
           select: {
             id: true,
             name: true,
             avatarUrl: true,
           },
         },
-        contactInformation: {
+        contactInformations: {
           select: {
             id: true,
             email: true,

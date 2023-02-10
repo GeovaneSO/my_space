@@ -1,7 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
 import { GrFormClose } from "react-icons/gr";
-import { ClientContext } from "../../../contexts";
 import { ContactContext } from "../../../contexts/contact/contact.context";
 import { ContactRequest } from "../../../interfaces/contact.interface";
 import { contactFormSchema } from "../../../serializers/index";
@@ -65,7 +64,8 @@ const CreateContact = () => {
                     />
 
                     <InputContact
-                        type="text"
+                        children={true}
+                        type="file"
                         name="avatarUrl"
                         id="avatarUrl"
                         label="Imagem de usuário"

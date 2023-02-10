@@ -29,10 +29,10 @@ export class ClientReportContactsService {
         id: client.id,
       },
       select: {
-        contact: {
+        contacts: {
           select: {
             name: true,
-            contactInformation: {
+            contactInformations: {
               select: {
                 email: true,
                 phone: true,
@@ -86,18 +86,18 @@ export class ClientReportContactsService {
 
       let counter = 0;
 
-      const infoRow = clientContactsArray[0].contact.map(
+      const infoRow = clientContactsArray[0].contacts.map(
         (clientContact, index) => {
           counter++;
 
           if (index <= counter) {
             return [
               clientContact.name,
-              clientContact.contactInformation.length > 0
-                ? clientContact.contactInformation[0].email
+              clientContact.contactInformations.length > 0
+                ? clientContact.contactInformations[0].email
                 : '-',
-              clientContact.contactInformation.length > 0
-                ? clientContact.contactInformation[0].phone
+              clientContact.contactInformations.length > 0
+                ? clientContact.contactInformations[0].phone
                 : '-',
             ];
           }

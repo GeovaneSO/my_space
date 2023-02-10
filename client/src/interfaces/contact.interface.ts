@@ -26,6 +26,6 @@ export interface IContact {
     name: string;
     avatarUrl?: string;
     create_at?: Date;
-    contactInformation?: Information[];
-    client?: Client[];
+    contactInformations?: Information[];
+    clients?: Client[];
 }

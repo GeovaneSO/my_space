@@ -6,6 +6,10 @@ const api: AxiosInstance = axios.create({
     headers: {"Content-Type": "application/json"},
 });
 
+const cloud_name = "dvbbafcmv"
+
+const urlCloudinaryApi = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`
+
 api.interceptors.request.use(async config => {
     const token = getToken();
     if (token) {
@@ -14,4 +18,4 @@ api.interceptors.request.use(async config => {
     return config;
   });
 
-export default api;
+export { api, urlCloudinaryApi };

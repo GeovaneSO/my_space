@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import jwt_decode, { JwtPayload } from "jwt-decode";
 import { createContext, useContext, useState } from 'react';
-import api from '../../api';
+import { api } from '../../api';
 import { InformationProviderData, Props } from '../../interfaces/contexts.interface';
 import { InformationRequest } from '../../interfaces/information.interface';
 import { ContactContext } from "../contact/contact.context";

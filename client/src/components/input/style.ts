@@ -6,12 +6,39 @@ export const ContainerInput = styled.div`
 
   width: 100%;
 
-
   label{
     font-weight: 400;
     font-size: 12px;
     line-height: 0px;
   }
+
+  .a{
+      border: 2px dashed #ccc;
+      width: 100%;
+      /* padding: 20px; */
+      height: 60px;
+      border: none;
+      border-bottom: 1px solid;
+
+      /* text-align: center; */
+
+    }
+    .dropzone-input {
+      cursor: pointer;
+      .input {
+        /* height: 100%; */
+      }
+      display: flex;
+      justify-content: center;
+
+      span{
+        font-weight: 400;
+  font-size: 12px;
+  line-height: 0px;
+text-align: center;
+      }
+height: 20px;
+    }
 
   input {
     width: 100%;

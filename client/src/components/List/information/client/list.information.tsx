@@ -8,7 +8,7 @@ import { ContainerList, ContainerListInformation } from '../style';
 const ListInformation = () => {
     const { informationByClient, setOpenModal, openModal, openModalInformation, setOpenModalInformation } = ClientContext()
     const { createInformationModal, setCreateInformationModal, getInformationById } = InformationContext()
-
+    console.log(informationByClient)
     return (
         <ContainerListInformation>
             <div className='box'>

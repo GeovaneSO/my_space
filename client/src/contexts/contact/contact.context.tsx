@@ -1,6 +1,7 @@
+import axios from "axios";
 import jwt_decode, { JwtPayload } from "jwt-decode";
 import { createContext, useContext, useState } from 'react';
-import api from '../../api';
+import { api, urlCloudinaryApi } from '../../api';
 import { ResponseContact } from "../../interfaces/client.interface";
 import { ContactRequest, ContactUpdateRequest, IContact } from '../../interfaces/contact.interface';
 import { ContactProviderData, Props } from '../../interfaces/contexts.interface';
@@ -15,7 +16,7 @@ const ContactProvider = ({ children }: Props) => {
 	const [openCreateContact, setOpenCreateContact] = useState<boolean>(false)
 	const [openDetailContact, setOpenDetailContact] = useState<boolean>(false)
 	const [openContactInformation, setOpenContactInformation] = useState<boolean>(false)
-	const { reload, setReload } = MatrixContext();
+	const { reload, setReload, filePath } = MatrixContext();
 
 	let decoded: JwtPayload = {
 		exp: 1,
@@ -32,12 +33,18 @@ const ContactProvider = ({ children }: Props) => {
 				decoded = jwt_decode(token!);
 			};
 
+			const formData = new FormData()
+			formData.append('file', filePath)
+			formData.append('upload_preset', 'tqned5se')
+
+			const responseCloudinary = await axios.post(urlCloudinaryApi, formData)
+
 			const response = await api.post(`/contacts/clients/${decoded.sub}`, {
-				...data
+				...data, avatarUrl: responseCloudinary.data.url
 			});
 
 			setContact(response.data);
-			setReload()
+			setReload(!reload)
 
 		} catch (error) {
 			console.log(error);

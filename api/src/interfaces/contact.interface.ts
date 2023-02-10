@@ -9,7 +9,7 @@ interface Contact {
   avatarUrl: string;
   create_at: Date;
   update_at: Date;
-  contactInformation: Information[];
+  contactInformations: Information[];
 }
 
 export interface GetOneContact {
@@ -17,8 +17,8 @@ export interface GetOneContact {
   name: string;
   avatarUrl?: string;
   create_at: Date;
-  contactInformation: Information[];
-  client: Client[];
+  contactInformations: Information[];
+  clients: Client[];
 }
 
 interface Information {
@@ -35,7 +35,7 @@ export interface ContactRequest {
 }
 
 export interface GetClientContact {
-  contact?: Contact[];
+  contacts?: Contact[];
 }
 
 export interface ContactUpdateRequest {

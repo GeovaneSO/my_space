@@ -9,6 +9,8 @@ export interface Props {
 };
 
 export interface MatrixProviderData {
+    setFilePath: Function;
+    filePath: string;
     setReload: Function;
     reload: boolean;
     isPaused: boolean

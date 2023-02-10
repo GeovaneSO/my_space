@@ -17,7 +17,7 @@ export class CreateContactService {
     const client = await this.prisma.client.findUnique({
       where: { id: clientId },
       include: {
-        contact: {
+        contacts: {
           select: {
             id: true,
           },
@@ -67,12 +67,12 @@ export class CreateContactService {
     const contactNameExists = await this.prisma.contact.findFirst({
       where: { name: name },
       include: {
-        client: {
+        clients: {
           where: {
             id: client.id,
           },
         },
-        contactInformation: true,
+        contactInformations: true,
       },
     });
 
@@ -92,12 +92,12 @@ export class CreateContactService {
         data: {
           name,
           avatarUrl,
-          client: {
+          clients: {
             connect: {
               id: client.id,
             },
           },
-          contactInformation: {
+          contactInformations: {
             connectOrCreate: {
               where: {
                 email: email,
@@ -108,14 +108,14 @@ export class CreateContactService {
               },
             },
           },
-          ClientContact: {
+          clientContacts: {
             create: {
               clientId: client.id,
             },
           },
         },
         include: {
-          contactInformation: {
+          contactInformations: {
             select: {
               email: true,
               phone: true,
@@ -127,7 +127,7 @@ export class CreateContactService {
       return newContact;
     }
 
-    if (contactNameExists.client.find((client) => client.id === clientId)) {
+    if (contactNameExists.clients.find((client) => client.id === clientId)) {
       throw new HttpException(
         'The customer already has the contact',
         HttpStatus.CONFLICT,
@@ -144,7 +144,7 @@ export class CreateContactService {
           id: clientId,
         },
         data: {
-          contact: {
+          contacts: {
             connect: {
               id: contactNameExists.id,
             },

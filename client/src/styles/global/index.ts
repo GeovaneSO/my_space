@@ -45,3 +45,16 @@ export const SectionForm = styled.section`
     width: 100%; 
     height: 100%;
 `;
+
+
+export const ImageContainer = styled.figure`
+    display: flex;
+
+    width: 50px;
+    height: 50px;
+    img{
+        border: 1px #2C3357 solid;
+        width: 100%;
+        border-radius: 50%;
+    }
+`

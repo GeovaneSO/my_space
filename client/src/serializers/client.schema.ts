@@ -48,6 +48,6 @@ export const clientFormSchema = yup.object({
         .min(11, "Muito curto")
         .max(11, "Muito longo"),
 
-    avatarUrl: yup.string()
-        .required('Coloque uma imagem para seu perfil')     
+    // avatarUrl: yup.string()
+    //     .required('Coloque uma imagem para seu perfil')     
 });

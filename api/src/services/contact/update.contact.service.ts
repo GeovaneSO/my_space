@@ -19,8 +19,8 @@ export class UpdateContactService {
         id: contactId,
       },
       select: {
-        contactInformation: true,
-        client: true,
+        contactInformations: true,
+        clients: true,
         name: true,
         avatarUrl: true,
       },
@@ -34,7 +34,9 @@ export class UpdateContactService {
       throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
     }
 
-    const client = contactExist.client.find((client) => client.id === clientId);
+    const client = contactExist.clients.find(
+      (client) => client.id === clientId,
+    );
     if (!client) {
       throw new HttpException(
         'Invalid id, the client does not own the contact',
@@ -56,7 +58,7 @@ export class UpdateContactService {
         avatarUrl: true,
         create_at: true,
         update_at: true,
-        client: {
+        clients: {
           select: {
             id: true,
           },

@@ -31,7 +31,9 @@ export const ContainerModal = styled.div`
             height: 80%;
         }
     }
+    
     .button_register{
+        
         height: 100%;
         padding: 5%;
 

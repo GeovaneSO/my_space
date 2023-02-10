@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Contact } from '@prisma/client';
 import { ApiService } from 'src/app.service';
 
 @Injectable()
@@ -14,7 +13,7 @@ export class DeleteContactService {
     const contactExist = await this.prisma.contact.findUniqueOrThrow({
       where: { id: contactId },
       select: {
-        client: true,
+        clients: true,
         id: true,
         name: true,
         create_at: true,
@@ -28,7 +27,9 @@ export class DeleteContactService {
     if (clientId !== idToken) {
       throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
     }
-    const client = contactExist.client.find((client) => client.id === clientId);
+    const client = contactExist.clients.find(
+      (client) => client.id === clientId,
+    );
 
     if (!client) {
       throw new HttpException(

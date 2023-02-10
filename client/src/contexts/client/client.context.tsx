@@ -1,8 +1,8 @@
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import jwt_decode, { JwtPayload } from "jwt-decode";
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../../api';
+import { api, urlCloudinaryApi } from '../../api';
 import { ClientRequest, ClientUpdateRequest, IClient, InformationResponse, ResponseContact } from '../../interfaces/client.interface';
 import { ClientProviderData, Props } from '../../interfaces/contexts.interface';
 import { ContactContext } from "../contact/contact.context";
@@ -17,14 +17,20 @@ const ClientProvider = ({ children }: Props) => {
 	const [ openModal, setOpenModal ] = useState<boolean>(false)
 	const [ openModalInformation, setOpenModalInformation ] = useState<boolean>(false)
 	const [ informationByClient, setInformationByClient ] = useState<InformationResponse[]>([] as InformationResponse[]);
-	
-	const { reload, setReload } = MatrixContext();
+
+	const { reload, setReload, filePath } = MatrixContext();
 	const { setContactsByClient } = ContactContext()
 	
 	const createClient = async (data: ClientRequest) => {
 		try {
+			const formData = new FormData()
+			formData.append('file', filePath)
+			formData.append('upload_preset', 'tqned5se')
+
+			const responseCloudinary = await axios.post(urlCloudinaryApi, formData)
+
 			await api.post('/clients/', {
-				...data
+				...data, avatarUrl: responseCloudinary.data.url
 			});
 
 			navigate('/', { replace: true });
@@ -116,9 +122,9 @@ const ClientProvider = ({ children }: Props) => {
 			const response: IClient = await (await api.get(`/clients/${decoded.sub}`)).data;
 			
 			setClient(response);
-			const contacts: ResponseContact[] = response!.contact
-			const information = response.contactInformation
-
+			const contacts: ResponseContact[] = response!.contacts
+			const information = response.contactInformations
+			console.log(response.contactInformations)
 			information && setInformationByClient(information)
 			
 			setContactsByClient(contacts)

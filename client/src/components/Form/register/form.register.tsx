@@ -73,7 +73,8 @@ const FormRegister = () => {
                 />
 
                 <InputRegister
-                    type="text"
+                    children={true}
+                    type="file"
                     name="avatarUrl"
                     id="avatarUrl"
                     label="Imagem de usuário"

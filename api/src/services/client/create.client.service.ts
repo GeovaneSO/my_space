@@ -51,7 +51,7 @@ export class CreateClientService {
         password: hashPassword,
         username,
         avatarUrl,
-        contactInformation: {
+        contactInformations: {
           create: {
             email: email,
             phone: phone,
@@ -65,13 +65,13 @@ export class CreateClientService {
         avatarUrl: true,
         create_at: true,
         password: false,
-        contact: {
+        contacts: {
           select: {
             id: true,
             name: true,
           },
         },
-        contactInformation: {
+        contactInformations: {
           select: {
             email: true,
             phone: true,

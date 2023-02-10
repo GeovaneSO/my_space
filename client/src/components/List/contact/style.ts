@@ -13,7 +13,7 @@ export const ContainerList = styled.ul`
 
     width: 85%;
 
-    border: 0.2px solid gray ;
+    border: 0.2px solid #E9ECEF ;
     border-radius: 5px;
 
     background-color: white;
@@ -29,6 +29,7 @@ export const ContainerList = styled.ul`
             font-size: 18px;
         }
     }
+    
     li{
         display: flex;
         justify-content: space-between;
@@ -58,15 +59,16 @@ export const ContainerList = styled.ul`
         width: 320px;
         
     }
+    
     @media(min-width: 500px) {
         
         width: 65%;
         
     }
+
     @media(min-width: 728px) {
         
         width: 500px
         
     }
-
 `

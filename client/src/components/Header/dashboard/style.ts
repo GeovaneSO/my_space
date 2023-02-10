@@ -26,6 +26,7 @@ export const HeaderContainer = styled.header`
         
     .box_logout{
         display: flex;
+        align-items: center;
         gap: 5px;
         .logout{
             font-size: 15px;
@@ -37,6 +38,7 @@ export const HeaderContainer = styled.header`
 
     .box_bnt{
         display: flex;
+        align-items: center;
         gap: 10px;
     }
 

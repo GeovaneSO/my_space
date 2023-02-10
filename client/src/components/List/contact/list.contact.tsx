@@ -2,6 +2,7 @@ import { FiMoreVertical,FiUser } from 'react-icons/fi';
 import { ContactContext } from "../../../contexts/contact/contact.context";
 import { ButtonModal } from '../../Button';
 import { ContainerList } from './style';
+import { ImageContainer } from '../../../styles/global'
 import { ButtonAdd } from "../../Button";
 import { AiOutlineUserAdd } from 'react-icons/ai';
 
@@ -12,7 +13,7 @@ const ListContacts = () => {
         setOpenCreateContact, 
         openModalDetail,
     } = ContactContext()
-
+    console.log(contactsByClient )
     return (
         <>
         
@@ -26,20 +27,20 @@ const ListContacts = () => {
                 </ButtonAdd>
             </div>
             {
-                contactsByClient.length > 0 ?
+                contactsByClient && contactsByClient.length > 0 ?
                     contactsByClient.map((contact) =>
                         <li
                             className="card"
                             key={contact.id}
                         >
                             <div className='box_name_contact'>
-                                <figure>
+                                <ImageContainer >
                                     {
                                         contact.avatarUrl.length > 10 ?
                                             <img src={contact.avatarUrl} alt="Imagem de contato" />
                                         :   <FiUser/>
                                         }
-                                </figure>
+                                </ImageContainer>
                                 <p>{contact.name}</p>
                             </div>
                             <ButtonModal

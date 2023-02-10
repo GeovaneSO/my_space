@@ -19,7 +19,7 @@ export const contactFormSchema = yup.object({
         .required('Seu nome é obrigatório')
         .matches(/[A-Z]/, "Deve conter ao menos 1 letra maiúscula")
         .matches(/([a-z])/, "Deve conter ao menos 1 letra minúscula")
-        .min(12, 'Coloque no mínimo 12 caracteres'),
+        .min(4, 'Coloque no mínimo 4 caracteres'),
 
     email: yup.string()
         .required('Digite seu email')
@@ -32,6 +32,10 @@ export const contactFormSchema = yup.object({
         .min(11, "Muito curto")
         .max(11, "Muito longo"),
 
-    avatarUrl: yup.string()
-        .required('Coloque uma imagem para seu perfil')     
+    // avatarUrl: yup.object().shape({
+    //     file: yup.object().shape({
+    //     name: yup.string().required()
+    //   }).label('File')})
+    // .string()
+        // .required('Coloque uma imagem para seu perfil')     
 });

@@ -8,10 +8,13 @@ const MatrixProvider = ({ children }: Props) => {
 	const [ reload, setReload] = useState<boolean>(false);
 	const [isStopped, ] = useState<boolean>(false);
     const [ isPaused,  ] = useState<boolean>(false);
+	const [ filePath, setFilePath ] = useState<string>('');
 
 	return (
 		<Context.Provider value={{
 			setReload,
+			setFilePath,
+			filePath, 
 			reload,
 			isPaused, 
 			isStopped,

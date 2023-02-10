@@ -16,10 +16,11 @@ export interface PropsInput {
   id?: string;
   label?: string;
     errors: FieldErrors<ClientRequest>
-  children?: ReactNode;
-  type?: 'text' | 'button' | 'checkbox' | 'password' | undefined;
+  children?: boolean;
+  type?: 'text' | 'file' | 'button' | 'checkbox' | 'password' | undefined;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | any;
   register?: UseFormRegister<ClientRequest>;
+  ref?: React.LegacyRef<HTMLInputElement> | undefined
   name?:
     | 'name'
     | 'username'
@@ -32,9 +33,9 @@ export interface PropsInput {
 export interface PropsInputContact {
   id?: string;
   label?: string;
-    errors: FieldErrors<ClientRequest>
-  children?: ReactNode;
-  type?: 'text' | 'button' | 'checkbox' | 'password' | undefined;
+  errors: FieldErrors<ClientRequest>
+  children?: boolean;
+  type?: 'text' | 'file' | 'button' | 'checkbox' | 'password' | undefined;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | any;
   register?: UseFormRegister<ContactRequest>;
   name?:

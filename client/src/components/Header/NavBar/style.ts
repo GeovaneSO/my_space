@@ -12,15 +12,31 @@ export const NavBarContainer = styled.div`
     `
 
 export const NavBarSection = styled.section`
-    width: 75%;
+    display: flex;
+    flex-direction: column;
+    gap: 10%;
+        width: 75%;
     height: 100%;
+   
     background-color: rgb(100, 910, 200);
     box-shadow: 3px -1px 31px 3px rgba(0,0,0,0.48);
+   
     border-radius: 1px;
+   
     padding: 5%;
 
     @media (min-width: 370px) {
         width: 280px;
         padding: 34px;
     }
+`
+
+export const BoxBtnNav = styled.div`
+    display: flex;
+    flex-direction: column;
+
+    gap: 8%;
+
+    height: 80%;
+    
 `

@@ -1,7 +1,7 @@
 import fileDownload from 'js-file-download';
 import jwt_decode, { JwtPayload } from "jwt-decode";
 import { createContext, useContext } from 'react';
-import api from '../../api';
+import { api } from '../../api';
 import { Props, ReportContactsProviderData } from '../../interfaces/contexts.interface';
 import { getToken } from '../session/auth';
 

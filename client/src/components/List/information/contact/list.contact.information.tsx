@@ -36,8 +36,8 @@ const ListContactInformation = () => {
                 </div>
                 <ContainerList>
                     {
-                        contact.contactInformation!.length > 0 ?
-                        contact.contactInformation!.map((information) =>
+                        contact.contactInformations!.length > 0 ?
+                        contact.contactInformations!.map((information) =>
                         <li
                             className="card"
                             key={information.id}

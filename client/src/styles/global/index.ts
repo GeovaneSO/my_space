@@ -48,10 +48,12 @@ export const SectionForm = styled.section`
 
 
 export const ImageContainer = styled.figure`
+    display: flex;
+
     width: 50px;
     height: 50px;
-    /* border-radius: 5; */
     img{
+        border: 1px #2C3357 solid;
         width: 100%;
         border-radius: 50%;
     }

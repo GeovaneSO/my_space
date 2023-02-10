@@ -5,22 +5,25 @@ export const HeaderContainer = styled.header`
     flex-direction: column;
     width: 100%;
     height: 62px;
-    background-color: rgb(100, 910, 902);
+    position: fixed;
+    z-index: 1;
+    inset: 9999;
+    /* background-color: rgb(100, 910, 902); */
+    /* background-color: #80cfe7e6; */
+    /* background-color: rgb(100, 910, 902); */
+    background-color: rgb(117 222 255);
 
     box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.3);    
     display: flex;
     justify-content: center;
     align-items: center;
     padding:21px;
-    /* position: fixed;
-    z-index: 1;
-    inset: -1000; */
 
     .container{
         width: 100%;
         padding: 2%;
         display: flex;
-        flex-direction: row-reverse;
+        flex-direction: row;
         justify-content: space-between;
     }
         

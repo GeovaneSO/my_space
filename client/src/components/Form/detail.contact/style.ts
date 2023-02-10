@@ -6,7 +6,7 @@ export const ContainerModal = styled.div`
     justify-content: center;
     align-items: center;
 
-    z-index: 1;
+    z-index: 9999;
     inset: 0;
     width: 100%;
     min-height: 100%;

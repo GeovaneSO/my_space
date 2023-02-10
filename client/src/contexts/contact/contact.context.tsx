@@ -44,7 +44,7 @@ const ContactProvider = ({ children }: Props) => {
 			});
 
 			setContact(response.data);
-			setReload()
+			setReload(!reload)
 
 		} catch (error) {
 			console.log(error);

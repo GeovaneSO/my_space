@@ -6,9 +6,8 @@ import { ClientRequestSession } from '../../../interfaces/client.interface';
 import { clientSessionSchema } from "../../../serializers/index";
 import { ButtonForm } from "../../Button";
 import { InputSession } from "../../input";
-import { ContainerForm, ContainerLink } from '../style';
-import { BoxFormInputValue } from "./style";
-import { useMedia } from 'react-use-media'
+import { ContainerLink } from '../style';
+import { ContainerForm, BoxFormInputValue, ContainerButton } from "./style";
 
 const FormSession = () => {
 
@@ -19,7 +18,18 @@ const FormSession = () => {
     });
 
     return (
-        <ContainerForm className='form' onSubmit={handleSubmit(createSession)}>
+        <ContainerForm className='form' onSubmit={handleSubmit(createSession)}
+            initial={{scale: 0.5}}
+            animate={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                transition: { 
+                    type: "spring", 
+                    stiffness: 50
+                }
+            }}
+        >
             <h3>Login</h3>
 
             <BoxFormInputValue >
@@ -47,10 +57,13 @@ const FormSession = () => {
             </BoxFormInputValue>
 
                 <div className="footer">
-                    <ButtonForm className="button_register" type="submit">
-                        Entre
-                    </ButtonForm>
-                    
+                    <ContainerButton>
+
+                        <ButtonForm className="button_register" type="submit">
+                            Entre
+                        </ButtonForm>
+                        
+                    </ContainerButton>
                     <ContainerLink>
                         <span>Ainda não possui uma conta?</span>
                         <Link className='a' to='/register'>Cadastre-se</Link>

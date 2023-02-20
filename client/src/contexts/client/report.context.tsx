@@ -1,15 +1,21 @@
+import { AxiosError } from 'axios';
 import fileDownload from 'js-file-download';
 import jwt_decode, { JwtPayload } from "jwt-decode";
 import { createContext, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { api } from '../../api';
 import { Props, ReportContactsProviderData } from '../../interfaces/contexts.interface';
-import { getToken } from '../session/auth';
+import { MatrixContext } from '../matrix.context';
+import { getToken, logout } from '../session/auth';
 
 const Context = createContext<ReportContactsProviderData>({} as ReportContactsProviderData)
 
 const ReportProvider = ({ children }: Props) => {
+	const { setLoading } = MatrixContext();
+	const navigate = useNavigate();
 
 	const createReportContacts = async () => {
+		setLoading(true);
 		let decoded: JwtPayload = {
 			exp: 1,
 			iat: 1,
@@ -21,15 +27,25 @@ const ReportProvider = ({ children }: Props) => {
 			if (token) {
 				decoded = jwt_decode(token!);
 			};
-			const response = await api.get(`/clients/${decoded.sub}/report/`,{
+
+			const response = await api.get(`/clients/${decoded.sub}/report/`, {
 				responseType: 'arraybuffer'
 			})
+			setTimeout(() => {
+				setLoading(false);
+				return fileDownload(response.data, 'Report.pdf')
+			}, 500);
 
-			return fileDownload(response.data, 'Report.pdf')
 
 		} catch (error) {
-			console.log(error);
-
+			if(error instanceof AxiosError){
+				error.response?.status === 500 && setTimeout(() => {
+	
+					logout()
+					navigate('/error', {replace: true});
+	
+				}, 5000);
+			}
 		};
 	};
 

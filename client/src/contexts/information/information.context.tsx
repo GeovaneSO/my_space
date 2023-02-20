@@ -13,7 +13,7 @@ const Context = createContext<InformationProviderData>({} as InformationProvider
 const InformationProvider = ({ children }: Props) => {
 
     const [createInformationModal, setCreateInformationModal] = useState<boolean>(false)
-    const { reload, setReload } = MatrixContext();
+    const { reload, setReload, setLoading, informationOwner, setSuccessful, successful } = MatrixContext();
     const { contact, getOneContactByClient } = ContactContext();
 
     let decoded: JwtPayload = {
@@ -22,8 +22,10 @@ const InformationProvider = ({ children }: Props) => {
         sub: 'error',
     };
     const createInformationByClient = async (data: InformationRequest) => {
-
+        
         try {
+            setCreateInformationModal(!createInformationModal)
+            setLoading(true);
 
             const token = getToken();
 
@@ -31,26 +33,38 @@ const InformationProvider = ({ children }: Props) => {
                 decoded = jwt_decode(token!);
             };
 
-            if (contact.id) {
+            if (contact.id && informationOwner === 'contact') {
                 const response = await api.post(`/information/contacts/${contact.id}`, {
                     ...data
                 });
 
+                setTimeout(() => {
+                    setSuccessful(!successful);
+                    setLoading(false);
 
-                setReload(!reload);
+                    setReload(!reload);
+                }, 500);
                 return response.data
             }
 
-            const response = await api.post(`/information/clients/${decoded.sub}`, {
-                ...data
-            });
+            if(informationOwner === 'client'){
+                const response = await api.post(`/information/clients/${decoded.sub}`, {
+                    ...data
+                });
 
-            setReload(!reload);
+                setTimeout(() => {
+                    console.log(response.data);
+    
+                    setLoading(false);
+                    setReload(!reload);
+                }, 500);
+                return response.data
+            }
 
-            return response.data
+
         } catch (error) {
             if (error instanceof AxiosError) {
-
+                setLoading(false);
                 console.log(error.response?.data);
             };
         };
@@ -58,6 +72,7 @@ const InformationProvider = ({ children }: Props) => {
     const deleteInformation = async (informationId: string) => {
 
         try {
+            setLoading(true);
 
             const token = getToken();
 
@@ -65,24 +80,34 @@ const InformationProvider = ({ children }: Props) => {
                 decoded = jwt_decode(token!);
             };
 
-            if (contact.id) {
-                
-                const response = await api.delete(`/information/${informationId}/contacts/${contact.id}`);
-                
-                getOneContactByClient(contact.id)
+            if (contact.id && informationOwner === 'contact') {
 
+                const response = await api.delete(`/information/${informationId}/contacts/${contact.id}`);
+                setTimeout(() => {
+
+                    setLoading(false);
+                    getOneContactByClient(contact.id)
+
+                    return response.data
+                }, 500);
+            }
+
+            if(informationOwner === 'client'){
+                const response = await api.delete(`/information/${informationId}/clients/${decoded.sub}`);
+    
+                setTimeout(() => {
+                    setLoading(false);
+                    setReload(!reload)
+    
+                }, 500);
+                
                 return response.data
             }
 
-            const response = await api.delete(`/information/${informationId}/clients/${decoded.sub}`);
-            
-            setReload(!reload)
-            
-            return response.data
 
         } catch (error) {
             if (error instanceof AxiosError) {
-
+                setLoading(false);
                 console.log(error.response?.data);
             };
         };

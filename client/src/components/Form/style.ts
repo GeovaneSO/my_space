@@ -7,12 +7,13 @@ export const ContainerForm = styled.form`
     align-items: center;
 
     width: 100%;
-    height: 72%;
+    /* height: 70%; */
 
-    padding: 8% 10%;
+    padding: 6% 6%;
     background-color:  #fff;
 
-    border-radius: 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 
     box-shadow: -1px 0px 22px 0px rgba(0,0,0,0.20);
 
@@ -20,13 +21,7 @@ export const ContainerForm = styled.form`
         font-size: 20px;
         font-weight: 600;
     }
-    @media(min-width:445px){
-        /* form{ */
-            width: 395px;
-            padding: 32px 40px;
-            /* height: 85%; */
-        /* } */
-    }
+   
 
 `;
 
@@ -35,14 +30,15 @@ export const BoxFormInputValue = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
     width: 100%;
-    height: 80%;
+    height: 100%;
 
 `
 export const ContainerLink = styled.div`
     display: flex;
     margin-top: 10px;
+    justify-content: center;
     span{
         font-size: 10px;
     }

@@ -22,7 +22,7 @@ export const clientFormSchema = yup.object({
         .required('Seu nome é obrigatório')
         .matches(/[A-Z]/, "Deve conter ao menos 1 letra maiúscula")
         .matches(/([a-z])/, "Deve conter ao menos 1 letra minúscula")
-        .min(12, 'Coloque no mínimo 12 caracteres'),
+        .min(8, 'Coloque no mínimo 8 caracteres'),
     
     username: yup.string()
         .required('Seu nome de usuário é obrigatório')
@@ -50,4 +50,21 @@ export const clientFormSchema = yup.object({
 
     // avatarUrl: yup.string()
     //     .required('Coloque uma imagem para seu perfil')     
+});
+
+export const updateClientSchema =  yup.object({
+    name: yup.string()
+        .notRequired(),
+        // .matches(/[A-Z]/, "Deve conter ao menos 1 letra maiúscula")
+        // .matches(/([a-z])/, "Deve conter ao menos 1 letra minúscula")
+        // .min(3, 'Coloque no mínimo 3 caracteres'),
+
+    password: yup.string()
+        .notRequired()
+        // .matches(/[A-Z]/, "Deve conter ao menos 1 letra maiúscula")
+        // .matches(/([a-z])/, "Deve conter ao menos 1 letra minúscula")
+        // .matches(/(\d)/, "Deve conter ao menos 1 número")
+        // .matches(/(\W)|_/, "Deve conter ao menos 1 caracter especial")
+        // .matches(/.{8,}/, "Deve conter ao menos 8 dígitos"),
+
 });

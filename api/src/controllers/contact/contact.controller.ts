@@ -19,6 +19,7 @@ import {
 import { CreateContactService } from 'src/services/contact/create.contact.service';
 import { DeleteContactService } from 'src/services/contact/delete.contact.service';
 import { GetAllContactClientService } from 'src/services/contact/getAll.contact.service';
+import { GetAllContactsService } from 'src/services/contact/getAll.service';
 import { GetOneContactService } from 'src/services/contact/getOne.contact.service';
 import { UpdateContactService } from 'src/services/contact/update.contact.service';
 
@@ -26,6 +27,7 @@ import { UpdateContactService } from 'src/services/contact/update.contact.servic
 export class ContactController {
   constructor(
     private readonly createContactService: CreateContactService,
+    private readonly getAllContactsService: GetAllContactsService,
     private readonly getContactManyService: GetAllContactClientService,
     private readonly getOneContactService: GetOneContactService,
     private readonly updateContactService: UpdateContactService,
@@ -48,6 +50,14 @@ export class ContactController {
     );
 
     return newContact;
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/')
+  public getAllContacts(): Promise<Contact[]> {
+    const contacts = this.getAllContactsService.getAllContacts();
+
+    return contacts;
   }
 
   @UseGuards(AuthGuard('jwt'))

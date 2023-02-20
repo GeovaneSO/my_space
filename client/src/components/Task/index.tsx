@@ -1,60 +1,111 @@
-
+import { ClientContext, TaskContext } from '../../contexts';
+import { MatrixContext } from '../../contexts/matrix.context';
+import { ButtonModal } from '../Button';
+import { ListTask } from '../List/index';
+import { Columns, Container, ContainerBtns, ContainerHeader, ContainerList, ContainerMain, ContainerSubtitle, SubtitleContent } from './style';
+import svgTask from '../../utils/img/56438-man-with-task-list.json'
+import Lottie from "react-lottie";
+import { SvgContainer } from './style';
 
 const Task = (): JSX.Element => {
+    const { openModalCreateTask, setOpenModalCreateTask } = TaskContext()
+    const { client } = ClientContext()
+    const { tasks, setTasks, isPaused, isStopped, } = MatrixContext()
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: svgTask,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+        }
+    };
     return (
-        <>
-            <div>
+        <Container>
+            <ContainerHeader>
                 <h3>Tarefas</h3>
-                <div>
-                    <button>
+                <ContainerBtns>
+                    <ButtonModal
+                        className='btn'
+                        onClick={
+                            () => setTasks(client.tasks)
+                        }
+                    >
                         Todos
-                    </button>
-                    <button>
+                    </ButtonModal>
+                    <ButtonModal
+                        className='btn'
+                        onClick={
+                            () => {
+                                setTasks(tasks.filter((task) => {
+                                    return task.status === true
+                                }))
+                            }
+                        }
+                    >
                         Concluídos
-                    </button>
-                    <button>
+                    </ButtonModal>
+                    <ButtonModal
+                        className='btn'
+                        onClick={
+                            () => setOpenModalCreateTask(!openModalCreateTask)
+                        }
+                    >
                         Criar
-                    </button>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <div>
-                        <p>Status</p>
-                        <p>Título</p>
-                    </div>
-                    <div>
-                        <p>Descrição</p>
-                        <p>Categoria</p>
-                        <p>Editar</p>
-                    </div>
-                </div>
-                <ul>
-                    <li>
-                        <div>
-                            <input type="checkbox" name="" id="" />
-                        </div>
-                        <div>
-                            <p>Fazer exercícios segunda pela manhã</p>
-                        </div>
-                        <div>
-                            <p>Ir correr</p>
-                        </div>
-                        <div>
-                            <p>Saúde</p>
-                        </div>
+                    </ButtonModal>
+                </ContainerBtns>
+            </ContainerHeader>
+            <ContainerMain>
+                <ContainerSubtitle>
+                    <SubtitleContent className='box-1'>
+                        <Columns>
+                            <p>Status</p>
 
-                        <div>
-                            <button>
-                                Editar
-                            </button>
+                        </Columns>
+                        <Columns>
+                            <p>Título</p>
+                        </Columns>
+                    </SubtitleContent>
+
+                    <SubtitleContent className='box-2'>
+                        <Columns>
+                            <p>Descrição</p>
+                        </Columns>
+                        <div className='box-2-content'>
+
+                            <Columns>
+                                <p>Categoria</p>
+                            </Columns>
+
+                            <Columns>
+                                <p>Editar</p>
+                            </Columns>
                         </div>
-                    </li>
+                    </SubtitleContent>
+                </ContainerSubtitle>
+                <ContainerList>
+                    {
+                        tasks && tasks.length > 0 ? tasks.map((task) => (
+                            <ListTask
+                                key={task.id}
+                                category={task.category.name}
+                                description={task.description}
+                                title={task.title}
+                                id={task.id}
+                                status={task.status}
+                            />
 
-                </ul>
-            </div>
-
-        </>
+                        ))
+                            :  <SvgContainer>
+                            <Lottie
+                                options={defaultOptions}
+                                isStopped={isStopped}
+                                isPaused={isPaused}
+                            />
+                        </SvgContainer>
+                    }
+                </ContainerList>
+            </ContainerMain>
+        </Container >
     )
 }
 

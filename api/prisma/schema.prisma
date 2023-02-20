@@ -19,9 +19,9 @@ model Client {
   create_at DateTime @default(now())
   update_at DateTime @updatedAt
 
-  contacts Contact[]
+  contacts Contact[] 
 
-  contactInformations ContactInformation[]
+  contactInformations ContactInformation[] 
   clientContacts      ClientContact[]
   tasks               Task[]
 
@@ -46,7 +46,7 @@ model Contact {
 model ClientContact {
   id       String @id @default(uuid())
   client   Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  clientId String
+  clientId String 
 
   contact   Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
   contactId String
@@ -72,7 +72,7 @@ model ContactInformation {
 
 model Task {
   id          String  @id @default(uuid())
-  title       String  @db.VarChar(50)
+  title       String  @unique @db.VarChar(50)
   description String  @db.VarChar(200)
   status      Boolean @default(false)
 

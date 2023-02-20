@@ -10,7 +10,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { Task } from '@prisma/client';
 import {
   TaskRequest,
   TaskResponse,
@@ -44,7 +43,7 @@ export class TaskController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get('')
-  public async getAllTasks(@Request() req): Promise<Task[]> {
+  public async getAllTasks(@Request() req): Promise<TaskResponse[]> {
     const idToken = req.user.sub;
     return await this.getAllTasksService.getAllTasks(idToken);
   }
@@ -56,7 +55,10 @@ export class TaskController {
     @Param('id') id: string,
   ): Promise<TaskResponse> {
     const idToken = req.user.sub;
-    return await this.getOneTaskService.getOneTask(idToken, id);
+
+    const task = await this.getOneTaskService.getOneTask(idToken, id);
+
+    return task;
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -78,6 +80,7 @@ export class TaskController {
     @Param('id') id: string,
   ): Promise<object> {
     const idToken = req.user.sub;
+
     return await this.deleteTaskService.deleteTask(idToken, id);
   }
 }

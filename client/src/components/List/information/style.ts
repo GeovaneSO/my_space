@@ -1,6 +1,7 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const ContainerListInformation = styled.div`
+export const Container = styled(motion.div)<{ active?: boolean }>`
      position: fixed;
     display: flex;
     justify-content: center;
@@ -10,53 +11,54 @@ export const ContainerListInformation = styled.div`
     inset: 0;
     width: 100%;
     min-height: 100%;
-    background: rgba(18, 18, 20, 0.5);
-    .box{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    background: rgba(18, 18, 20, 0.3);
+
+`
+
+export const ContainerListInformation = styled(motion.div)<{ active?: boolean }>`
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    width: 80%;
+    height: 60%;
         
-        width: 80%;
-        height: 60%;
-        border: 0.2px solid gray ;
-        .box_title{
-            display: flex;
-            justify-content: space-between;
-            
-            gap: 15px;
-            align-items: center;
-            text-align: center;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-            padding: 15px;
-            box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.3);   
-            width: 100%;
-            background-color: white;
-            background-color: rgb(100, 910, 902);
-
-            h3{
-                font-size: 14px;
-            }
-
-            .svg{
-                color: gray;
-                background-color: transparent;
-            }
-
-            .box_btsn{
-                display: flex;
-                gap: 10px;
-            }
-        }
-
-
+    @media (min-width: 384px) {
+        width: 310px;
     }
 
-    @media (min-width: 384px) {
-       .box{
-        width: 310px;
-       }
+`
+
+export const BoxTitle = styled.div`
+
+    display: flex;
+    justify-content: space-between;
+    
+    gap: 15px;
+    align-items: center;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 15px;
+    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.3);   
+    width: 100%;
+    background-color: white;
+    background-color: rgb(100, 910, 902);
+
+    h3{
+        font-size: 14px;
+    }
+
+    .svg{
+        color: gray;
+        background-color: transparent;
+    }
+
+    .box_btsn{
+        display: flex;
+        gap: 10px;
     }
 
 `

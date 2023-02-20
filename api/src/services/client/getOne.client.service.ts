@@ -31,6 +31,22 @@ export class GetOneClientService {
             phone: true,
           },
         },
+        tasks: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            status: true,
+            create_at: true,
+            update_at: true,
+            category: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
       },
     });
 

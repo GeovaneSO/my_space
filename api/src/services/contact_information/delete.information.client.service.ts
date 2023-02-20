@@ -10,18 +10,17 @@ export class DeleteInformationClientService {
     clientId: string,
     idToken: string,
   ): Promise<object> {
-    const informationExist =
-      await this.prisma.contactInformation.findUniqueOrThrow({
-        where: { id: informationId },
-        select: {
-          client: {
-            select: {
-              id: true,
-              name: true,
-            },
+    const informationExist = await this.prisma.contactInformation.findUnique({
+      where: { id: informationId },
+      select: {
+        client: {
+          select: {
+            id: true,
+            name: true,
           },
         },
-      });
+      },
+    });
 
     if (!informationExist) {
       throw new HttpException('Invalid client id', HttpStatus.NOT_FOUND);

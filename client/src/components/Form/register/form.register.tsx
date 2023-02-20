@@ -6,19 +6,30 @@ import { ClientRequest } from '../../../interfaces/client.interface';
 import { clientFormSchema } from "../../../serializers/index";
 import { ButtonForm } from "../../Button";
 import { InputRegister } from '../../input/';
-import { BoxFormInputValue, ContainerLink,ContainerForm } from '../style';
-// import {  } from "./style";
+import { BoxFormInputValue, ContainerLink } from '../style';
+import { ContainerButton, ContainerForm } from "./style";
 
 const FormRegister = () => {
 
     const { createClient } = ClientContext();
 
-    const { register, handleSubmit, formState: { errors } } = useForm<ClientRequest>({
+    const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm<ClientRequest>({
         resolver: yupResolver(clientFormSchema)
     });
 
     return (
-        <ContainerForm className='form' onSubmit={handleSubmit(createClient)}>
+        <ContainerForm className='form' onSubmit={handleSubmit(createClient)}
+            initial={{scale: 0.5}}
+            animate={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                transition: { 
+                    type: "spring", 
+                    stiffness: 50
+                }
+            }}
+        >
             <h3>Cadastre-se</h3>
 
             <BoxFormInputValue>
@@ -30,6 +41,9 @@ const FormRegister = () => {
                     placeholder="João Barbosa Cardoso"
                     errors={errors}
                     register={register}
+                    reset={reset}
+                    isSubmitSuccessful={isSubmitSuccessful}
+
                 />
 
                 <InputRegister
@@ -40,6 +54,9 @@ const FormRegister = () => {
                     placeholder="jhon123"
                     errors={errors}
                     register={register}
+                    reset={reset}
+                    isSubmitSuccessful={isSubmitSuccessful}
+
                 />
 
                 <InputRegister
@@ -50,6 +67,9 @@ const FormRegister = () => {
                     placeholder="yourname@email.com"
                     errors={errors}
                     register={register}
+                    reset={reset}
+                    isSubmitSuccessful={isSubmitSuccessful}
+
                 />
 
                 <InputRegister
@@ -60,6 +80,9 @@ const FormRegister = () => {
                     placeholder="73977778888"
                     errors={errors}
                     register={register}
+                    reset={reset}
+                    isSubmitSuccessful={isSubmitSuccessful}
+
                 />
 
                 <InputRegister
@@ -70,6 +93,9 @@ const FormRegister = () => {
                     placeholder="Digite seu senha aqui"
                     errors={errors}
                     register={register}
+                    reset={reset}
+                    isSubmitSuccessful={isSubmitSuccessful}
+
                 />
 
                 <InputRegister
@@ -81,17 +107,23 @@ const FormRegister = () => {
                     placeholder="Digite o link da sua imagem"
                     errors={errors}
                     register={register}
-                />
-                <div className="footer">
+                    reset={reset}
+                    isSubmitSuccessful={isSubmitSuccessful}
 
+                />
+                {/* <div className="footer"> */}
+                <ContainerButton>
                     <ButtonForm className="button_register" type="submit">
                         Cadastrar
                     </ButtonForm>
-                    <ContainerLink>
-                        <span>Já possuí uma conta?</span>
-                        <Link to={'/'}>Faça o login</Link>
-                    </ContainerLink>
-                </div>
+
+                </ContainerButton>
+
+                <ContainerLink>
+                    <span>Já possuí uma conta?</span>
+                    <Link to={'/'}>Faça o login</Link>
+                </ContainerLink>
+                {/* </div> */}
             </BoxFormInputValue>
 
         </ContainerForm>

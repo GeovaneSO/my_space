@@ -3,7 +3,9 @@ import { ContainerButton } from './style'
 
 const ButtonAdd = ({ children, id, type, onClick, className }: PropsButton) => {
 	return (
-		<ContainerButton>
+		<ContainerButton
+			
+		>
 			<button id={id} className={className} type={type} onClick={onClick}>
 				{children}
 			</button>

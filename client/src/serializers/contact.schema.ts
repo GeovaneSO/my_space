@@ -7,10 +7,7 @@ export const updateContactSchema =  yup.object({
         .required('Seu nome é obrigatório')
         .matches(/[A-Z]/, "Deve conter ao menos 1 letra maiúscula")
         .matches(/([a-z])/, "Deve conter ao menos 1 letra minúscula")
-        .min(12, 'Coloque no mínimo 12 caracteres'),
-
-    avatarUrl: yup.string()
-        .required('Coloque uma imagem para seu perfil')     
+        .min(3, 'Coloque no mínimo 3 caracteres'),
 });
 
 

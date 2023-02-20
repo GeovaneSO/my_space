@@ -1,3 +1,5 @@
+import { TaskResponse } from "./task.interface";
+
 export interface InformationResponse {
   id: string;
   email: string;
@@ -40,4 +42,5 @@ export interface IClient {
   create_at?: Date;
   contacts: ResponseContact[];
   contactInformations?: InformationResponse[];
+  tasks?: TaskResponse[]
 };

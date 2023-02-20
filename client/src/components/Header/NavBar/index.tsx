@@ -1,71 +1,108 @@
-import { useMedia } from "react-use-media";
-import { NavBarContainer, NavBarSection, BoxBtnNav } from "./style";
-import { ButtonAdd, ButtonModal } from "../../../components/Button";
+// import { useMedia } from "react-use-media";
+import { ButtonAdd } from "../../../components/Button";
 import { ClientContext, ReportContext, SessionContext } from "../../../contexts";
-
-import { TbReportSearch } from 'react-icons/tb';
-import { GrFormClose } from "react-icons/gr";
-import { MdOutlinePermDeviceInformation } from "react-icons/md";
+import { BoxBtnNav, NavBarContainer, NavBarSection } from "./style";
 import { BiLogOut } from "react-icons/bi";
 import { FaUserEdit } from "react-icons/fa";
+import { GrFormClose } from "react-icons/gr";
+import { MdOutlinePermDeviceInformation } from "react-icons/md";
+import { TbReportSearch } from 'react-icons/tb';
+import { AnimatePresence } from "framer-motion";
+import { MatrixContext } from "../../../contexts/matrix.context";
 
 const NavBar = (): JSX.Element => {
-    const { client, openModal, openModalInformation, setOpenModalInformation, setOpenModal } = ClientContext();
-    const { createReportContacts } = ReportContext();
-    const { logout } = SessionContext()
 
-    const isWide = useMedia({ maxWidth: "991px" });
+    const {
+        openModal,
+        openModalInformation,
+        setOpenModalInformation,
+        setOpenModal,
+        openModalDetailClient,
+        setOpenModalDetailClient 
+    } = ClientContext();
+    const { createReportContacts } = ReportContext();
+    const { logout } = SessionContext();
+    const { setInformationOwner } = MatrixContext()
+
 
     return (
-        <NavBarContainer>
-            <NavBarSection>
-                <ButtonAdd
+        <AnimatePresence>
+            { openModal && 
+                (<NavBarContainer
                     onClick={() => setOpenModal(false)}
+
                 >
-                    <GrFormClose className="svg" />
-                </ButtonAdd>
+                    <NavBarSection
+                        initial={{ x: 300 }}
+                        animate={
+                        {              x: -1,
+                                transition: {
+                                    type: "spring",
+                                    stiffness: 30}
+                    }
+                        }
+                        exit={{x: 300, transition: {
+                            type: "spring",
+                            stiffness: 30}}}
+                            onClick={(e) =>  e.stopPropagation()}
 
-                <BoxBtnNav>
-
-                    <ButtonAdd
-                        onClick={() => {
-                            setOpenModalInformation(!openModalInformation)
-                            setOpenModal(false)
-                        }}
                     >
-                        <FaUserEdit className="svg" />
-                        Editar perfil
-                    </ButtonAdd>
+                        <ButtonAdd
+                            onClick={() => setOpenModal(false)}
+                        >
+                            <GrFormClose className="svg" />
+                        </ButtonAdd>
 
-                    <ButtonAdd
-                        onClick={() => {
-                            setOpenModalInformation(!openModalInformation)
-                            setOpenModal(false)
-                        }}
-                    >
-                        <MdOutlinePermDeviceInformation className="svg" />
-                        Informações para contato
-                    </ButtonAdd>
+                        <BoxBtnNav>
 
-                    <ButtonAdd
-                        onClick={() => createReportContacts()}
-                    >   
-                        <TbReportSearch className="svg" />
-                        Crie seu relatório de contatos
-                    </ButtonAdd>
+                            <ButtonAdd
+                                onClick={() => {
+                                    setOpenModalDetailClient(!openModalDetailClient)
+                                    setOpenModal(false)
+                                }}
+                            >
+                                <FaUserEdit className="svg" />
+                                Editar perfil
+                            </ButtonAdd>
 
-                </BoxBtnNav>
-                
-                <ButtonAdd
-                    onClick={() => logout()}
-                >
-                    <BiLogOut className='svg' />
-                    Logout
-                </ButtonAdd>
-            </NavBarSection>
+                            <ButtonAdd
+                                onClick={() => {
+                                    setOpenModalInformation(!openModalInformation)
+                                    setInformationOwner('client')
+                                    setOpenModal(false)
+                                }}
+                            >
+                                <MdOutlinePermDeviceInformation className="svg" />
+                                Informações para contato
+                            </ButtonAdd>
+
+                            <ButtonAdd
+                                onClick={() => {
+                                    setOpenModal(false)
+                                    createReportContacts()}
+                                }
+                            >
+                                <TbReportSearch className="svg" />
+                                Crie seu relatório de contatos
+                            </ButtonAdd>
+
+                        </BoxBtnNav>
+
+                        <ButtonAdd
+                            onClick={() => {
+                                logout()
+                                setOpenModal(false)
+                            }}
+                        >
+                            <BiLogOut className='svg' />
+                            Logout
+                        </ButtonAdd>
+                    </NavBarSection>
 
 
-        </NavBarContainer>
+                </NavBarContainer>)
+            }
+        </AnimatePresence>
     );
 };
 

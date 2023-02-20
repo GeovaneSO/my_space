@@ -13,30 +13,48 @@ const Context = createContext<ClientProviderData>({} as ClientProviderData)
 
 const ClientProvider = ({ children }: Props) => {
 	const navigate = useNavigate();
-	const [ client, setClient] = useState<IClient>({} as IClient);
-	const [ openModal, setOpenModal ] = useState<boolean>(false)
-	const [ openModalInformation, setOpenModalInformation ] = useState<boolean>(false)
-	const [ informationByClient, setInformationByClient ] = useState<InformationResponse[]>([] as InformationResponse[]);
-
-	const { reload, setReload, filePath } = MatrixContext();
-	const { setContactsByClient } = ContactContext()
+	const [client, setClient] = useState<IClient>({} as IClient);
+	const [openModal, setOpenModal] = useState<boolean>(false)
+	const [openModalInformation, setOpenModalInformation] = useState<boolean>(false)
+	const [informationByClient, setInformationByClient] = useState<InformationResponse[]>([] as InformationResponse[]);
+	const [openModalDetailClient, setOpenModalDetailClient] = useState<boolean>(false)
 	
+	const { reload, setReload, filePath, setTasks, setLoading, setSuccessful, successful } = MatrixContext();
+	const { setContactsByClient } = ContactContext();
+
+
 	const createClient = async (data: ClientRequest) => {
 		try {
-			const formData = new FormData()
-			formData.append('file', filePath)
-			formData.append('upload_preset', 'tqned5se')
+			setLoading(true);
+			const formData = new FormData();
+			formData.append('file', filePath);
+			formData.append('upload_preset', 'tqned5se');
 
 			const responseCloudinary = await axios.post(urlCloudinaryApi, formData)
-
+			
+	
 			await api.post('/clients/', {
 				...data, avatarUrl: responseCloudinary.data.url
 			});
 
-			navigate('/', { replace: true });
+			setTimeout( () => {
+				
+				setLoading(false);
+	
+				navigate('/', { replace: true });
+
+			}, 2000);
+			
 
 		} catch (error) {
-			console.log(error);
+			if(error instanceof AxiosError){
+				error.response?.status === 500 && setTimeout(() => {
+	
+					logout()
+					navigate('/error', {replace: true});
+	
+				}, 3000);
+			}
 
 		};
 	};
@@ -65,28 +83,69 @@ const ClientProvider = ({ children }: Props) => {
 	};
 
 	const updateClient = async (data: ClientUpdateRequest) => {
-		let decoded: JwtPayload = {
-			exp: 1,
-			iat: 1,
-			sub: 'error',
-		};
-
 		try {
+			setLoading(true);
+
+			let decoded: JwtPayload = {
+				exp: 1,
+				iat: 1,
+				sub: 'error',
+			};
+
 			const token = getToken();
 
 			if (token) {
 				decoded = jwt_decode(token!);
 			};
 
+			const formData = new FormData();
+
+			formData.append('file', filePath);
+			formData.append('upload_preset', 'tqned5se')
+	
+			if(filePath){
+
+				const responseCloudinary = await axios.post(urlCloudinaryApi, formData)
+		
+				
+				const response = await api.patch(`/clients/${decoded.sub}`, {
+					...data, avatarUrl: responseCloudinary.data.url
+					
+				});
+
+				setTimeout( () => {
+				
+					setLoading(false);
+					setClient(response.data);
+					setReload(!reload);
+					setSuccessful(!successful);
+
+				}, 2000);
+				
+			}
+
 			const response = await api.patch(`/clients/${decoded.sub}`, {
-				...data
+				...data, avatarUrl: 'found'	
 			});
 
-			setClient(response.data);
-			setReload(!reload);
+			setTimeout( () => {
+				
+				setLoading(false);
+				setClient(response.data);
+				setReload(!reload);
+				setSuccessful(!successful);
+				
+			}, 2000);
 
 		} catch (error) {
-			console.log(error);
+			if(error instanceof AxiosError){
+				error.response?.status === 500 && setTimeout(() => {
+	
+					logout()
+					navigate('/error', {replace: true});
+	
+				}, 5000);
+			}
 		};
 	};
 
@@ -110,25 +169,33 @@ const ClientProvider = ({ children }: Props) => {
 			navigate('/', { replace: true });
 
 		} catch (error) {
-			if ( error instanceof AxiosError){
-				console.log(error);
-
+			if(error instanceof AxiosError){
+				error.response?.status === 500 && setTimeout(() => {
+	
+					logout()
+					navigate('/error', {replace: true});
+	
+				}, 5000);
 			}
 		};
 	};
-	
+
 	const loading = async (decoded: JwtPayload) => {
 		try {
 			const response: IClient = await (await api.get(`/clients/${decoded.sub}`)).data;
-			
+
 			setClient(response);
+
 			const contacts: ResponseContact[] = response!.contacts
 			const information = response.contactInformations
-			console.log(response.contactInformations)
-			information && setInformationByClient(information)
-			
-			setContactsByClient(contacts)
+			const tasks = response.tasks
 
+			setContactsByClient(contacts)
+			information && setInformationByClient(information)
+
+			tasks && setTasks(response.tasks)
+			console.log(tasks);
+			
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				logout();
@@ -161,8 +228,10 @@ const ClientProvider = ({ children }: Props) => {
 			setInformationByClient,
 			setOpenModalInformation,
 			setOpenModal,
+			setOpenModalDetailClient,
 			navigate,
-			openModalInformation, 
+			openModalDetailClient,
+			openModalInformation,
 			openModal,
 			informationByClient,
 			client,

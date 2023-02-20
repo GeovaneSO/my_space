@@ -1,12 +1,13 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import jwt_decode, { JwtPayload } from "jwt-decode";
 import { createContext, useContext, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { api, urlCloudinaryApi } from '../../api';
 import { ResponseContact } from "../../interfaces/client.interface";
 import { ContactRequest, ContactUpdateRequest, IContact } from '../../interfaces/contact.interface';
 import { ContactProviderData, Props } from '../../interfaces/contexts.interface';
 import { MatrixContext } from "../matrix.context";
-import { getToken } from '../session/auth';
+import { getToken, logout } from '../session/auth';
 
 const Context = createContext<ContactProviderData>({} as ContactProviderData)
 
@@ -16,7 +17,9 @@ const ContactProvider = ({ children }: Props) => {
 	const [openCreateContact, setOpenCreateContact] = useState<boolean>(false)
 	const [openDetailContact, setOpenDetailContact] = useState<boolean>(false)
 	const [openContactInformation, setOpenContactInformation] = useState<boolean>(false)
-	const { reload, setReload, filePath } = MatrixContext();
+	const navigate = useNavigate();
+
+	const { reload, setReload, filePath, setLoading, setSuccessful, successful } = MatrixContext();
 
 	let decoded: JwtPayload = {
 		exp: 1,
@@ -26,28 +29,59 @@ const ContactProvider = ({ children }: Props) => {
 
 	const createContact = async (data: ContactRequest) => {
 		try {
+			setLoading(true);
+			setOpenCreateContact(!openCreateContact)
 			const token = getToken();
 
-			console.log(data);
 			if (token) {
 				decoded = jwt_decode(token!);
 			};
-
+						
 			const formData = new FormData()
 			formData.append('file', filePath)
 			formData.append('upload_preset', 'tqned5se')
+			
+			if (filePath){
+				let responseCloudinary = await axios.post(urlCloudinaryApi, formData)
+				
+				const response = await api.post(`/contacts/clients/${decoded.sub}`, {
+					...data, avatarUrl: responseCloudinary.data.url
+				});
 
-			const responseCloudinary = await axios.post(urlCloudinaryApi, formData)
+				setTimeout( () => {
+				
+					setLoading(false);
+					setContact(response.data);
+					setSuccessful(!successful);
+					setReload(!reload);
+					return response.data;
+
+				}, 2000);
+
+			}
 
 			const response = await api.post(`/contacts/clients/${decoded.sub}`, {
-				...data, avatarUrl: responseCloudinary.data.url
+				...data, avatarUrl: 'found'
 			});
 
-			setContact(response.data);
-			setReload(!reload)
+			setTimeout( () => {
+				
+				setLoading(false);
+				setContact(response.data);
+				setSuccessful(!successful)
+				setReload(!reload);
+
+			}, 2000);
 
 		} catch (error) {
-			console.log(error);
+			if(error instanceof AxiosError){
+				error.response?.status === 500 && setTimeout(() => {
+	
+					logout()
+					navigate('/error', {replace: true});
+	
+				}, 5000);
+			}
 		};
 	};
 
@@ -80,7 +114,6 @@ const ContactProvider = ({ children }: Props) => {
 
 			setContact(response.data);
 
-			console.log(contact);
 			return response
 
 		} catch (error) {
@@ -90,41 +123,89 @@ const ContactProvider = ({ children }: Props) => {
 
 	const updateContact = async (data: ContactUpdateRequest) => {
 		try {
+			setLoading(true);
+			setOpenDetailContact(!openDetailContact)
 			const token = getToken();
 
 			if (token) {
 				decoded = jwt_decode(token!);
 			};
 
+			const formData = new FormData()
+			formData.append('file', filePath)
+			formData.append('upload_preset', 'tqned5se')
+			
+			if (filePath){
+				let responseCloudinary = await axios.post(urlCloudinaryApi, formData)
+				
+				const response = await api.post(`/contacts/clients/${decoded.sub}`, {
+					...data, avatarUrl: responseCloudinary.data.url
+				});
+				
+				setTimeout( () => {
+				
+					setLoading(false);
+					setContact(response.data);
+					setSuccessful(!successful);
+					setReload(!reload);
+					return response.data;
+
+				}, 2000);
+
+			}
+
 			const response = await api.patch(`/contacts/${contact.id}/clients/${decoded.sub}`, {
-				...data
+				...data, avatarUrl: 'found'
 			});
-
-			setReload(!reload);
-
-			setContact(response.data);
-			setOpenDetailContact(!openDetailContact)
+			
+			setTimeout( () => {
+				
+				setLoading(false);
+				setReload(!reload);
+				setSuccessful(!successful)
+				setContact(response.data);
+			}, 2000);
 
 		} catch (error) {
-			console.log(error);
+			if(error instanceof AxiosError){
+				error.response?.status === 500 && setTimeout(() => {
+	
+					logout()
+					navigate('/error', {replace: true});
+	
+				}, 5000);
+			}
 
 		}
 	}
 	const deleteContact = async () => {
 		try {
+			setLoading(true);
+			setOpenDetailContact(!openDetailContact)
 			const token = getToken();
 
 			if (token) {
 				decoded = jwt_decode(token!);
 			};
 
-			const response = await api.delete(`/contacts/${contact.id}/clients/${decoded.sub}`);
-			console.log(response)
-			setReload(!reload)
-			setOpenDetailContact(!openDetailContact)
-		} catch (error) {
-			console.log(error);
+			await api.delete(`/contacts/${contact.id}/clients/${decoded.sub}`);
+			
+			setTimeout( () => {
+				
+				setLoading(false);
+				setReload(!reload)
 
+			}, 2000);
+
+		} catch (error) {
+			if(error instanceof AxiosError){
+				error.response?.status === 500 && setTimeout(() => {
+	
+					logout()
+					navigate('/error', {replace: true});
+	
+				}, 5000);
+			}
 		}
 	}
 
@@ -134,8 +215,6 @@ const ContactProvider = ({ children }: Props) => {
 		if (findContact) {
 			getOneContactByClient(findContact.id)
 		}
-		// setContact(findContact);
-		console.log(contact);
 
 		setOpenDetailContact(!openDetailContact);
 	};

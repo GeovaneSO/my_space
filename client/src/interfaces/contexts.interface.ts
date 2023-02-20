@@ -3,6 +3,7 @@ import { NavigateFunction } from 'react-router-dom';
 import { ClientRequest, ClientUpdateRequest, IClient, InformationResponse, ResponseContact } from './client.interface';
 import { ContactUpdateRequest, IContact } from './contact.interface';
 import { InformationRequest } from './information.interface';
+import { TaskRequest, TaskResponse, TaskUpdateRequest } from './task.interface';
 
 export interface Props {
     children: ReactNode;
@@ -10,8 +11,18 @@ export interface Props {
 
 export interface MatrixProviderData {
     setFilePath: Function;
-    filePath: string;
+    setSuccessful: Function
     setReload: Function;
+    setTasks: Function;
+    setLoading: Function;
+    setOneTask: Function;
+    oneTask: TaskResponse;
+    setInformationOwner: Function;
+    informationOwner: string;
+    loading: boolean;
+    tasks: TaskResponse[];
+    filePath: string;
+    successful: boolean;
     reload: boolean;
     isPaused: boolean
     isStopped: boolean;
@@ -23,9 +34,11 @@ export interface ClientProviderData {
     updateClient: (data: ClientUpdateRequest) => void;
     deleteClient: () => void;
     navigate:  NavigateFunction;
+    setOpenModalDetailClient: Function;
     openModalInformation: boolean;
     setOpenModalInformation: Function;
-    setInformationByClient: Function
+    setInformationByClient: Function;
+    openModalDetailClient: boolean;
     setOpenModal: Function;
     openModal: boolean;
     informationByClient: InformationResponse[];
@@ -35,6 +48,20 @@ export interface ReportContactsProviderData{
     createReportContacts: () => void;
 
 };
+
+export interface TaskClientProviderData {
+    createTaskClient: (data: TaskRequest) => void;
+    handleChecked: (event: boolean, id: string) => void;
+    updateTask: (data: TaskUpdateRequest) => void;
+    deleteTask: () => void;
+    openModalDetail: (taskId: string) => void;
+    setOpenModalDetailTask: Function;
+    openModalDetailTask: boolean;
+    setOpenModalCreateTask: Function;
+    setSuccessful: Function;
+    openModalCreateTask: boolean;
+    successful: boolean;
+}
 
 export interface SessionProviderData {
     createSession: (data: any) => void;

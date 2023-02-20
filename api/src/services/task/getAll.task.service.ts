@@ -1,20 +1,35 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Task } from '@prisma/client';
 import { ApiService } from 'src/app.service';
+import { TaskResponse } from 'src/interfaces/task.interface';
 
 @Injectable()
 export class GetAllTasksService {
   constructor(private prisma: ApiService) {}
 
-  async getAllTasks(idToken: string): Promise<Task[]> {
+  async getAllTasks(idToken: string): Promise<TaskResponse[]> {
     const client: {
-      tasks: Task[];
+      tasks: TaskResponse[];
     } = await this.prisma.client.findUnique({
       where: {
         id: idToken,
       },
       select: {
-        tasks: true,
+        tasks: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            status: true,
+            create_at: true,
+            update_at: true,
+            category: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
       },
     });
 

@@ -15,30 +15,11 @@ export const ContainerInput = styled.div`
   .a{
       border: 2px dashed #ccc;
       width: 100%;
-      /* padding: 20px; */
+
       height: 60px;
       border: none;
-      border-bottom: 1px solid;
-
-      /* text-align: center; */
-
     }
-    .dropzone-input {
-      cursor: pointer;
-      .input {
-        /* height: 100%; */
-      }
-      display: flex;
-      justify-content: center;
-
-      span{
-        font-weight: 400;
-  font-size: 12px;
-  line-height: 0px;
-text-align: center;
-      }
-height: 20px;
-    }
+    
 
   input {
     width: 100%;
@@ -51,7 +32,12 @@ height: 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    gap: 20px;
+    gap: 16px;
+    textarea{
+      padding: 10px;
+      height: 140px;
+    }
+
   }
 
   .box_label_error{
@@ -98,7 +84,15 @@ height: 20px;
   }
 `;
 
+export const SelectInput = styled.select`
+  width: 100%;
+  padding: 5px;
+  border: none;
+  border-bottom: 1px solid;
+`
+
 export const ErrorsSpan = styled.span`
   font-size: 8px;
   margin: 0;
 `;
+

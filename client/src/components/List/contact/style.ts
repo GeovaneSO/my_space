@@ -53,9 +53,13 @@ export const ContainerList = styled.ul`
         display: flex;
         justify-content: space-between;
         border-bottom: 1px dashed #acc9ff;
-    border-top: 1px dashed #acc9ff;
-    padding: 10px 0;
+        border-top: 1px dashed #acc9ff;
+        padding: 10px 0;
+        
 
+        :hover{
+            background-color:#F1F3F5;
+        }
         .box_name_contact{
             display: flex;
             flex-direction: column;

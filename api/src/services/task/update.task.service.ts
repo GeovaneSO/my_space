@@ -27,9 +27,15 @@ export class UpdateTaskService {
       throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
     }
 
+    const taskClient = client.tasks.find((task) => task.id === idTask);
+
+    if (!taskClient) {
+      throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+
     const task: Task = await this.prisma.task.findUnique({
       where: {
-        id: idTask,
+        id: taskClient.id,
       },
     });
 

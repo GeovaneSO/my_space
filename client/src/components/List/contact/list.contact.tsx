@@ -1,4 +1,4 @@
-import { FiMoreVertical,FiUser } from 'react-icons/fi';
+import { FiMoreVertical } from 'react-icons/fi';
 import { ContactContext } from "../../../contexts/contact/contact.context";
 import { ButtonModal } from '../../Button';
 import { ContainerList, Container } from './style';
@@ -13,7 +13,7 @@ const ListContacts = () => {
         setOpenCreateContact, 
         openModalDetail,
     } = ContactContext()
-    console.log(contactsByClient )
+
     return (
         <Container>
         
@@ -32,13 +32,14 @@ const ListContacts = () => {
                             <li
                                 className="card"
                                 key={contact.id}
+                                onClick={() => openModalDetail(contact.id)}
                             >
                                 <div className='box_name_contact'>
                                     <ImageContainer >
                                         {
                                             contact.avatarUrl.length > 10 ?
                                                 <img src={contact.avatarUrl} alt="Imagem de contato" />
-                                            :   <FiUser/>
+                                            :   <div className='div_img'>{contact.name.substring(0,1)}</div>
                                             }
                                     </ImageContainer>
                                     <p>{contact.name}</p>

@@ -4,6 +4,21 @@ interface Information {
   phone: string;
 }
 
+interface Category {
+  id: string;
+  name: string;
+}
+
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  category: Category;
+  status: boolean;
+  create_at: Date;
+  update_at: Date;
+}
+
 interface Contact {
   id: string;
   name: string;
@@ -36,6 +51,7 @@ export interface GetClient {
   create_at: Date;
   contacts?: Contact[];
   contactInformations?: Information[];
+  tasks?: Task[];
 }
 export interface ClientWithout {
   name: string;

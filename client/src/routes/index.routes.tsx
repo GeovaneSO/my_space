@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Dashboard, Login, Register } from "../pages";
+import { Dashboard, Login, Register, Error } from "../pages";
 
 const RoutesMain = () => {
 
@@ -9,7 +9,7 @@ const RoutesMain = () => {
          <Route path='/register' element={<Register/>}/>
          <Route path='/dashboard' element={<Dashboard/>}/>
 
-         {/* <Route path='/error' element={<Error/>}/> */}
+         <Route path='/error' element={<Error/>}/>
     </Routes>
   )
 }

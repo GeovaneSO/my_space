@@ -5,11 +5,16 @@ import loginSVG from "../../utils/img/121421-login.json"
 import Lottie from "react-lottie"
 import { MatrixContext } from "../../contexts/matrix.context";
 import { useMedia } from "react-use-media";
+import Loading from "../../components/Loading";
+import { motion } from 'framer-motion';
+
 const Login = () => {
-    const { isPaused, isStopped } = MatrixContext();
+    const { isPaused, isStopped, loading } = MatrixContext();
+    
     const isWide = useMedia({
         minWidth: 700,
       });
+
 	const defaultOptions = {
 		loop: true,
 		autoplay: true,
@@ -18,11 +23,18 @@ const Login = () => {
 			preserveAspectRatio: "xMidYMid slice",
 		}
 	};
+
     return (
 
-        <>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+        >
+        { loading && <Loading />}
             <HeaderForms >
-                <h2>Entre</h2>
+                <h2>My Space</h2>
             </HeaderForms>
         
             <ContainerMainSession>
@@ -40,7 +52,7 @@ const Login = () => {
                     }
                 </SectionForm>
             </ContainerMainSession>
-        </>
+        </motion.div>
 
     );
 };

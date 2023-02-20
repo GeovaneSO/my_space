@@ -1,10 +1,12 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { BsExclamationCircle } from "react-icons/bs";
 import { MatrixContext } from '../../../contexts/matrix.context';
 import { PropsInput } from '../../../interfaces/component.interface';
 import { ContainerInput } from '../style';
 const InputRegister = ({
 	register,
+	reset,
+	isSubmitSuccessful,
 	label,
 	errors,
 	children,
@@ -13,12 +15,24 @@ const InputRegister = ({
 	name,
 	placeholder,
 }: PropsInput) => {
-	const { setFilePath } = MatrixContext()
+	const { setFilePath, successful, setSuccessful  } = MatrixContext()
 
 	const fileInput = useRef<HTMLInputElement>(null);
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setFilePath(event.target.files![0]);
 	};
+
+	useEffect(() => {
+		if (isSubmitSuccessful) {
+			setSuccessful(!successful)
+			reset({
+				avatarUrl: "",
+				email: '', 
+				name: '', 
+				phone: ''
+			});
+		}
+	}, [, successful, reset]);
 
 	return (
 		<>

@@ -12,24 +12,21 @@ export const ContainerDashboard = styled.div`
 export const ContainerMainDashboard = styled.main`
     display: flex;
     flex-direction: column;
-    /* gap: 30px; */
-    /* padding: 20% 8%; */
-    /* padding-bottom: 2%; */
+
     width: 100%;
     height: 100%;
-    
+    padding: 0 6%;
+    gap: 20px;
     background-color:  #f3f7f9;
     @media (min-width: 380px) {
-        /* width: 380px; */
-            align-items: center;
+        align-items: center;
 
     }
-    @media (min-width: 768px) {
-        /* width: 380px; */
-            align-items: normal;
-            flex-direction: row;
-            /* justify-content: space-between; */
-            gap: 15%;
+    @media (min-width: 632px) {
+        align-items: normal;
+        flex-direction: row;
+        /* gap: 15%; */
+        padding: 0 4%;
 
     }
 
@@ -39,20 +36,15 @@ export const SectionContacts = styled.section`
     display: flex;
     flex-direction: column;
 
-    /* justify-content: center; */
-    /* align-items: center; */
     height: 100%;
-    padding: 0 42px;
+    /* padding: 0 42px; */
     padding: 0;
-    
+    width: 100%;
     @media (min-width: 380px) {
         width: 380px;
-            /* align-items: center; */
 
     }
     @media (min-width: 768px) {
-        /* width: 380px; */
-            padding-left: 42px;
 
     }
 `
@@ -61,6 +53,11 @@ export const SectionContacts = styled.section`
 export const SectionTasks = styled.section`
     display: flex;
     flex-direction: column;
+    width: 100%;
+    height: 100%;
+    @media (min-width: 634px) {
+        width: 70%;
+    }   
 `
 
 export const SectionUserContainer = styled.section`

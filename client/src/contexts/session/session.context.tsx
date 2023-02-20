@@ -12,37 +12,53 @@ const Context = createContext<SessionProviderData>({} as SessionProviderData)
 
 const SessionProvider = ({ children }: Props) => {
 	const navigate = useNavigate();
-	const { setReload, reload } = MatrixContext();
+	const { setReload, reload, setLoading } = MatrixContext();
 
 
 	const createSession = async (data: ClientRequest) => {
 
 		try {
+			setLoading(true);
+
 			const response: AxiosResponse<any, any> = await api.post('/auth/login', {
 				...data
 			});
-		
-			const {access_token: token} = response.data;
+			
+			setTimeout( () => {
+				
+				const {access_token: token} = response.data;
+	
+				if (api.defaults.headers != null) {
+					api.defaults.headers.common.Authorization =  `Bearer ${token}` 
+				};
+				
+				login(token);
+				
+				setLoading(false);
 
-			if (api.defaults.headers != null) {
-				api.defaults.headers.common.Authorization =  `Bearer ${token}` 
-			};
+				setReload(!reload);	
 
-			login(token);
-			setReload(!reload)		
-			navigate('/dashboard', { replace: true });
+				navigate('/dashboard', { replace: true });
+
+			}, 500);
 
 		} catch (error) {
 			if (error instanceof AxiosError) {
+				setLoading(false);
 
-				console.log(error.response?.data);
+				error.response?.status === 500 && setTimeout(() => {
+	
+					navigate('/error', {replace: true});
+	
+				}, 1000);			
 			};
 		};
 	};
+
 	const logout = () => {
 		localStorage.removeItem('TOKEN_KEY');
 		navigate('/', { replace: true });
-	  };
+	};
 
 	return (
 		<Context.Provider value={{

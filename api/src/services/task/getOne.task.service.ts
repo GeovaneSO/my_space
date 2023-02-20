@@ -22,9 +22,16 @@ export class GetOneTaskService {
     if (!client) {
       throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
     }
+
+    const taskClient = client.tasks.find((task) => task.id === idTask);
+
+    if (!taskClient) {
+      throw new HttpException('Task does not exist', HttpStatus.BAD_REQUEST);
+    }
+
     const task: TaskResponse = await this.prisma.task.findUnique({
       where: {
-        id: idTask,
+        id: taskClient.id,
       },
       select: {
         id: true,

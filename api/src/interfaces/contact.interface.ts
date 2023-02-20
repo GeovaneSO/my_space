@@ -12,6 +12,16 @@ interface Contact {
   contactInformations: Information[];
 }
 
+export interface GetManyContacts {
+  id: string;
+  name: string;
+  avatarUrl: string;
+  create_at: Date;
+  update_at: Date;
+  contactInformations: Information[];
+  clients: Client[];
+}
+
 export interface GetOneContact {
   id: string;
   name: string;

@@ -38,7 +38,7 @@ export class ClientController {
   @Post()
   public createClient(@Body() request: ClientRequest): Promise<GetClient> {
     const clientData = request;
-    console.log(clientData);
+
     const newClient = this.createClientService.createClient(clientData);
 
     return newClient;

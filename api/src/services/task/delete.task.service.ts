@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Task } from '@prisma/client';
 import { ApiService } from 'src/app.service';
 
 @Injectable()
@@ -20,17 +19,13 @@ export class DeleteTaskService {
       throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
     }
 
-    const task: Task = await this.prisma.task.findUnique({
-      where: {
-        id: idTask,
-      },
-    });
+    const task = client.tasks.find((task) => task.id === idTask);
 
     if (!task) {
-      throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
+      throw new HttpException('Task does not exist', HttpStatus.UNAUTHORIZED);
     }
 
-    this.prisma.task.delete({
+    await this.prisma.task.delete({
       where: {
         id: task.id,
       },

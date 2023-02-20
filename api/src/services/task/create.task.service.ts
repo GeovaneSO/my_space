@@ -8,6 +8,7 @@ export class CreateTaskService {
 
   async createTask(idToken: string, data: TaskRequest): Promise<TaskResponse> {
     const { category, description, title }: TaskRequest = data;
+
     const client: Client = await this.prisma.client.findUnique({
       where: {
         id: idToken,
@@ -16,6 +17,16 @@ export class CreateTaskService {
 
     if (!client) {
       throw new HttpException('Client unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+
+    const taskExist = await this.prisma.task.findUnique({
+      where: {
+        title,
+      },
+    });
+
+    if (taskExist) {
+      throw new HttpException('Task already exist', HttpStatus.UNAUTHORIZED);
     }
 
     const newTask: TaskResponse = await this.prisma.task.create({

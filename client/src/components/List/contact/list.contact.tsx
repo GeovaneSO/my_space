@@ -5,6 +5,7 @@ import { ContainerList, Container } from './style';
 import { ImageContainer } from '../../../styles/global'
 import { ButtonAdd } from "../../Button";
 import { AiOutlineUserAdd } from 'react-icons/ai';
+import { motion } from 'framer-motion';
 
 const ListContacts = () => {
     const { 
@@ -29,10 +30,17 @@ const ListContacts = () => {
                 {
                     contactsByClient && contactsByClient.length > 0 ?
                         contactsByClient.map((contact) =>
-                            <li
+                            <motion.li
                                 className="card"
                                 key={contact.id}
                                 onClick={() => openModalDetail(contact.id)}
+                                initial={{x: 200}}
+                                animate={{x: 0,
+                                    transition: { 
+                                        type: "spring", 
+                                        stiffness: 30
+                                    }
+                                }}
                             >
                                 <div className='box_name_contact'>
                                     <ImageContainer >
@@ -56,7 +64,7 @@ const ListContacts = () => {
                                 >
                                     <FiMoreVertical className='svg'/>
                                 </ButtonModal>
-                            </li>
+                            </motion.li>
 
                         ) :
                         <div>

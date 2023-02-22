@@ -121,6 +121,8 @@ const ClientProvider = ({ children }: Props) => {
 					setSuccessful(!successful);
 
 				}, 2000);
+
+				return response.data
 				
 			}
 
@@ -194,7 +196,6 @@ const ClientProvider = ({ children }: Props) => {
 			information && setInformationByClient(information)
 
 			tasks && setTasks(response.tasks)
-			console.log(tasks);
 			
 		} catch (error) {
 			if (error instanceof AxiosError) {

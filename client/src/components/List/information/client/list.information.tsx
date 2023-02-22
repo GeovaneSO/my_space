@@ -1,13 +1,13 @@
 import { AnimatePresence } from 'framer-motion';
-import { GrFormClose } from 'react-icons/gr';
 import { MdAddIcCall, MdOutlineAutoDelete } from 'react-icons/md';
 import { ClientContext } from '../../../../contexts';
 import { InformationContext } from '../../../../contexts/information/information.context';
 import { ButtonAdd } from '../../../Button';
 import { ContainerList, Container, ContainerListInformation, BoxTitle } from '../style';
+import { motion } from 'framer-motion';
 
 const ListInformation = () => {
-    const { informationByClient, openModalInformation, setOpenModalInformation } = ClientContext()
+    const { informationByClient, openModalInformation, setOpenModalInformation, client } = ClientContext()
     const { createInformationModal, setCreateInformationModal, getInformationById } = InformationContext()
 
     return (
@@ -41,7 +41,7 @@ const ListInformation = () => {
                     >
 
                         <BoxTitle>
-                            <h3>Informações para contato</h3>
+                            <h3>Informações de {client.username}</h3>
 
                             <div className='box_btsn'>
                                 <ButtonAdd
@@ -56,7 +56,7 @@ const ListInformation = () => {
                                 <ButtonAdd
                                     onClick={() => setOpenModalInformation(!openModalInformation)}
                                 >
-                                    <GrFormClose className="svg" />
+                                    X
                                 </ButtonAdd>
                             </div>
                         </BoxTitle>
@@ -64,9 +64,16 @@ const ListInformation = () => {
                             {
                                 informationByClient.length > 0 ?
                                     informationByClient.map((information) =>
-                                        <li
+                                        <motion.li
                                             className="card"
                                             key={information.id}
+                                            initial={{x: 200}}
+                                            animate={{x: 0,
+                                                transition: { 
+                                                    type: "spring", 
+                                                    stiffness: 30
+                                                }
+                                            }}
                                         >
 
                                             <div className='box_information'>
@@ -81,7 +88,7 @@ const ListInformation = () => {
                                             >
                                                 <MdOutlineAutoDelete />
                                             </ButtonAdd>
-                                        </li>
+                                        </motion.li>
 
                                     ) :
                                     <div>

@@ -1,16 +1,16 @@
 import styled from 'styled-components';
+import { Theme } from '../../interfaces/theme.interface';
 
-export const ContainerForm = styled.form`
+export const ContainerForm = styled.form<{theme: Theme}>`
     display: flex;
     justify-content: space-around;
     flex-direction: column;
     align-items: center;
 
     width: 100%;
-    /* height: 70%; */
 
     padding: 6% 6%;
-    background-color:  #fff;
+    background-color: ${(props) => props.theme.list.backgroundColor};
 
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -21,7 +21,14 @@ export const ContainerForm = styled.form`
         font-size: 20px;
         font-weight: 600;
     }
-   
+    textarea, select{
+        background-color: ${(props) => props.theme.list.backgroundColor};
+
+    }
+    .title{
+        background-color: ${(props) => props.theme.list.backgroundColor};
+
+    }
 
 `;
 
@@ -33,14 +40,15 @@ export const BoxFormInputValue = styled.div`
     gap: 20px;
     width: 100%;
     height: 100%;
-
 `
-export const ContainerLink = styled.div`
+export const ContainerLink = styled.div<{theme: Theme}>`
     display: flex;
     margin-top: 10px;
     justify-content: center;
     span{
         font-size: 10px;
+        color: ${(props) => props.theme.header.textColor};
+
     }
     a{
         font-size:10px ;

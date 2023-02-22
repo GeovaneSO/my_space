@@ -19,7 +19,8 @@ export const ContainerButton = styled.div`
     background-color: transparent;
     
     font-size: 85%;
-      color: black;
+    
+
     .svg{
       background-color: transparent;
 

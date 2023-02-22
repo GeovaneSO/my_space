@@ -1,14 +1,13 @@
-// import { useMedia } from "react-use-media";
+import { AnimatePresence } from "framer-motion";
+import { BiLogOut } from "react-icons/bi";
+import { BsLightbulb } from 'react-icons/bs';
+import { FaUserEdit } from "react-icons/fa";
+import { MdDarkMode, MdOutlinePermDeviceInformation } from "react-icons/md";
+import { TbReportSearch } from 'react-icons/tb';
 import { ButtonAdd } from "../../../components/Button";
 import { ClientContext, ReportContext, SessionContext } from "../../../contexts";
-import { BoxBtnNav, NavBarContainer, NavBarSection } from "./style";
-import { BiLogOut } from "react-icons/bi";
-import { FaUserEdit } from "react-icons/fa";
-import { GrFormClose } from "react-icons/gr";
-import { MdOutlinePermDeviceInformation } from "react-icons/md";
-import { TbReportSearch } from 'react-icons/tb';
-import { AnimatePresence } from "framer-motion";
 import { MatrixContext } from "../../../contexts/matrix.context";
+import { BoxBtnNav, NavBarContainer, NavBarSection } from "./style";
 
 const NavBar = (): JSX.Element => {
 
@@ -18,16 +17,15 @@ const NavBar = (): JSX.Element => {
         setOpenModalInformation,
         setOpenModal,
         openModalDetailClient,
-        setOpenModalDetailClient 
+        setOpenModalDetailClient
     } = ClientContext();
     const { createReportContacts } = ReportContext();
     const { logout } = SessionContext();
-    const { setInformationOwner } = MatrixContext()
-
-
+    const { setInformationOwner, setCurrentTheme, currentTheme } = MatrixContext()
+    
     return (
         <AnimatePresence>
-            { openModal && 
+            {openModal &&
                 (<NavBarContainer
                     onClick={() => setOpenModal(false)}
 
@@ -35,22 +33,27 @@ const NavBar = (): JSX.Element => {
                     <NavBarSection
                         initial={{ x: 300 }}
                         animate={
-                        {              x: -1,
+                            {
+                                x: 0,
                                 transition: {
                                     type: "spring",
-                                    stiffness: 30}
-                    }
+                                    stiffness: 30
+                                }
+                            }
                         }
-                        exit={{x: 300, transition: {
-                            type: "spring",
-                            stiffness: 30}}}
-                            onClick={(e) =>  e.stopPropagation()}
+                        exit={{
+                            x: 300, transition: {
+                                type: "spring",
+                                stiffness: 30
+                            }
+                        }}
+                        onClick={(e) => e.stopPropagation()}
 
                     >
                         <ButtonAdd
+                            className="bt"
                             onClick={() => setOpenModal(false)}
-                        >
-                            <GrFormClose className="svg" />
+                        > X
                         </ButtonAdd>
 
                         <BoxBtnNav>
@@ -79,13 +82,30 @@ const NavBar = (): JSX.Element => {
                             <ButtonAdd
                                 onClick={() => {
                                     setOpenModal(false)
-                                    createReportContacts()}
+                                    createReportContacts()
+                                }
                                 }
                             >
                                 <TbReportSearch className="svg" />
                                 Crie seu relatório de contatos
                             </ButtonAdd>
 
+                            <ButtonAdd
+                                onClick={() => {
+                                    setCurrentTheme(currentTheme === "lightTheme" ? "darkTheme" : "lightTheme")
+                                    localStorage.setItem('theme',
+                                        // currentTheme === "lightTheme" ? "darkTheme" : "ligthTheme"
+                                        currentTheme
+                                    )
+                                }}
+                            >
+                                {
+                                    currentTheme === "lightTheme" ?
+                                        
+                                        <><BsLightbulb /><span>Tema claro</span></> :
+                                        <> <MdDarkMode /> <span>Tema escuro</span></>
+                                }
+                            </ButtonAdd>
                         </BoxBtnNav>
 
                         <ButtonAdd

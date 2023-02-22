@@ -37,6 +37,7 @@ export interface PropsInput {
     | 'avatarUrl'
   placeholder?: string;
 }
+
 export interface PropsInputContact {
   id?: string;
   label?: string;
@@ -91,6 +92,7 @@ export interface PropsInputTask {
   label?: string;
   errors: FieldErrors<TaskRequest>
   textarea?: boolean;
+  className?: string;
   category?: boolean;
   isSubmitSuccessful?: boolean;
   type?: 'text' | 'button' | 'checkbox' | 'password' | undefined;

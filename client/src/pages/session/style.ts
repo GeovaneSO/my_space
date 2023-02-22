@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Theme } from '../../interfaces/theme.interface';
 
-export const ContainerMainSession = styled.main`
+export const ContainerMainSession = styled.main<{theme?: Theme}>`
     display: flex;
     flex-direction: column;
 
@@ -10,8 +11,9 @@ export const ContainerMainSession = styled.main`
     width: 100vw;
     height: 100vh;
 
-    background-color:  #f3f7f9;
+    background-color:${(props) => props.theme.backgroundColor}; 
 `
+
 
 export const SectionForm = styled.section`
     display: flex;

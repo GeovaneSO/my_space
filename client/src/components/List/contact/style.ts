@@ -6,24 +6,27 @@ export const Container = styled.div`
     .box_title{
         display: flex;
         justify-content: space-between;
-
         gap: 15px;
         align-items: center;
-        text-align: center;
-        height: 10%;
+
         padding: 20px;
+        height: 10%;
+
+        text-align: center;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
+        
         background-color: rgb(117 222 255);
+        background-color:${(props) => props.theme.header.backgroundColor};
+        
         h3{
             font-size: 18px;
         }
-    }
 
-    @media(min-width: 370px) {
-        
-        /* width: 314px */
-        
+        h3, button{
+            color: ${(props) => props.theme.header.textColor};
+
+        }
     }
 
 `
@@ -35,31 +38,33 @@ export const ContainerList = styled.ul`
     gap: 20px;
     
     overflow-y: auto;
+    overflow-x: hidden;
     
     margin: 0;
     padding: 20px;
 
     width: 100%;
     height: 377px;
-
-
-    border: 0.2px solid #E9ECEF ;
+    
+    border: 1.4px solid ${(props) => props.theme.borderColor_2};
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 
-    background-color: white;
-    
+    background-color: ${(props) => props.theme.list.backgroundColor};
+   
     li{
         display: flex;
         justify-content: space-between;
-        border-bottom: 1px dashed #acc9ff;
-        border-top: 1px dashed #acc9ff;
+        border-bottom: 1px dashed ${(props) => props.theme.borderColor};
+        border-top: 1px dashed ${(props) => props.theme.borderColor};
         padding: 10px 0;
         
+        color: ${(props) => props.theme.header.textColor};
 
         :hover{
-            background-color:#F1F3F5;
+            background-color: ${(props) => props.theme.list.hover};
         }
+
         .box_name_contact{
             display: flex;
             flex-direction: column;
@@ -82,6 +87,5 @@ export const ContainerList = styled.ul`
             }
         }
     }
-
     
 `

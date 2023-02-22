@@ -18,6 +18,10 @@ export interface MatrixProviderData {
     setOneTask: Function;
     oneTask: TaskResponse;
     setInformationOwner: Function;
+    setCurrentTheme: Function;
+    setIsDarkTheme: Function;
+    isDarkTheme: boolean;
+    currentTheme: string;
     informationOwner: string;
     loading: boolean;
     tasks: TaskResponse[];

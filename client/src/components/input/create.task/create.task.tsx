@@ -15,13 +15,14 @@ const InputTask = ({
 	name,
 	placeholder,
 	category,
-	isSubmitSuccessful
+	isSubmitSuccessful,
+	className,
 }: PropsInputTask) => {
 
 	const { successful, setSuccessful } = MatrixContext()
 
 	const categories = [
-		"Saude", "Casa", "Trabalho", "Lazer", "Estudos"
+		"Saúde", "Casa", "Trabalho", "Lazer", "Estudos"
 	]
 
 	const categoryOption = categories.map((category) => {
@@ -90,6 +91,7 @@ const InputTask = ({
 								name={name}
 								id={id}
 								placeholder={placeholder}
+								className={className}
 							/>
 					}
 				</div>

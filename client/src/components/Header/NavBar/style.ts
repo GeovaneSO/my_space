@@ -11,7 +11,7 @@ export const NavBarContainer = styled(motion.div)<{ active?: boolean }>`
     /* background: rgba(18, 18, 20, 0.5); */
 
     
-    `
+`
 
 export const NavBarSection = styled(motion.section)<{ active?: boolean }>`
     display: flex;
@@ -20,13 +20,22 @@ export const NavBarSection = styled(motion.section)<{ active?: boolean }>`
         width: 75%;
     height: 100%;
    
-    background-color:  #80cfe7e6;
+    /* background-color:  #80cfe7e6; */
+    background-color:${(props) => props.theme.header.navBar.backgroundColor};
+    color: ${(props) => props.theme.header.textColor};
 
     box-shadow: 3px -1px 31px 3px rgba(0,0,0,0.48);
    
     border-radius: 1px;
    
     padding: 5%;
+    button{
+        .svg{
+
+            color: ${(props) => props.theme.header.textColor};
+        }
+        color: ${(props) => props.theme.header.textColor};
+    }
 
     @media (min-width: 370px) {
         width: 280px;

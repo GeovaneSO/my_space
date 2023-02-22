@@ -8,12 +8,11 @@ export const HeaderContainer = styled.header`
     position: fixed;
     z-index: 1;
     inset: 9999;
-    /* background-color: rgb(100, 910, 902); */
-    /* background-color: #80cfe7e6; */
-    /* background-color: rgb(100, 910, 902); */
     background-color: rgb(117 222 255);
+    background-color:${(props) => props.theme.header.backgroundColor};
+    box-shadow: ${(props) => props.theme.header.boxShadow};  
+    color: ${(props) => props.theme.header.textColor};
 
-    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.3);    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,6 +51,11 @@ export const HeaderContainer = styled.header`
         h2{
             font-size: 22px;
             width: fit-content;
+            color: ${(props) => props.theme.header.textColor};
+        }
+        .svg{
+            color: ${(props) => props.theme.header.textColor};
+
         }
 
         span{

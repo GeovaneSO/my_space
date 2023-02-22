@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Theme } from '../../../interfaces/theme.interface';
 
-export const ContainerInput = styled.div`
+export const ContainerInput = styled.div<{ theme: Theme }>`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -14,7 +15,7 @@ export const ContainerInput = styled.div`
     font-weight: 400;
     font-size: 12px;
     line-height: 0px;
-    /* width: fit-content; */
+    color: ${(props) => props.theme.header.textColor};
   }
 
   input {
@@ -22,7 +23,9 @@ export const ContainerInput = styled.div`
     width: 100%;
     padding: 5px;
     border: none;
-    border-bottom: 1px solid;
+    color:  ${(props) => props.theme.input.color};
+    border-bottom: 1px solid ${(props) => props.theme.header.textColor};
+    background-color:  ${(props) => props.theme.form.backgroundColor};
   };
 
   .box_input_error {
@@ -33,8 +36,6 @@ export const ContainerInput = styled.div`
   }
 
   .box_label_error{
-      /* display: ; */
-    /* justify-content: space-between; */
     height: 14px;
   }
 

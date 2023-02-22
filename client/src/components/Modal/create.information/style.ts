@@ -70,16 +70,20 @@ export const ContainerForm = styled.form`
     align-items: center;
 
     width: 95%;
-    /* height: 70%; */
 
     padding: 6% 5%;
-    background-color:  #fff;
+
+    background-color: ${(props) => props.theme.list.backgroundColor};
 
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 
     box-shadow: -1px 0px 22px 0px rgba(0,0,0,0.20);
 
+    input{
+        background-color: ${(props) => props.theme.list.backgroundColor};
+    }
+    
     h3 {
         font-size: 20px;
         font-weight: 600;
@@ -95,22 +99,25 @@ export const BoxTitle = styled.div`
     
     gap: 15px;
     align-items: center;
+    
+    width: 95%;
+    padding: 15px;
+    
     text-align: center;
+
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    padding: 15px;
     box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.3);   
-    width: 95%;
-    background-color: white;
-    background-color: rgb(100, 910, 902);
+
+    background-color:${(props) => props.theme.header.backgroundColor};
 
     h3{
         font-size: 14px;
     }
 
-    .svg{
-        color: gray;
-        background-color: transparent;
+    h3, .svg, button{
+        
+        color: ${(props) => props.theme.header.textColor};
     }
 
     .box_btns{

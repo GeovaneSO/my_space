@@ -26,7 +26,7 @@ export const BoxContentTask = styled.div`
     flex-direction: column;
     gap: 10px;
 
-    background-color: #fff;
+    background-color: ${(props) => props.theme.list.backgroundColor};
 
     height: 50%;
     width: 100%;
@@ -35,11 +35,15 @@ export const BoxContentTask = styled.div`
     span{
         font-size: 14px;
         color: #343A40;
+        color: ${(props) => props.theme.header.textColor};
+
     }
     p{
         font-size: 12px;
         line-height: 20px;
         font-weight: 300;
+        color: ${(props) => props.theme.header.textColor};
+
     }
 
 `

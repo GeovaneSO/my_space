@@ -1,7 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
-import { GrFormClose } from 'react-icons/gr';
 import { TaskContext } from '../../../contexts';
 import { TaskRequest } from '../../../interfaces/task.interface';
 import { createTaskSchema } from '../../../serializers';
@@ -64,7 +63,7 @@ const ModalTask = (): JSX.Element => {
                     <ButtonAdd
                         onClick={() => setOpenModalCreateTask(!openModalCreateTask)}
                     >
-                        <GrFormClose className="svg" />
+                        X
                     </ButtonAdd>
                 </BoxTitle>
                 <ContainerForm onSubmit={handleSubmit(createTaskClient)}>
@@ -80,6 +79,7 @@ const ModalTask = (): JSX.Element => {
                             register={register}
                             reset={reset}
                             isSubmitSuccessful={isSubmitSuccessful}
+                            className="title"
                         />
 
                         <InputTask

@@ -1,10 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
-import { GrFormClose } from "react-icons/gr";
 import { ContactContext } from "../../../contexts/contact/contact.context";
 import { ContactRequest } from "../../../interfaces/contact.interface";
 import { updateContactSchema } from "../../../serializers/index";
-import { ButtonAdd, ButtonForm, ButtonModal } from "../../Button";
+import { ButtonAdd, ButtonForm } from "../../Button";
 import { InputContact } from "../../input/create.contact/create.contact.input";
 import { BoxFormInputValue, ContainerForm } from '../../Form/style';
 import { BoxButtons, Container } from "./style";
@@ -70,7 +69,7 @@ const DetailContact = (): JSX.Element => {
 
                             <div className="box_btns">
 
-                                <ButtonModal
+                                <ButtonAdd
                                     type="button"
                                     onClick={() => {
                                         setOpenDetailContact(!openDetailContact)
@@ -79,12 +78,12 @@ const DetailContact = (): JSX.Element => {
                                     }}
                                 >
                                     <MdOutlinePermDeviceInformation className="svg" />
-                                </ButtonModal>
+                                </ButtonAdd>
                                 
                                 <ButtonAdd
                                     onClick={() => setOpenDetailContact(!openDetailContact)}
                                 >
-                                    <GrFormClose className="svg" />
+                                    X
                                 </ButtonAdd>
                             </div>
                         </BoxTitle>

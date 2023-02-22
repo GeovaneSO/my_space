@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Theme } from '../../interfaces/theme.interface';
 
-export const ContainerInput = styled.div`
+export const ContainerInput = styled.div<{ theme: Theme }>`
   display: flex;
   flex-direction: column;
 
@@ -10,6 +11,8 @@ export const ContainerInput = styled.div`
     font-weight: 400;
     font-size: 12px;
     line-height: 0px;
+    color: ${(props) => props.theme.header.textColor};
+
   }
 
   .a{
@@ -25,8 +28,14 @@ export const ContainerInput = styled.div`
     width: 100%;
     padding: 5px;
     border: none;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid ${(props) => props.theme.header.textColor};
+    background-color:  ${(props) => props.theme.form.backgroundColor};
+
   };
+  input, textarea, option, select{
+    color: ${(props) => props.theme.input.color};
+
+  }
 
   .box_input_error {
     display: flex;

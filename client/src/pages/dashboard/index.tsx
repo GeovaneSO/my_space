@@ -2,7 +2,8 @@ import { motion } from 'framer-motion';
 import { CgMenuGridO } from 'react-icons/cg';
 import { GrFormClose } from 'react-icons/gr';
 import { HiUserCircle } from 'react-icons/hi';
-import { ButtonModal } from "../../components/Button";
+import { ButtonAdd } from "../../components/Button";
+import { Footer } from '../../components/Footer';
 import { HeaderDashboard, NavBar } from "../../components/Header";
 import { ListContactInformation, ListContacts, ListInformation } from "../../components/List";
 import Loading from '../../components/Loading';
@@ -13,10 +14,17 @@ import { DetailTask } from '../../components/Modal/detail.task';
 import { Task } from '../../components/Task';
 import { ClientContext } from "../../contexts";
 import { ImageContainer } from '../../styles/global';
-import { ContainerDashboard, ContainerMainDashboard, SectionContacts, SectionTasks, SectionUser, SectionUserContainer } from "./style";
+import { 
+    ContainerDashboard,
+    ContainerMainDashboard,
+    SectionContacts,
+    SectionTasks,
+    SectionUser,
+    SectionUserContainer,
+} from "./style";
 
 const Dashboard = () => {
-
+    
     const { client, openModal, setOpenModal, setOpenModalDetailClient, openModalDetailClient } = ClientContext();
 
     return (
@@ -40,13 +48,10 @@ const Dashboard = () => {
             {
                 client &&
                 <ContainerDashboard>
-
                     <HeaderDashboard >
                         <h1>My Space</h1>
-
                         <div className="box_bnt">
-
-                            <ButtonModal
+                            <ButtonAdd
                                 onClick={() => setOpenModal(!openModal)}
                             >
                                 {
@@ -55,10 +60,9 @@ const Dashboard = () => {
                                         :
                                         <GrFormClose className="svg" />
                                 }
-                            </ButtonModal>
+                            </ButtonAdd>
                         </div>
                     </HeaderDashboard>
-
                     <SectionUserContainer>
                         <SectionUser>
                             <ImageContainer
@@ -74,16 +78,15 @@ const Dashboard = () => {
                             <p>{client.name}</p>
                         </SectionUser>
                     </SectionUserContainer>
-
                     <ContainerMainDashboard>
                         <SectionContacts>
                             <ListContacts />
                         </SectionContacts>
-
-                        <SectionTasks>
+                        <SectionTasks data-aos="fade-up">
                             <Task />
                         </SectionTasks>
                     </ContainerMainDashboard>
+                    <Footer />
                 </ContainerDashboard>
             }
         </motion.div>

@@ -111,7 +111,7 @@ const FormRegister = () => {
                     isSubmitSuccessful={isSubmitSuccessful}
 
                 />
-                {/* <div className="footer"> */}
+
                 <ContainerButton>
                     <ButtonForm className="button_register" type="submit">
                         Cadastrar
@@ -123,7 +123,6 @@ const FormRegister = () => {
                     <span>Já possuí uma conta?</span>
                     <Link to={'/'}>Faça o login</Link>
                 </ContainerLink>
-                {/* </div> */}
             </BoxFormInputValue>
 
         </ContainerForm>

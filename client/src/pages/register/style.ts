@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Theme } from '../../interfaces/theme.interface';
 
-export const ContainerPageRegister = styled.div`
+export const ContainerPageRegister = styled.div<{theme?: Theme}>`
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -8,7 +9,7 @@ export const ContainerPageRegister = styled.div`
     width: 100vw;
 `
 
-export const ContainerMainRegister = styled.main`
+export const ContainerMainRegister = styled.main<{theme?: Theme}>`
     display: flex;
     flex-direction: column;
 
@@ -17,7 +18,7 @@ export const ContainerMainRegister = styled.main`
     padding-bottom: 2%;
     width: 100vw;
     
-    background-color:  #f3f7f9;
+    background-color:${(props) => props.theme.backgroundColor}; 
     @media (min-width: 450px) {
         padding-top: 15%;
     }
@@ -25,7 +26,7 @@ export const ContainerMainRegister = styled.main`
         padding-top: 100px;
     }
 `
-export const SectionForm = styled.section`
+export const SectionForm = styled.section<{theme?: Theme}>`
     display: flex;
     align-items: center;
     justify-content: space-between;

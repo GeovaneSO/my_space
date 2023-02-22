@@ -7,9 +7,16 @@ import { ButtonModal } from "../../Button"
 const ListTask = ({ title, description, category, status, id }: PropsListTask) => {
     const { handleChecked, openModalDetail } = TaskContext()
     return (
-        <List id={id} status={status}
+        <List id={id} status={status} 
             onClick={() => {
                 openModalDetail(id)
+            }}
+            initial={{x: 200}}
+            animate={{x: 0,
+                transition: { 
+                    type: "spring", 
+                    stiffness: 30
+                }
             }}
         >
             <BoxContent className="box-1">
@@ -21,7 +28,11 @@ const ListTask = ({ title, description, category, status, id }: PropsListTask) =
                         checked={status}
                         onChange={
                             (event)=> handleChecked(event.target.checked, id)
-                        }/>
+                        }
+                        onClick={
+                            (e) =>  e.stopPropagation()
+                        }
+                    />
                 </BoxCheckbox>
                 <Content status={status}>
                     <p>{title}</p>

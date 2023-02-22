@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
+import { Theme } from '../../../interfaces/theme.interface';
 
 
-export const ContainerForm = styled(motion.form)<{ active?: boolean }>`
+export const ContainerForm = styled(motion.form)<{ active?: boolean, theme: Theme }>`
     display: flex;
     justify-content: space-around;
     flex-direction: column;
@@ -12,24 +13,22 @@ export const ContainerForm = styled(motion.form)<{ active?: boolean }>`
     height: 69%;
 
     padding: 8% 10%;
-    background-color:  #fff;
+    background-color:  ${(props) => props.theme.form.backgroundColor};
 
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-
-    box-shadow: -1px 0px 22px 0px rgba(0,0,0,0.20);
+    border-radius: 5px;
+    box-shadow: ${(props) => props.theme.form.boxShadow};
 
     h3 {
         font-size: 20px;
         font-weight: 600;
+        color: ${(props) => props.theme.header.textColor};
     }
    
     @media(min-width:445px){
-        /* form{ */
-            width: 395px;
-            padding: 32px 40px;
-            /* height: 85%; */
-        /* } */
+        width: 395px;
+        padding: 32px 40px;
     }
 `;
 

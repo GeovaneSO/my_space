@@ -1,21 +1,26 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
+import { Theme } from '../../../interfaces/theme.interface';
 
-export const List = styled.li<{status?: boolean}>`
+export const List = styled(motion.li)<{status?: boolean, theme: Theme}>`
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 20%;
     gap: 10px;
+    padding: 40px 18px;
     justify-content: center;
     
-    border-bottom: 1.4px solid #E9ECEF;
-    border-top: 1.4px solid #E9ECEF;
-    padding: 40px 18px;
+    width: 100%;
+    height: 20%;
     
-    background-color:  ${(props) => props.status === true ? "#F1F3D0" : '#fff'} ;
+    border-bottom: 1px solid ${(props) => props.theme.borderColor};
+    border-top: 1px solid ${(props) => props.theme.borderColor};
+    color: ${(props) => props.status === true ? "var(--blue-7)" : props.theme.header.textColor};
+
+    background-color:  ${(props) => props.status === true ? props.theme.list.checked :  props.theme.list.backgroundColor} ;
     
     :hover{
-        background-color:#F1F3F5;
+        background-color: ${(props) => props.theme.list.hover};
+        color: ${(props) => props.theme.header.textColor};
     }
 
     .box-2{
@@ -44,14 +49,15 @@ export const List = styled.li<{status?: boolean}>`
         }
 
         @media (min-width: 1000px) {
-        .box-2{justify-content: space-between;}
-        .box-category{
-            justify-content: space-between;
-            width: 22%;
-            gap: 40px;
+            .box-2{justify-content: space-between;}
+            .box-category{
+                justify-content: space-between;
+                width: 22%;
+                gap: 40px;
+            }
         }
     }
-    }
+    
     @media (min-width: 1200px) {
         .box-1{
             gap: 50px;
@@ -72,9 +78,6 @@ export const BoxContent = styled.div`
         white-space: nowrap;
     }
 
-   
-
-
     @media (min-width: 512px) {
         .box-description{
             width: fit-content;
@@ -87,7 +90,6 @@ export const Content = styled.div<{status?: boolean}>`
     width: 100%;
     justify-content: end;
     text-decoration-line: ${(props) => props.status === true ? "line-through" : 'none'} ;
-
 `
 
 export const BoxCheckbox = styled.div`

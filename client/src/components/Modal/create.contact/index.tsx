@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
-import { GrFormClose } from "react-icons/gr";
 import { ContactContext } from "../../../contexts/contact/contact.context";
 import { ContactRequest } from "../../../interfaces/contact.interface";
 import { contactFormSchema } from "../../../serializers/index";
@@ -59,7 +58,7 @@ const CreateContact = () => {
                             <ButtonAdd
                                 onClick={() => setOpenCreateContact(!openCreateContact)}
                             >
-                                <GrFormClose className="svg" />
+                                X
                             </ButtonAdd>
                         </BoxTitle>
 

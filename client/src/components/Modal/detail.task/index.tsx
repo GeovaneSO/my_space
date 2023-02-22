@@ -1,4 +1,3 @@
-import { GrFormClose } from "react-icons/gr";
 import { FaTrash } from "react-icons/fa";
 import { ButtonAdd } from "../../Button";
 import { Container, BoxContentTask } from "./style";
@@ -55,7 +54,7 @@ const DetailTask = (): JSX.Element => {
                                 <ButtonAdd
                                     onClick={() => setOpenModalDetailTask(!openModalDetailTask)}
                                 >
-                                    <GrFormClose className="svg" />
+                                    X
                                 </ButtonAdd>
 
                             </div>

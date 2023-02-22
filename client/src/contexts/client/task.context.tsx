@@ -32,16 +32,17 @@ const TaskProvider = ({ children }: Props) => {
 				setReload(!reload);
 				setSuccessful(!successful)
 				
-			}, 2000);
+			}, 500);
 
 		} catch (error) {
 			if(error instanceof AxiosError){
+				setLoading(false);
 				error.response?.status === 500 && setTimeout(() => {
 	
 					logout()
 					navigate('/error', {replace: true});
 	
-				}, 5000);
+				}, 500);
 			}
 
 		};
@@ -78,9 +79,9 @@ const TaskProvider = ({ children }: Props) => {
 				setReload(!reload);
 				setSuccessful(!successful);
 
-			}, 2000);
+			}, 500);
 		} catch (error) {
-			
+			setLoading(false);
 		}
 	}
 	const deleteTask = async () => {
@@ -96,7 +97,7 @@ const TaskProvider = ({ children }: Props) => {
 				setOpenModalDetailTask(!openModalDetailTask)
 			}, 500);
 		} catch (error) {
-			
+			setLoading(false);	
 		}
 	}
 

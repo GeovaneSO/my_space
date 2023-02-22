@@ -83,19 +83,20 @@ export const ContainerForm = styled.form`
     height: 65%;
 
     padding: 6% 10%;
-    background-color:  #fff;
-
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-
+    
+    background-color: ${(props) => props.theme.list.backgroundColor};
     box-shadow: -1px 0px 22px 0px rgba(0,0,0,0.20);
+    
+    input{
+        background-color: ${(props) => props.theme.list.backgroundColor};
+    }
 
     h3 {
         font-size: 20px;
         font-weight: 600;
     }
-   
-
 `;
 
 export const ContainerButton = styled.div`

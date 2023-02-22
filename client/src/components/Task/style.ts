@@ -6,13 +6,17 @@ export const Container = styled.div`
     width: 100%;
     height: fit-content;
     background-color: #ffff;
+    border-radius: 5px;
 `
 export const ContainerMain = styled.div`
     display: flex;
     flex-direction: column;
-    border: 1.4px solid #EBEBEB;
+
+    border: 1.4px solid ${(props) => props.theme.borderColor_2};
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+
+    background-color: ${(props) => props.theme.list.backgroundColor};
 
     gap: 20px;
     height: 100%;
@@ -20,13 +24,19 @@ export const ContainerMain = styled.div`
 
 export const ContainerHeader = styled.div`
     display: flex;
-   justify-content: space-between;
-   align-items: center;
-   padding: 15px;
-   border-top-left-radius: 5px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    height: 61px;
+    border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-   height: 61px;
-   background-color: rgb(117 222 255);
+  
+    background-color: rgb(117 222 255);
+    background-color:${(props) => props.theme.header.backgroundColor};
+    
+   h3, button{
+        color: ${(props) => props.theme.header.textColor};
+    }
 
    
 `
@@ -35,8 +45,9 @@ export const ContainerBtns = styled.div`
     justify-content: space-between;
     width: 70%;
     gap: 10px;
+
     .btn{
-        border: 1px #000080 solid;
+        border: 1px ${(props) => props.theme.header.textColor} solid;
         :hover{
             background-color: #999B;
         }
@@ -64,10 +75,11 @@ export const ContainerList = styled.ul`
     display: flex;
     height: 350px;
     gap: 10px;
-    background-color: #ffff;
     flex-direction: column  ;
     overflow-y: auto;
-    
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+
 `
 
 export const ContainerSubtitle = styled.div`
@@ -76,7 +88,7 @@ export const ContainerSubtitle = styled.div`
 
     width: 100%;
 
-    border-bottom: 1.4px solid #EBEBEB;
+    border-bottom: 1.4px solid ${(props) => props.theme.borderColor_2};
     padding: 15px;
 
     .box-1{
@@ -119,6 +131,7 @@ export const SubtitleContent = styled.div`
     justify-content: space-between;
     width: 40%;
     gap: 15%;
+
     @media (min-width: 1000px) {
         .box-2-content{
             display: flex;
@@ -141,6 +154,4 @@ export const SvgContainer = styled.div`
     @media (min-width: 850px) {
         width: 330px;
     }
-    /* width: 40%; */
-    /* height: 50%; */
 `

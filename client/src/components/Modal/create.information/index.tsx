@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
-import { GrFormClose } from "react-icons/gr";
 import { InformationContext } from "../../../contexts/information/information.context";
 import { InformationRequest } from "../../../interfaces/information.interface";
 import { InformationSchema } from "../../../serializers/index";
@@ -59,7 +58,7 @@ const CreateInformationModal = () => {
                                 className="box_btn"
                                 onClick={() => setCreateInformationModal(!createInformationModal)}
                             >
-                                <GrFormClose className="svg"/>
+                                X
                             </ButtonAdd>
 
                         </BoxTitle>

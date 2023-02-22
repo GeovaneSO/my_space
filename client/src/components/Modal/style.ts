@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 export const Container = styled(motion.div)<{ active?: boolean }>`
-     position: fixed;
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,6 +23,11 @@ export const ContainerListInformation = styled(motion.div)<{ active?: boolean }>
     
     width: 80%;
     height: 100%;
+
+    input, textarea, select, option{
+        background-color: ${(props) => props.theme.list.backgroundColor};
+        border-radius: 3px;
+    }
         
     @media (min-width: 500px) {
         width: 396px;
@@ -39,22 +44,22 @@ export const BoxTitle = styled.div`
     gap: 15px;
     align-items: center;
     text-align: center;
+    padding: 15px;
+    width: 100%;
+    
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    padding: 15px;
     box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.3);   
-    width: 100%;
-    background-color: white;
-    background-color: rgb(100, 910, 902);
+
+    background-color:${(props) => props.theme.header.backgroundColor};
 
     h3{
         font-size: 14px;
-        color: black;
+        color: ${(props) => props.theme.header.textColor};
     }
 
-    .svg{
-        color: gray;
-        background-color: transparent;
+    button{
+        color: ${(props) => props.theme.header.textColor};
     }
 
     .box_btns{
@@ -88,8 +93,6 @@ export const ContainerModal = styled.div`
         h3{
             margin-top: 0;
         }
-        /* top: -20px; */
-
     }
 
     .form{

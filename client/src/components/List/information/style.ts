@@ -37,24 +37,31 @@ export const BoxTitle = styled.div`
     justify-content: space-between;
     
     gap: 15px;
+    padding: 15px;
+    width: 100%;
+    
     align-items: center;
     text-align: center;
-    border-top-left-radius: 5px;
+
     border-top-right-radius: 5px;
-    padding: 15px;
+    border-top-left-radius: 5px;
     box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.3);   
-    width: 100%;
-    background-color: white;
-    background-color: rgb(100, 910, 902);
+
+    background-color:${(props) => props.theme.header.backgroundColor};
 
     h3{
         font-size: 14px;
     }
 
     .svg{
-        color: gray;
         background-color: transparent;
     }
+    
+    h3, .svg, button{
+        
+        color: ${(props) => props.theme.header.textColor};
+    }
+
 
     .box_btsn{
         display: flex;
@@ -66,10 +73,11 @@ export const BoxTitle = styled.div`
 export const ContainerList = styled.ul`
     display: flex;
     flex-direction: column;
-    
+    scroll-behavior: smooth;
     gap: 20px;
     
     overflow-y: auto;
+    overflow-x: hidden;
     margin: 0;
     padding: 20px;
 
@@ -77,7 +85,7 @@ export const ContainerList = styled.ul`
 
     height: 100%;
 
-    background-color: white;
+    background-color: ${(props) => props.theme.list.backgroundColor};
 
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -85,7 +93,7 @@ export const ContainerList = styled.ul`
         display: flex;
         justify-content: space-around;
         padding: 5px;
-        border-bottom: solid 0.1px;
+        border-bottom: solid 0.1px ${(props) => props.theme.borderColor};
         .box_information{
             display: flex;
             flex-direction: column;
@@ -93,21 +101,16 @@ export const ContainerList = styled.ul`
             align-items: center;
             gap: 5px;
             width: 100%;
+            
             p{
                 width: 100%;
                 font-size: 12px;
             }
         }
+        .box_information, button{
+            color: ${(props) => props.theme.header.textColor};
+
+        }
     }
-/* 
-    @media(min-width: 320px) {
-        
-        width: 272px;
-        
-    } */
-    @media(min-width: 1400px) {
-        
-        /* width: 300px; */
-        
-    }
+
 `

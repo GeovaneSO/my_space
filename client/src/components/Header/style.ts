@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Theme } from '../../interfaces/theme.interface';
 
-export const HeaderContainer = styled.header`
+export const HeaderContainer = styled.header<{theme?: Theme}>`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,22 +10,27 @@ export const HeaderContainer = styled.header`
     position: fixed;
     z-index: 1;
     inset: -1000;
-    /* background-color: rgb(100, 910, 902); */
-    background-color: rgb(117 222 255);
-    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.1);  
+
+    background-color:${(props) => props.theme.header.backgroundColor};
+    box-shadow: ${(props) => props.theme.header.boxShadow};  
     height: 62px;
     padding: 1%;
     font-size: 70%;
 
+    .bt{
+        position: absolute;
+        top: 0;
+        right: -10px;
+    }
         h2{
             font-size: 22px;
             width: fit-content;
+            color: ${(props) => props.theme.header.textColor};
         }
 
         span{
             width: fit-content;
         }
-    /* margin:  0 auto; */
     .container{
         display: flex;
         justify-content: space-around;

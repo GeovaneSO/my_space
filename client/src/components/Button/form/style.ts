@@ -21,7 +21,7 @@ export const ContainerButton = styled.div`
     /* #17afdde6 */
     /* background-color: #2C3357; */
 /* background-color: #80cfe7e6; */
-    background-color: #248aa9e6;
+    background-color: ${(props) => props.theme.form.buttonForm.backgroundColor};
     font-size: 85%;
     width: 100%;
     height: 100%; 

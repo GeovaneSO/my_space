@@ -1,6 +1,7 @@
 # Projeto My Space
 <img></img>
 
+
 ## 👨🏻‍💻 Sobre o projeto
 
 Essa é uma apicação possíbilita ao usuário criar uma conta no serviço, o que na api é denominado de `client`. Com o cadastro feito o usuário é direcionado a página de login, onde será realizada a confirmação dos dados fornecidos na requisição.

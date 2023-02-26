@@ -7,6 +7,7 @@ import { MatrixContext } from "../../contexts/matrix.context";
 import { useMedia } from "react-use-media";
 import Loading from "../../components/Loading";
 import { motion } from 'framer-motion';
+import { Footer } from "../../components/Footer";
 
 const Login = () => {
     const { isPaused, isStopped, loading } = MatrixContext();
@@ -26,12 +27,7 @@ const Login = () => {
 
     return (
 
-        <motion.div
-            // initial={{ opacity: 0 }}
-            // animate={{ opacity: 1 }}
-            // exit={{ opacity: 0 }}
-            // transition={{ duration: 1 }}
-        >
+        <motion.div>
         { loading && <Loading />}
             <HeaderForms >
                 <h2>My Space</h2>
@@ -52,6 +48,7 @@ const Login = () => {
                     }
                 </SectionForm>
             </ContainerMainSession>
+            <Footer />
         </motion.div>
 
     );

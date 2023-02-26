@@ -15,6 +15,7 @@ import RegisterSVG from "../../utils/img/87718-waiting-register.json";
 
 // contexts
 import { MatrixContext } from "../../contexts/matrix.context";
+import { Footer } from '../../components/Footer';
 
 const Register = () => {
     const { isPaused, isStopped, loading } = MatrixContext();
@@ -57,6 +58,7 @@ const Register = () => {
                     }
                 </SectionForm>
             </ContainerMainRegister>
+            <Footer />
         </motion.div>
     );
 };

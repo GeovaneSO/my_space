@@ -16,6 +16,7 @@ export const SectionContainerFooter = styled.footer<{theme: Theme}>`
         padding: 40px 21px;
     }
     @media (min-width: 630px) {
+
         height: 200px;
     }
 
@@ -44,6 +45,11 @@ export const FooterContent = styled.div<{theme: Theme}>`
     @media (min-width: 360px) {
         padding: 16px 2%;
     }
+
+    @media (min-width: 630px) {
+        flex-direction: row;
+        justify-content: space-between;
+}
 
 `
 

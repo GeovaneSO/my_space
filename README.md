@@ -1,3 +1,4 @@
+
 # Projeto My Space
 <img></img>
 
@@ -5,7 +6,7 @@
 ## 👨🏻‍💻 Sobre o projeto
 
 
-Essa é uma apicação que possíbilita ao usuário criar uma conta no serviço, o que na api é denominado de `client`, com o cadastro feito o usuário, o mesmo é direcionado a página de login, onde será realizada a confirmação dos dados fornecidos na requisição.
+Essa é uma apicação que possíbilita ao usuário criar uma conta no serviço, o que na api é denominado de `client`, com o cadastro feito o usuário é direcionado a página de login, onde será realizada a confirmação dos dados fornecidos na requisição.
 
 Na página principal, o usuário tem algumas informações mostradas, como os contatos que possuí e que estão vinculadas a sua conta, além das suas próprias informações de contato. Além disso, com um clique é possível gerar um relatório em pdf contendo os contatos que o cliente possui, junto com as informações de contato. Na aplicação há também uma lista de tarefas, onde o usuário pode gerir tarefas e afazeres.
 

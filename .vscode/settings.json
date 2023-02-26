@@ -1,8 +1,0 @@
-{
-    "prettier.configPath": "",
-    "prettier.vueIndentScriptAndStyle": true,
-    "prettier.useTabs": true,
-    "cSpell.words": [
-        "streamifier"
-    ]
-}

@@ -1,71 +1,136 @@
-# customer_base
+# Projeto My Space
+<img></img>
 
 
-## Fluxo da aplicação
+## 👨🏻‍💻 Sobre o projeto
 
 
 Essa é uma apicação que possíbilita ao usuário criar uma conta no serviço, o que na api é denominado de `client`, com o cadastro feito o usuário, o mesmo é direcionado a página de login, onde será realizada a confirmação dos dados fornecidos na requisição.
 
-
-Em caso de confirmação dos dados, o usuário é direcionado à página principal da aplicação. 
-
-Na página principal, o usuário tem algumas informações mostradas, como os contatos que possuí e que estão vinculadas a sua conta e das suas próprias informações de contato. Além disso, com um clique é possível gerar um relatório em pdf contendo os contatos que o cliente possui, junto com as informações de contato.
+Na página principal, o usuário tem algumas informações mostradas, como os contatos que possuí e que estão vinculadas a sua conta, além das suas próprias informações de contato. Além disso, com um clique é possível gerar um relatório em pdf contendo os contatos que o cliente possui, junto com as informações de contato. Na aplicação há também uma lista de tarefas, onde o usuário pode gerir tarefas e afazeres.
 
 Há também a possíbilidade de criar contatos novos contatos com informações `email`, `telefone` e `nome`, diferente dos que já existe e estão vinculados com sua conta. 
 
-Os relacionamentos criados no back-end da aplicação possibilta ao usuário cadastrar na sua conta contatos já existentes na aplicação, possibilitando que mais de um usuário possua o mesmo contato.
+Com todas as funcionalidades presentes, o usuário possui o "seu espaço" para gerir tarefas e contatos que queira armazenar.
+
 
 Essa é uma aplicação que possui front-end e back-end e se encontra com os arquivos docker para que a aplicação seja executada em um container docker.
 
-## Comandos
+## 💻 Clonando projeto
 
-Iniciar o serviço da aplicação
+```bash
+$ git clone git@github.com:GeovaneSO/customer_base.git
+```
 
-Criar e rodar o container
+## Criar e rodar a aplicação em um container
 
-### Use o comando `docker compose up --build` ou `docker-compose up --build`
+Além disso, é necessário configurar os arquivos `.env` do diretório `./api`, assim erros na criação dos containers serão evitados. 
 
-Os comandos acima devem ser executados com o aplicativo Docker Desktop em execução. 
+Antes de rodar o servidor, certifique-se de ter especificado no arquivo schema.prisma, dentro do diretório `./api`, a o database_url correto, para rodar a aplicação em um container Docker o database_url correto é o `DATABASE_URL` demonstrado no arquivo .env.example. Para rodar a aplicação fora do container o database_url correto é o `DATABASE_URL_LOCAL`, também exemplificado dentro do arquivo .env.example, encontrado no direttório  `./api`.
 
-Além disso, é necessário configurar os arquivos `.env` dos diretórios `./api` e `./client`, assim erros na criação dos containers serão evitados. Cada diretório possui seu .env particular, juntamente com suas instuções no .env.example
+### Na raiz do projeto
 
-Com os containers em execução, a aplicação será executada em duas portas, são elas: `http://localhost:3000` e `http://localhost:4000`
+Use o comando com o aplicativo Docker Desktop em execução:
+```bash
+$ docker compose up --build
+``` 
+ou
+```bash
+$ docker-compose up --build
+```
+
+Ao executar esse comando os respectivos containers serão criados e a aplicação poderá ser usada localmente.
+
+Com os containers em execução, a aplicação será executada em duas portas distintas, são elas: `http://localhost:3000` e `http://localhost:4000`
 
 A primeira porta é referente ao front-end, logo, a segunda é a porta que o serivdor está sendo executado no container.
 
 Obs.: Há um workspace do insomnia, se desejar testar apenas a api!
 
-## Instalar as dependências do projeto
+## Criar e rodar a aplicação fora do Docker
+
+
+### Instalar as dependências do projeto
 
 Caso queira instalar o projeto na sua máquina, os seguintes comandos são necessários:
 
 Apartir do diretório principal, execute
-### `cd api` 
+
+```bash
+$ cd api
+``` 
 
 Para entrar no diretório `./api`.
 
-### `cd client`
+```bash
+$ cd client
+``` 
 
 Para entrar no diretório `./client`
 
-dentro de cada diretório será necessário instalar as depências das aplicações
+Dentro de cada diretório será necessário instalar as depências das aplicações, usando o seguinte comando:
 
-### `yarn` ou `yarn install`
+```bash
+$ yarn
+``` 
+
+ou
+
+```bash
+$ yarn install
+``` 
+
+Antes de rodar o servidor, certifique de ter especificado no arquivo schema.prisma a o dattabase_url correto, no caso é o `DATABASE_URL_LOCAL` demonstrado no arquivo .env.example
 
 Com as depêndencias do projeto devidamente instaladas, em cada diretório será necessário executar a aplicação.
 
-Antes de rodar o servidor, ceertifique de ter especificado no arquivo schema.prisma a o dattabase_url correto, no caso é o `DATABASE_URL_LOCAL` demonstrado no arquivo .env.example
+No diretório `./client`
 
-### `yarn start` no diretório ./client e `yarn start:dev` no diretório ./api
+```bash
+$ yarn start
+``` 
 
-Com isso a aplicação estará devidamente executada.
+No diretório `./api`
 
-## Técnologias utilizadas
+```bash
+$ yarn start:migrate:dev
+``` 
+
+Com isso a aplicação será executada.
+
+## Funcionalidades
+
+- Login
+- Registro
+- Criação e listagem completa de contatos
+- Criação e listagem de completa tarefas
+- Upload de imagens
+- Responsividade completa
+- Alteração de tema `(dark/ligth)`
+
+## 🚀 Tecnologias utilizadas
 
 ### Back-end
 
-A APIRest foi desenvolvid com o PrismaORM, Postgres, NestJS, BcryptJS, TypeScript, Passport, JWT, PDFMake
+- [Docker](https://www.docker.com/)
+- [Node.js](https://nodejs.org/en/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [NestJS](https://nestjs.com/)
+- [Postgres](https://www.postgresql.org/)
+- [PrismaORM](https://www.prisma.io/)
+- [PDFMake](http://pdfmake.org/)
+- [Passport](https://www.passportjs.org/)
+- [JWT](https://jwt.io/)
 
 ### Front-end
 
-O Client foi feito em ReactJS, TypeScript, React-router-dom, react-hook-form
+- [Docker](https://www.docker.com/)
+- [ReactJS](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [NodeJs](https://nodejs.org/en/)
+- [Styled-components](https://styled-components.com/)
+- [Cloudinary](https://cloudinary.com/)
+- [AOS](https://michalsnik.github.io/aos/)
+- [React-Hook-Forms](https://react-hook-form.com/)
+- [React-Icons](https://react-icons.github.io/react-icons)
+- [React-Lottie](https://lottiefiles.com/blog/working-with-lottie/how-to-use-lottie-in-react-app)

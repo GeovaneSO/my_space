@@ -14,8 +14,8 @@ export const ContainerMainRegister = styled.main<{theme?: Theme}>`
     flex-direction: column;
 
     gap: 30px;
-    padding: 20% 8%;
-    padding-bottom: 2%;
+    padding: 30% 8%;
+    padding-bottom: 4%;
     width: 100vw;
     
     background-color:${(props) => props.theme.backgroundColor}; 

@@ -8,6 +8,7 @@ import { ClientProviderData, Props } from '../../interfaces/contexts.interface';
 import { ContactContext } from "../contact/contact.context";
 import { MatrixContext } from "../matrix.context";
 import { getToken, logout } from '../session/auth';
+import { toast } from "react-toastify";
 
 const Context = createContext<ClientProviderData>({} as ClientProviderData)
 
@@ -33,9 +34,21 @@ const ClientProvider = ({ children }: Props) => {
 			const responseCloudinary = await axios.post(urlCloudinaryApi, formData)
 			
 	
-			await api.post('/clients/', {
+			const response = await api.post('/clients/', {
 				...data, avatarUrl: responseCloudinary.data.url
 			});
+
+			toast.success("Seu registro foi realizado!", {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "dark",
+				
+			  }, );
 
 			setTimeout( () => {
 				
@@ -54,6 +67,18 @@ const ClientProvider = ({ children }: Props) => {
 					navigate('/error', {replace: true});
 	
 				}, 3000);
+
+				toast.error(error.response?.data.message, {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+					
+				  }, );
 			}
 
 		};
@@ -113,6 +138,17 @@ const ClientProvider = ({ children }: Props) => {
 					
 				});
 
+				toast.success("Seu usuário foi atualizado com sucesso!", {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+				}, );
+
 				setTimeout( () => {
 				
 					setLoading(false);
@@ -130,6 +166,17 @@ const ClientProvider = ({ children }: Props) => {
 				...data, avatarUrl: 'found'	
 			});
 
+			toast.success("Seu usuário foi atualizado com sucesso!", {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "dark",
+			}, );
+
 			setTimeout( () => {
 				
 				setLoading(false);
@@ -141,12 +188,25 @@ const ClientProvider = ({ children }: Props) => {
 
 		} catch (error) {
 			if(error instanceof AxiosError){
+				toast.error(error.response?.data.message, {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+				}, );
+
 				error.response?.status === 500 && setTimeout(() => {
 	
 					logout()
 					navigate('/error', {replace: true});
 	
 				}, 5000);
+				
+
 			}
 		};
 	};
@@ -164,7 +224,18 @@ const ClientProvider = ({ children }: Props) => {
 				decoded = jwt_decode(token!);
 			};
 
-			await api.delete(`/clients/${decoded.sub}`);
+			const response = await api.delete(`/clients/${decoded.sub}`);
+
+			toast.success(response.data.message, {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "dark",				
+			}, );
 
 			logout()
 
@@ -172,6 +243,18 @@ const ClientProvider = ({ children }: Props) => {
 
 		} catch (error) {
 			if(error instanceof AxiosError){
+				toast.error(error.response?.data.message, {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+					
+				}, );
+
 				error.response?.status === 500 && setTimeout(() => {
 	
 					logout()

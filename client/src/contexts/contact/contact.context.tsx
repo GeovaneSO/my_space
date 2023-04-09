@@ -8,6 +8,7 @@ import { ContactRequest, ContactUpdateRequest, IContact } from '../../interfaces
 import { ContactProviderData, Props } from '../../interfaces/contexts.interface';
 import { MatrixContext } from "../matrix.context";
 import { getToken, logout } from '../session/auth';
+import { toast } from "react-toastify";
 
 const Context = createContext<ContactProviderData>({} as ContactProviderData)
 
@@ -48,6 +49,19 @@ const ContactProvider = ({ children }: Props) => {
 					...data, avatarUrl: responseCloudinary.data.url
 				});
 
+				toast.success("O contato foi adicionado a sua conta", {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+					
+				}, );
+	
+
 				setTimeout( () => {
 				
 					setLoading(false);
@@ -64,6 +78,19 @@ const ContactProvider = ({ children }: Props) => {
 				...data, avatarUrl: 'found'
 			});
 
+
+			toast.success("O contato foi adicionado a sua conta", {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "dark",
+				
+			}, );
+
 			setTimeout( () => {
 				
 				setLoading(false);
@@ -75,12 +102,25 @@ const ContactProvider = ({ children }: Props) => {
 
 		} catch (error) {
 			if(error instanceof AxiosError){
+				setLoading(false);
+				toast.error(error.response?.data.message, {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+					
+				  }, );
+
 				error.response?.status === 500 && setTimeout(() => {
 	
 					logout()
 					navigate('/error', {replace: true});
 	
-				}, 5000);
+				}, 500);
 			}
 		};
 	};
@@ -141,6 +181,18 @@ const ContactProvider = ({ children }: Props) => {
 				const response = await api.post(`/contacts/clients/${decoded.sub}`, {
 					...data, avatarUrl: responseCloudinary.data.url
 				});
+
+				toast.success("O contato foi adicionado a sua conta", {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+					
+				}, );
 				
 				setTimeout( () => {
 				
@@ -157,6 +209,18 @@ const ContactProvider = ({ children }: Props) => {
 			const response = await api.patch(`/contacts/${contact.id}/clients/${decoded.sub}`, {
 				...data, avatarUrl: 'found'
 			});
+
+			toast.success("O contato foi adicionado a sua conta", {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "dark",
+				
+			}, );
 			
 			setTimeout( () => {
 				
@@ -168,16 +232,29 @@ const ContactProvider = ({ children }: Props) => {
 
 		} catch (error) {
 			if(error instanceof AxiosError){
+				setLoading(false);
+				toast.error(error.response?.data.message, {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+					
+				  }, );
+
 				error.response?.status === 500 && setTimeout(() => {
 	
 					logout()
 					navigate('/error', {replace: true});
 	
-				}, 5000);
+				}, 500);
 			}
-
-		}
+		};
 	}
+
 	const deleteContact = async () => {
 		try {
 			setLoading(true);
@@ -190,6 +267,18 @@ const ContactProvider = ({ children }: Props) => {
 
 			await api.delete(`/contacts/${contact.id}/clients/${decoded.sub}`);
 			
+			toast.success("O contato foi deletado da sua conta", {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "dark",
+				
+			}, );
+
 			setTimeout( () => {
 				
 				setLoading(false);
@@ -199,12 +288,25 @@ const ContactProvider = ({ children }: Props) => {
 
 		} catch (error) {
 			if(error instanceof AxiosError){
+				setLoading(false);
+				toast.error(error.response?.data.message, {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+					
+				  }, );
+
 				error.response?.status === 500 && setTimeout(() => {
 	
 					logout()
 					navigate('/error', {replace: true});
 	
-				}, 5000);
+				}, 500);
 			}
 		}
 	}

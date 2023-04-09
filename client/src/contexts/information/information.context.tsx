@@ -6,7 +6,9 @@ import { InformationProviderData, Props } from '../../interfaces/contexts.interf
 import { InformationRequest } from '../../interfaces/information.interface';
 import { ContactContext } from "../contact/contact.context";
 import { MatrixContext } from '../matrix.context';
-import { getToken } from '../session/auth';
+import { getToken, logout } from '../session/auth';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Context = createContext<InformationProviderData>({} as InformationProviderData)
 
@@ -15,6 +17,7 @@ const InformationProvider = ({ children }: Props) => {
     const [createInformationModal, setCreateInformationModal] = useState<boolean>(false)
     const { reload, setReload, setLoading, informationOwner, setSuccessful, successful } = MatrixContext();
     const { contact, getOneContactByClient } = ContactContext();
+	const navigate = useNavigate();
 
     let decoded: JwtPayload = {
         exp: 1,
@@ -38,6 +41,18 @@ const InformationProvider = ({ children }: Props) => {
                     ...data
                 });
 
+                toast.success("A informação de contato foi adicionada", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    
+                }, );
+
                 setTimeout(() => {
                     setSuccessful(!successful);
                     setLoading(false);
@@ -52,6 +67,18 @@ const InformationProvider = ({ children }: Props) => {
                     ...data
                 });
 
+                toast.success("A informação de contato foi adicionada", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    
+                }, );
+
                 setTimeout(() => {
                     console.log(response.data);
     
@@ -63,10 +90,28 @@ const InformationProvider = ({ children }: Props) => {
 
 
         } catch (error) {
-            if (error instanceof AxiosError) {
-                setLoading(false);
-                console.log(error.response?.data);
-            };
+            if(error instanceof AxiosError){
+				setLoading(false);
+				toast.error(error.response?.data.message, {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+					
+				  }, );
+
+				error.response?.status === 500 && setTimeout(() => {
+	
+					logout()
+					navigate('/error', {replace: true});
+	
+				}, 500);
+			}
+
         };
     };
     const deleteInformation = async (informationId: string) => {
@@ -83,6 +128,19 @@ const InformationProvider = ({ children }: Props) => {
             if (contact.id && informationOwner === 'contact') {
 
                 const response = await api.delete(`/information/${informationId}/contacts/${contact.id}`);
+
+                toast.success("A informação de contato foi deletata.", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    
+                }, );
+
                 setTimeout(() => {
 
                     setLoading(false);
@@ -94,7 +152,18 @@ const InformationProvider = ({ children }: Props) => {
 
             if(informationOwner === 'client'){
                 const response = await api.delete(`/information/${informationId}/clients/${decoded.sub}`);
-    
+
+                toast.success("A informação de contato foi deletada.", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    
+                }, );
                 setTimeout(() => {
                     setLoading(false);
                     setReload(!reload)
@@ -106,10 +175,27 @@ const InformationProvider = ({ children }: Props) => {
 
 
         } catch (error) {
-            if (error instanceof AxiosError) {
-                setLoading(false);
-                console.log(error.response?.data);
-            };
+            if(error instanceof AxiosError){
+				setLoading(false);
+				toast.error(error.response?.data.message, {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+					
+				  }, );
+
+				error.response?.status === 500 && setTimeout(() => {
+	
+					logout()
+					navigate('/error', {replace: true});
+	
+				}, 500);
+			}
         };
     };
 

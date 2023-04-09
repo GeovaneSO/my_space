@@ -6,6 +6,7 @@ import { Props, SessionProviderData } from '../../interfaces/contexts.interface'
 import { login } from './auth';
 import { useNavigate } from 'react-router-dom';
 import { MatrixContext } from '../matrix.context';
+import { toast } from 'react-toastify';
 
 
 const Context = createContext<SessionProviderData>({} as SessionProviderData)
@@ -43,15 +44,28 @@ const SessionProvider = ({ children }: Props) => {
 			}, 500);
 
 		} catch (error) {
-			if (error instanceof AxiosError) {
+
+			if(error instanceof AxiosError){
 				setLoading(false);
+				toast.error(error.response?.data.message, {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+					
+				  }, );
 
 				error.response?.status === 500 && setTimeout(() => {
 	
+					logout()
 					navigate('/error', {replace: true});
 	
-				}, 1000);			
-			};
+				}, 500);
+			}
 		};
 	};
 

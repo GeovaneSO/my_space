@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { CgMenuGridO } from 'react-icons/cg';
 import { GrFormClose } from 'react-icons/gr';
 import { HiUserCircle } from 'react-icons/hi';
+import { useMedia } from "react-use-media";
 import { ButtonAdd } from "../../components/Button";
 import { Footer } from '../../components/Footer';
 import { HeaderDashboard, NavBar } from "../../components/Header";
@@ -24,6 +25,11 @@ import {
 } from "./style";
 
 const Dashboard = () => {
+
+    const isWide = useMedia({
+        minWidth: 700,
+    });
+
     
     const { client, openModal, setOpenModal, setOpenModalDetailClient, openModalDetailClient } = ClientContext();
 

@@ -6,6 +6,7 @@ import { Props, TaskClientProviderData } from '../../interfaces/contexts.interfa
 import { TaskRequest, TaskUpdateRequest } from "../../interfaces/task.interface";
 import { MatrixContext } from "../matrix.context";
 import { logout } from '../session/auth';
+import { toast } from 'react-toastify';
 
 const Context: React.Context<TaskClientProviderData> = createContext<TaskClientProviderData>({} as TaskClientProviderData)
 
@@ -26,6 +27,18 @@ const TaskProvider = ({ children }: Props) => {
 				...data
 			});
 
+			toast.success("Foi criada uma tarefa com sucesso!", {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "dark",				
+			}, );
+
+
 			setTimeout( () => {
 
 				setLoading(false);
@@ -37,6 +50,18 @@ const TaskProvider = ({ children }: Props) => {
 		} catch (error) {
 			if(error instanceof AxiosError){
 				setLoading(false);
+				toast.error(error.response?.data.message, {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+					
+				  }, );
+
 				error.response?.status === 500 && setTimeout(() => {
 	
 					logout()
@@ -52,18 +77,50 @@ const TaskProvider = ({ children }: Props) => {
 
 		try {
 
-			const response = await api.patch(`/tasks/${id}`, {
+			await api.patch(`/tasks/${id}`, {
 				status: event
-			})
+			});
+
+			toast.success("Sua tarefa foi concluída, parabéns!", {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "dark",
+			}, );
+
 
 			setReload(!reload);
-			console.log(response.data)
 
 		} catch (error) {
-			console.log(error);
+			if(error instanceof AxiosError){
+				setLoading(false);
+				toast.error(error.response?.data.message, {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+					
+				  }, );
+
+				error.response?.status === 500 && setTimeout(() => {
+	
+					logout()
+					navigate('/error', {replace: true});
+	
+				}, 500);
+			}
 
 		};
 	};
+
 
 	const updateTask = async (data:TaskUpdateRequest) => {
 		try {
@@ -73,6 +130,18 @@ const TaskProvider = ({ children }: Props) => {
 				...data
 			});
 
+			toast.success("A tarefa foi atualizada com sucesso!", {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "dark",
+				
+			}, );
+
 			setTimeout( () => {
 				
 				setLoading(false);
@@ -81,14 +150,49 @@ const TaskProvider = ({ children }: Props) => {
 
 			}, 500);
 		} catch (error) {
-			setLoading(false);
-		}
+			if(error instanceof AxiosError){
+				setLoading(false);
+				toast.error(error.response?.data.message, {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+					
+				  }, );
+
+				error.response?.status === 500 && setTimeout(() => {
+	
+					logout()
+					navigate('/error', {replace: true});
+	
+				}, 500);
+			}
+
+		};
 	}
+	
 	const deleteTask = async () => {
 		try {
 			setLoading(true);
 
 			await api.delete(`/tasks/${oneTask.id}`);
+
+			toast.success("A tarefa foi deletada com sucesso!", {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "dark",
+				
+			}, );
+
 			
 			setTimeout( () => {
 				
@@ -96,9 +200,31 @@ const TaskProvider = ({ children }: Props) => {
 				setReload(!reload);
 				setOpenModalDetailTask(!openModalDetailTask)
 			}, 500);
+
 		} catch (error) {
-			setLoading(false);	
-		}
+			if(error instanceof AxiosError){
+				setLoading(false);
+				toast.error(error.response?.data.message, {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+					
+				  }, );
+
+				error.response?.status === 500 && setTimeout(() => {
+	
+					logout()
+					navigate('/error', {replace: true});
+	
+				}, 500);
+			}
+
+		};
 	}
 
 	const openModalDetail = (taskId: string) => {

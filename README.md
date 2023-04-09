@@ -14,7 +14,7 @@ Há também a possíbilidade de criar contatos novos contatos com informações 
 
 Com todas as funcionalidades presentes, o usuário possui o "seu espaço" para gerir tarefas e contatos que queira armazenar.
 
-Essa é uma aplicação que possui front-end e back-end e se encontra com os arquivos docker para que a aplicação seja executada em um container docker.
+A aplicação possui front-end e back-end e se encontra com os arquivos docker para que a aplicação seja executada em um container docker.
 
 ## 💻 Clonando projeto
 
